@@ -8,7 +8,8 @@
 #include "stm32f4xx_hal.h"
 #include "Spi.h"
 
-#include <stdlib.h>
+#include "Debug/mem.h"
+// #include <stdlib.h>
 #include <stdbool.h>
 
 #define __GYRO_INTERNAL__

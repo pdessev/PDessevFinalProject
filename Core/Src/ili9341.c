@@ -36,7 +36,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "ili9341.h"
+#include "LCD/ili9341.h"
 
 static void SPI_MspInit(SPI_HandleTypeDef *hspi);
 static void SPI_Error(void);

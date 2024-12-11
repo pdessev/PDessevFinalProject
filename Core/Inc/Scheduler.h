@@ -11,10 +11,11 @@
 #endif
 
 typedef enum Event {
-    EventLedToggle = 0,
-    EventDelay = 1,
-    EventPollButton = 2,
-    EventIdAndTemp = 3,
+    EventDrawMainMenu,
+    EventStartGame,
+    EventDropBlock,
+    EventMoveBlockLeft,
+    EventMoveBlockRight,
 } Event;
 
 // #define LED_TOGGLE_EVENT (1 << EventLedToggle)

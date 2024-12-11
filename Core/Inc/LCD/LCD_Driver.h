@@ -9,9 +9,11 @@
 #define INC_LCD_DRIVER_H_
 
 #include "stm32f4xx_hal.h"
-#include "ili9341.h"
-#include "fonts.h"
-#include "stmpe811.h"
+#include "LCD/ili9341.h"
+#include "LCD/fonts.h"
+#include "LCD/stmpe811.h"
+
+#include "ErrorHandling.h"
 
 #define COMPILE_TOUCH_FUNCTIONS COMPILE_TOUCH
 #define TOUCH_INTERRUPT_ENABLED COMPILE_TOUCH_INTERRUPT_SUPPORT
@@ -54,27 +56,29 @@
 #define  LCD_PIXEL_HEIGHT   ((uint16_t)320)
 #define  LCD_PIXELS		     ((uint32_t)LCD_PIXEL_WIDTH * (uint32_t)LCD_PIXEL_HEIGHT)
 
-void LTCD__Init(void);
-void LTCD_Layer_Init(uint8_t LayerIndex);
+Result LTCD_Init(void) __attribute__((warn_unused_result));
+Result LTCD_Layer_Init(uint8_t LayerIndex) __attribute__((warn_unused_result));
 
 void LCD_DrawChar(uint16_t Xpos, uint16_t Ypos, const uint16_t *c);
 void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, uint8_t Ascii);
 void LCD_SetTextColor(uint16_t Color);
 void LCD_SetFont(FONT_t *fonts);
 
+extern void LCD_Draw_Pixel(uint16_t x, uint16_t y, uint16_t color);
+
 // Draw Circle Filled
-void LCD_Draw_Circle_Fill(uint16_t Xpos, uint16_t Ypos, uint16_t radius, uint16_t color);
+// void LCD_Draw_Circle_Fill(uint16_t Xpos, uint16_t Ypos, uint16_t radius, uint16_t color);
 
 // Draw Vertical Line
-void LCD_Draw_Vertical_Line(uint16_t x, uint16_t y, uint16_t len, uint16_t color);
+// void LCD_Draw_Vertical_Line(uint16_t x, uint16_t y, uint16_t len, uint16_t color);
 void LCD_Clear(uint8_t LayerIndex, uint16_t Color);
 
-void LCD_Error_Handler(void);
+// void LCD_Error_Handler(void);
 
 // Demo using provided functions
 void visualDemo(void);
 
-void LCD_Error_Handler(void);
+Result LCD_Error_Handler(void) __attribute__((warn_unused_result));
 
 #if COMPILE_TOUCH_FUNCTIONS == 1
 void InitializeLCDTouch(void);

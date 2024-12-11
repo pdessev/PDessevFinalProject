@@ -5,7 +5,7 @@
  *      Author: Tilen MAJERLE modified significantly by Xavion
  */
 
-#include "stmpe811.h"
+#include "LCD/stmpe811.h"
 
 #if COMPILE_TOUCH == 1
 

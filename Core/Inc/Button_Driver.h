@@ -13,7 +13,8 @@
 
 #ifdef __BUTTON_DRIVER_INTERNAL__
 #include <stdint.h>
-#include <stdlib.h>
+// #include <stdlib.h>
+#include "Debug/mem.h"
 #endif
 
 // PA0

@@ -1,5 +1,6 @@
 #include "GPIO_Wrapper.h"
-#include <stdlib.h>
+#include "Debug/mem.h"
+// #include <stdlib.h>
 
 GPIO_TypeDef* getGpioFromPort(GpioPorts port) {
     switch (port) {

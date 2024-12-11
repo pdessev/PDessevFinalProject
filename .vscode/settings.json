@@ -1,0 +1,27 @@
+{
+    "files.associations": {
+        "*.S": "avr",
+        "numbers": "c",
+        "graphics.h": "c",
+        "errorhandling.h": "c",
+        "*.tcc": "c",
+        "applicationcode.h": "c",
+        "cmath": "c",
+        "block.h": "c",
+        "stdlib.h": "c",
+        "mem.h": "c",
+        "stm32f4xx_hal.h": "c",
+        "debug.h": "c",
+        "scheduler.h": "c",
+        "game.h": "c",
+        "lcd_driver.h": "c",
+        "compare": "c",
+        "cstdint": "c",
+        "stm32f4xx_hal_conf.h": "c",
+        "stm32f4xx_hal_tim.h": "c",
+        "timer_wrapper.h": "c",
+        "stm32f429xx.h": "c",
+        "led_driver.h": "c",
+        "stm32f4xx_hal_rcc.h": "c"
+    }
+}

@@ -5,11 +5,12 @@
  *      Author: peter
  */
 
-#include <stdlib.h>
+// #include <stdlib.h>
 
 #define __INTERRUPT_CONTROL_INTERNAL__
 #include "InterruptControl.h"
 #include "stm32f4xx_hal.h"
+#include "Debug/mem.h"
 
 void enable_IRQ(Irq irq) {
     HAL_NVIC_EnableIRQ((IRQn_Type)irq);
