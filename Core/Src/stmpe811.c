@@ -7,8 +7,6 @@
 
 #include "LCD/stmpe811.h"
 
-#if COMPILE_TOUCH == 1
-
 #define ONEBYTE  1
 #define TWOBYTE  2
 
@@ -126,8 +124,6 @@ STMPE811_State_t STMPE811_Init(void)
     I2C3_Write(STMPE811_ADDRESS, STMPE811_INT_STA, 0xFF);
 
     /* Enable global interrupts */
-    #if COMPILE_TOUCH_INTERRUPT_SUPPORT == 1
-
     enableInterruptSupportForTouch();
 
     mode = STMPE811_Read(STMPE811_INT_CTRL);
@@ -138,8 +134,6 @@ STMPE811_State_t STMPE811_Init(void)
     mode = STMPE811_Read(STMPE811_INT_EN);
     mode |= 0x01;
     I2C3_Write(STMPE811_ADDRESS, STMPE811_INT_EN, mode);
-    
-    #endif // COMPILE_TOUCH_INTERRUPT_SUPPORT
     
     /* Wait for 2 ms delay */
     HAL_Delay(200);
@@ -234,7 +228,9 @@ void STMPE811_DetermineTouchPosition(STMPE811_TouchData * data)
         data->y = 319 - TM_STMPE811_ReadY(data->y);
     } else if (data->orientation == STMPE811_Orientation_Portrait_2) {
         data->x = TM_STMPE811_ReadX(data->x);
-        data->y = TM_STMPE811_ReadY(data->y);
+        // Why anybody thought the original "configuration" was at all even
+        // close to the proper way of doing it is beyond me...
+        data->y = 319 - TM_STMPE811_ReadY(data->y);
     } else if (data->orientation == STMPE811_Orientation_Landscape_1) {
         data->y = TM_STMPE811_ReadX(data->y);
         data->x = 319 - TM_STMPE811_ReadY(data->x);
@@ -259,8 +255,6 @@ bool isSTMPE811_Ready(void)
     return true;
 }
 
-#if COMPILE_TOUCH_INTERRUPT_SUPPORT == 1
-
 void enableInterruptSupportForTouch(void)
 {
     // Initialze the GPIO and enable the interrupt
@@ -279,8 +273,6 @@ void enableInterruptSupportForTouch(void)
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
-
-#endif 
 
 
 //  ******************************** I2C Functions ********************************//
@@ -419,5 +411,3 @@ uint16_t TM_STMPE811_ReadY(uint16_t y) { // TM FUNCTION
     }
     return y;
 }
-
-#endif

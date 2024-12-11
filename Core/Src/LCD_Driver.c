@@ -31,8 +31,7 @@ static uint16_t CurrentTextColor = 0xFFFF;
 // Someone from STM said it was "often accessed" a 1-dim array, and not a 2d
 // array. However you still access it like a 2dim array,  using fb[y*W+x]
 // instead of fb[y][x].
-uint16_t frameBuffer[LCD_PIXEL_WIDTH * LCD_PIXEL_HEIGHT] = {
-    0}; // 16bpp pixel format.
+uint16_t frameBuffer[LCD_PIXEL_WIDTH * LCD_PIXEL_HEIGHT] = { 0 }; // 16bpp pixel format.
 
 void LCD_GPIO_Init(void) {
     GPIO_InitTypeDef GPIO_InitStructure;
@@ -76,8 +75,7 @@ void LCD_GPIO_Init(void) {
     */
 
     /* GPIOA configuration */
-    GPIO_InitStructure.Pin =
-        GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_6 | GPIO_PIN_11 | GPIO_PIN_12;
+    GPIO_InitStructure.Pin = GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_6 | GPIO_PIN_11 | GPIO_PIN_12;
     GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStructure.Pull = GPIO_NOPULL;
     GPIO_InitStructure.Speed = GPIO_SPEED_FAST;
@@ -85,8 +83,7 @@ void LCD_GPIO_Init(void) {
     HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
 
     /* GPIOB configuration */
-    GPIO_InitStructure.Pin =
-        GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11;
+    GPIO_InitStructure.Pin = GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
 
     /* GPIOC configuration */
@@ -118,17 +115,14 @@ void LCD_GPIO_Init(void) {
 Result LTCD_Layer_Init(uint8_t LayerIndex) {
     LTDC_LayerCfgTypeDef pLayerCfg;
 
-    pLayerCfg.WindowX0 = 0; // Configures the Window HORZ START Position.
-    pLayerCfg.WindowX1 =
-        LCD_PIXEL_WIDTH;    // Configures the Window HORZ Stop Position.
-    pLayerCfg.WindowY0 = 0; // Configures the Window vertical START Position.
-    pLayerCfg.WindowY1 =
-        LCD_PIXEL_HEIGHT; // Configures the Window vertical Stop Position.
-    pLayerCfg.PixelFormat =
-        LCD_PIXEL_FORMAT_1; // INCORRECT PIXEL FORMAT WILL GIVE WEIRD RESULTS!!
-                            // IT MAY STILL WORK FOR 1/2 THE DISPLAY!!! //This
-                            // is our buffers pixel format. 2 bytes for each
-                            // pixel
+    pLayerCfg.WindowX0 = 0;                     // Configures the Window HORZ START Position.
+    pLayerCfg.WindowX1 = LCD_PIXEL_WIDTH;       // Configures the Window HORZ Stop Position.
+    pLayerCfg.WindowY0 = 0;                     // Configures the Window vertical START Position.
+    pLayerCfg.WindowY1 = LCD_PIXEL_HEIGHT;      // Configures the Window vertical Stop Position.
+    pLayerCfg.PixelFormat = LCD_PIXEL_FORMAT_1; // INCORRECT PIXEL FORMAT WILL GIVE WEIRD RESULTS!!
+                                                // IT MAY STILL WORK FOR 1/2 THE DISPLAY!!! //This
+                                                // is our buffers pixel format. 2 bytes for each
+                                                // pixel
     pLayerCfg.Alpha = 255;
     pLayerCfg.Alpha0 = 0;
     pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
@@ -200,41 +194,10 @@ Result LTCD_Init(void) {
 }
 
 /* START Draw functions */
-
-/*
- * This is really the only function needed.
- * All drawing consists of is manipulating the array.
- * Adding input sanitation should probably be done.
- */
 inline void LCD_Draw_Pixel(uint16_t x, uint16_t y, uint16_t color) {
-    frameBuffer[y * LCD_PIXEL_WIDTH + x] =
-        color; // You cannot do x*y to set the pixel.
+    if (x < LCD_PIXEL_WIDTH && y < LCD_PIXEL_HEIGHT)
+        frameBuffer[y * LCD_PIXEL_WIDTH + x] = color;
 }
-
-/*
- * These functions are simple examples. Most computer graphics like OpenGl and
- * stm's graphics library use a state machine. Where you first call some
- * function like SetColor(color), SetPosition(x,y), then DrawSqure(size) Instead
- * all of these are explicit where color, size, and position are passed in.
- * There is tons of ways to handle drawing. I dont think it matters too much.
- */
-// void LCD_Draw_Circle_Fill(uint16_t Xpos, uint16_t Ypos, uint16_t radius,
-//                           uint16_t color) {
-//     for (int16_t y = -radius; y <= radius; y++) {
-//         for (int16_t x = -radius; x <= radius; x++) {
-//             if (x * x + y * y <= radius * radius) {
-//                 LCD_Draw_Pixel(x + Xpos, y + Ypos, color);
-//             }
-//         }
-//     }
-// }
-
-// void LCD_Draw_Vertical_Line(uint16_t x, uint16_t y, uint16_t len,
-//                             uint16_t color) {
-//     for (uint16_t i = 0; i < len; i++) {
-//         LCD_Draw_Pixel(x, i + y, color);
-//     }
-// }
 
 void LCD_Clear(uint8_t LayerIndex, uint16_t Color) {
     if (LayerIndex == 0) {
@@ -256,11 +219,9 @@ void LCD_Draw_Char(uint16_t Xpos, uint16_t Ypos, const uint16_t* c) {
     uint32_t index = 0, counter = 0;
     for (index = 0; index < LCD_Currentfonts->Height; index++) {
         for (counter = 0; counter < LCD_Currentfonts->Width; counter++) {
-            if ((((c[index] & ((0x80 << ((LCD_Currentfonts->Width / 12) * 8)) >>
-                               counter)) == 0x00) &&
+            if ((((c[index] & ((0x80 << ((LCD_Currentfonts->Width / 12) * 8)) >> counter)) == 0x00) &&
                  (LCD_Currentfonts->Width <= 12)) ||
-                (((c[index] & (0x1 << counter)) == 0x00) &&
-                 (LCD_Currentfonts->Width > 12))) {
+                (((c[index] & (0x1 << counter)) == 0x00) && (LCD_Currentfonts->Width > 12))) {
                 // Background If want to overrite text under then add a set
                 // color here
             } else {
@@ -273,54 +234,8 @@ void LCD_Draw_Char(uint16_t Xpos, uint16_t Ypos, const uint16_t* c) {
 // This was taken and adapted from stm32's mcu code
 void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, uint8_t Ascii) {
     Ascii -= 32;
-    LCD_Draw_Char(Xpos, Ypos,
-                  &LCD_Currentfonts->table[Ascii * LCD_Currentfonts->Height]);
+    LCD_Draw_Char(Xpos, Ypos, &LCD_Currentfonts->table[Ascii * LCD_Currentfonts->Height]);
 }
-
-// void visualDemo(void) {
-//     uint16_t x;
-//     uint16_t y;
-//     // This for loop just illustrates how with using logic and for loops, you
-//     // can create interesting things this may or not be useful ;)
-//     for (y = 0; y < LCD_PIXEL_HEIGHT; y++) {
-//         for (x = 0; x < LCD_PIXEL_WIDTH; x++) {
-//             if (x & 32)
-//                 frameBuffer[x * y] = LCD_COLOR_WHITE;
-//             else
-//                 frameBuffer[x * y] = LCD_COLOR_BLACK;
-//         }
-//     }
-
-//     HAL_Delay(1500);
-//     LCD_Clear(0, LCD_COLOR_GREEN);
-//     HAL_Delay(1500);
-//     LCD_Clear(0, LCD_COLOR_RED);
-//     HAL_Delay(1500);
-//     LCD_Clear(0, LCD_COLOR_WHITE);
-//     LCD_Draw_Vertical_Line(10, 10, 250, LCD_COLOR_MAGENTA);
-//     HAL_Delay(1500);
-//     LCD_Draw_Vertical_Line(230, 10, 250, LCD_COLOR_MAGENTA);
-//     HAL_Delay(1500);
-
-//     LCD_Draw_Circle_Fill(125, 150, 20, LCD_COLOR_BLACK);
-//     HAL_Delay(2000);
-
-//     LCD_Clear(0, LCD_COLOR_BLUE);
-//     LCD_SetTextColor(LCD_COLOR_BLACK);
-//     LCD_SetFont(&Font16x24);
-
-//     LCD_DisplayChar(100, 140, 'H');
-//     LCD_DisplayChar(115, 140, 'e');
-//     LCD_DisplayChar(125, 140, 'l');
-//     LCD_DisplayChar(130, 140, 'l');
-//     LCD_DisplayChar(140, 140, 'o');
-
-//     LCD_DisplayChar(100, 160, 'W');
-//     LCD_DisplayChar(115, 160, 'o');
-//     LCD_DisplayChar(125, 160, 'r');
-//     LCD_DisplayChar(130, 160, 'l');
-//     LCD_DisplayChar(140, 160, 'd');
-// }
 
 // /**
 //  * @brief  This function is executed in case of error occurrence.
@@ -337,29 +252,19 @@ void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, uint8_t Ascii) {
 
 // Touch Functionality   //
 
-#if COMPILE_TOUCH_FUNCTIONS == 1
-
-void InitializeLCDTouch(void) {
+Result InitializeLCDTouch(void) {
     if (STMPE811_Init() != STMPE811_State_Ok) {
-        for (;;)
-            ; // Hang code due to error in initialzation
+        return result("Error initializing LCD");
     }
+    return result(0);
 }
 
 STMPE811_State_t returnTouchStateAndLocation(STMPE811_TouchData* touchStruct) {
     return STMPE811_ReadTouch(touchStruct);
 }
 
-void DetermineTouchPosition(STMPE811_TouchData* touchStruct) {
-    STMPE811_DetermineTouchPosition(touchStruct);
-}
+void DetermineTouchPosition(STMPE811_TouchData* touchStruct) { STMPE811_DetermineTouchPosition(touchStruct); }
 
-uint8_t ReadRegisterFromTouchModule(uint8_t RegToRead) {
-    return STMPE811_Read(RegToRead);
-}
+uint8_t ReadRegisterFromTouchModule(uint8_t RegToRead) { return STMPE811_Read(RegToRead); }
 
-void WriteDataToTouchModule(uint8_t RegToWrite, uint8_t writeData) {
-    STMPE811_Write(RegToWrite, writeData);
-}
-
-#endif // COMPILE_TOUCH_FUNCTIONS
+void WriteDataToTouchModule(uint8_t RegToWrite, uint8_t writeData) { STMPE811_Write(RegToWrite, writeData); }

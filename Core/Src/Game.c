@@ -8,8 +8,7 @@ Point point(int x, int y) {
     return p;
 }
 
-Block* generate_new_block(BlockType type, BlockColor color, BlockRotation rot,
-                          Point pos) {
+Block* generate_new_block(BlockType type, BlockColor color, BlockRotation rot, Point pos) {
     Block* block = calloc(1, sizeof(*block));
     block->type = type;
     block->rotation = rot;
@@ -20,8 +19,6 @@ Block* generate_new_block(BlockType type, BlockColor color, BlockRotation rot,
     return block;
 }
 
-
-
 GameState* create_game(RandomNum* rng) {
     GameState* g = calloc(1, sizeof(*g));
     g->rng = rng;
@@ -30,10 +27,8 @@ GameState* create_game(RandomNum* rng) {
 }
 
 Result show_main_menu(GameState* s) {
-    const static uint16_t block_positions[][2] = { { 38, 190 },  { 96, 190 },
-                                                   { 144, 190 }, { 192, 190 },
-                                                   { 60, 240 },  { 120, 240 },
-                                                   { 180, 240 } };
+    const static uint16_t block_positions[][2] = { { 38, 190 }, { 96, 190 },  { 144, 190 }, { 192, 190 },
+                                                   { 60, 240 }, { 120, 240 }, { 180, 240 } };
 
     Block* blocks[7];
     for (uint8_t i = 0; i < BlockTypeLen; i++) {
@@ -43,10 +38,12 @@ Result show_main_menu(GameState* s) {
     // Text "TETRIS"
     LCD_Clear(0, LCD_COLOR_WHITE);
     Color* text_c = color(0, 0, 0);
-    RETURN_OR_IGNORE(
-        draw_text_line("TETRIS", 6, text_c, &Font16x24,
-                        (LCD_PIXEL_WIDTH / 2) - 3 * Font16x24.Width,
-                        (LCD_PIXEL_HEIGHT / 3)));
+    RETURN_OR_IGNORE(draw_text_line("TETRIS", 6, text_c, &Font16x24,
+                                    (LCD_PIXEL_WIDTH / 2) - 3 * Font16x24.Width, (LCD_PIXEL_HEIGHT / 3)));
+
+    // Debug line
+    RETURN_OR_IGNORE(draw_line(0, 0, 100, 100, text_c));
+
     free_color(&text_c);
 
     // Loop through blocks
@@ -56,13 +53,10 @@ Result show_main_menu(GameState* s) {
         set_block_points(blocks[i]);
 
         for (uint8_t k = 0; k < 4; k++) {
-            uint16_t x = block_positions[i][0] +
-                            BOARD_BLOCK_PIXEL_LEN * blocks[i]->points[k].x;
-            uint16_t y = block_positions[i][1] +
-                            BOARD_BLOCK_PIXEL_LEN * blocks[i]->points[k].y;
+            uint16_t x = block_positions[i][0] + BOARD_BLOCK_PIXEL_LEN * blocks[i]->points[k].x;
+            uint16_t y = block_positions[i][1] + BOARD_BLOCK_PIXEL_LEN * blocks[i]->points[k].y;
 
-            RETURN_OR_IGNORE(draw_rect(x, y, BOARD_BLOCK_PIXEL_LEN,
-                                        BOARD_BLOCK_PIXEL_LEN, c));
+            RETURN_OR_IGNORE(draw_rect(x, y, BOARD_BLOCK_PIXEL_LEN, BOARD_BLOCK_PIXEL_LEN, c));
         }
         free_color(&c);
     }

@@ -35,7 +35,7 @@ extern void initialise_monitor_handles(void);
 #include <stdio.h>
 
 int main(void) {
-	initialise_monitor_handles(); // Allows printf functionality
+    initialise_monitor_handles(); // Allows printf functionality
 
     /* Reset of all peripherals, Initializes the Flash interface and the
      * Systick. */
@@ -47,12 +47,7 @@ int main(void) {
     SystemClockOverride();
 
     AppState* a = init_app();
-    printf("asdf");
-
-    // DO NOT CALL THIS FUNCTION WHEN INTERRUPT MODE IS SELECTED IN THE COMPILE
-    // SWITCH IN stmpe811.h Un-comment the below function after setting
-    // COMPILE_TOUCH to 1 in stmpe811.h
-    LCD_Touch_Polling_Demo(); // This function Will not return
+    ignore(print_error(result("Test")));
 
     ignore(print_error(app_loop(&a)));
 }
@@ -62,8 +57,8 @@ int main(void) {
  * @retval None
  */
 void SystemClock_Config(void) {
-    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+    RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };
 
     /** Configure the main internal regulator output voltage
      */

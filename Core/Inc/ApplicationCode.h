@@ -31,13 +31,7 @@ typedef void AppState;
 
 AppState* init_app();
 
-void LCD_Visual_Demo(void);
-
 Result app_loop(AppState** state);
-
-#if (COMPILE_TOUCH_FUNCTIONS == 1) && (COMPILE_TOUCH_INTERRUPT_SUPPORT == 0)
-void LCD_Touch_Polling_Demo(void);
-#endif // (COMPILE_TOUCH_FUNCTIONS == 1) && (COMPILE_TOUCH_INTERRUPT_SUPPORT == 0)
 
 void print_gyro(AppState* state);
 

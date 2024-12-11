@@ -36,9 +36,7 @@
   ******************************************************************************
   */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __ILI9341_H
-#define __ILI9341_H
+#pragma once
 
 #ifdef __cplusplus
  extern "C" {
@@ -249,7 +247,6 @@ void     LCD_Delay (uint32_t delay);
 
 
 
-#endif /* __ILI9341_H */
 
 /**
   * @}

@@ -5,14 +5,14 @@
  *      Author: peter
  */
 // #include <stdlib.h>
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 
 #define __ERROR_HANDLING_INTERNAL__
-#include "ErrorHandling.h"
 #include "Debug/mem.h"
+#include "ErrorHandling.h"
 
-size_t strnlen_s(const char* str, size_t strsz){
+size_t strnlen_s(const char* str, size_t strsz) {
     if (str == 0)
         return 0;
     return strnlen(str, strsz);
@@ -31,7 +31,7 @@ Result result(char* str) {
 }
 
 Result print_error(Result e) {
-    if(is_error(&e) && printf(e->msg) < 0){
+    if (is_error(&e) && printf("%s\n", e->msg) < 0) {
         return result("Output or encoding error");
     } else {
         return result(0);
@@ -41,13 +41,11 @@ Result print_error(Result e) {
 void ignore(Result e) {
     if (is_error(&e))
         free(e->msg);
-    
+
     free(e);
 }
 
-bool is_error(Result* e) {
-    return (*e)->error;
-}
+bool is_error(Result* e) { return (*e)->error; }
 
 bool c_is_error(Result e) {
     bool b = is_error(&e);
@@ -55,10 +53,12 @@ bool c_is_error(Result e) {
     return b;
 }
 
-void a_assert(bool check){
-    while (!check);
+void a_assert(bool check) {
+    while (!check)
+        ;
 }
 
 void e_assert(Result e) {
-    while (is_error(&e));
+    while (is_error(&e))
+        ;
 }
