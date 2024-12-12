@@ -202,8 +202,8 @@ Result rotate_block(GameState* s) {
         int x_error = 0;
         if (x_coord < 0) { // Shift all to the right
             x_error = x_coord;
-        } else if (x_coord > BOARD_WIDTH) { // Shift all to the left
-            x_error = x_coord - BOARD_WIDTH;
+        } else if (x_coord >= BOARD_WIDTH) { // Shift all to the left
+            x_error = x_coord - BOARD_WIDTH + 1;
         }
         block->center.x -= x_error;
 
@@ -211,8 +211,8 @@ Result rotate_block(GameState* s) {
         int y_error = 0;
         if (y_coord < 0) { // Shift all to the down
             y_error = y_coord;
-        } else if (y_coord > BOARD_HEIGHT) { // Shift all to the up
-            y_error = y_coord - BOARD_HEIGHT;
+        } else if (y_coord >= BOARD_HEIGHT) { // Shift all to the up
+            y_error = y_coord - BOARD_HEIGHT + 1;
         }
         block->center.y -= y_error;
 

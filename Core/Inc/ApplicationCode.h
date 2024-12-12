@@ -21,7 +21,6 @@ typedef struct AppState {
     Gyro* Gyro;
     GameState* Game;
     bool ScreenTouched;
-    bool PrevScreenTouched;
     struct {
         uint16_t x;
         uint16_t y;

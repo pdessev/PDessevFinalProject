@@ -7,15 +7,13 @@
 
 #define __APPLICATION_CODE_INTERNAL__
 #include "ApplicationCode.h"
+#include "Button_Driver.h"
 #include "Debug/mem.h"
+#include "LCD/LCD_Driver.h"
 #include "LCD/graphics.h"
 #include "Scheduler.h"
 #include "Timer_Wrapper.h"
-#include "LCD/LCD_Driver.h"
 #include "stm32f4xx_hal.h"
-#include "Button_Driver.h"
-#include "Scheduler.h"
-
 
 static struct {
     STMPE811_TouchData StaticTouchData;
@@ -105,20 +103,19 @@ AppState* init_app() {
     // ----
     state->GameTick = TimerTwo;
     GpTimerConfig* cfg = calloc(1, sizeof(*cfg));
-    cfg->Prescaler = timer_calculate_prescalar(3);
-    cfg->AutoReload = timer_calculate_AutoReload(3, cfg->Prescaler);
+    cfg->Prescaler = timer_calculate_prescalar(1);
+    cfg->AutoReload = timer_calculate_AutoReload(1, cfg->Prescaler);
     cfg->ClockDivision = ClockDivisionOne;
     cfg->CenterAlignMode = EdgeAlign;
     cfg->Direction = CountUp;
-    cfg->AutoReloadBuffer = EnableAutoReloadBuffer;
+    cfg->AutoReloadBuffer = DisableAutoReloadBuffer;
     init_timer(state->GameTick, cfg);
     set_timer_time(state->GameTick, 1.0);
     free(cfg);
 
-    
     state->GameTimer = TimerThree;
     cfg = calloc(1, sizeof(*cfg));
-    cfg->Prescaler = 0xFFFF; //100 * timer_calculate_prescalar(1);
+    cfg->Prescaler = 0xFFFF; // 100 * timer_calculate_prescalar(1);
     cfg->AutoReload = timer_calculate_AutoReload(1, cfg->Prescaler);
     cfg->ClockDivision = ClockDivisionOne;
     cfg->CenterAlignMode = EdgeAlign;
@@ -132,7 +129,6 @@ AppState* init_app() {
     // Events
     // ----
     addSchedulerEvent(EventDrawMainMenu);
-
 
     return state;
 }
@@ -154,10 +150,10 @@ Result app_loop(AppState** state) {
 
     a->Game = create_game(0);
     start_timer(a->GameTick);
-    a->TimerEvent = 1;
+    // a->TimerEvent = 1;
 
     while (1) {
-        RETURN_OR_IGNORE_CLOSURE(generate_random(&a->Random), {free_app(state);});
+        RETURN_OR_IGNORE_CLOSURE(generate_random(&a->Random), { free_app(state); });
         update_app_state(a);
 
         uint32_t events = getScheduledEvents();
@@ -167,10 +163,10 @@ Result app_loop(AppState** state) {
             }
             switch (i) {
             case EventDrawMainMenu:
-                RETURN_OR_IGNORE_CLOSURE(main_menu_event(a), {free_app(state);});
+                RETURN_OR_IGNORE_CLOSURE(main_menu_event(a), { free_app(state); });
                 break;
             case EventStartGame:
-                RETURN_OR_IGNORE_CLOSURE(game_event(a), {free_app(state);});
+                RETURN_OR_IGNORE_CLOSURE(game_event(a), { free_app(state); });
                 break;
             case EventEndGame:
                 break;
@@ -179,7 +175,7 @@ Result app_loop(AppState** state) {
             }
         }
     }
-    
+
     free_app(state);
     return result(0);
 }
@@ -198,7 +194,10 @@ Result main_menu_event(AppState* a) {
 }
 
 Result game_event(AppState* a) {
-    static uint32_t old_time = 0;
+    static uint32_t prev_time = 0;
+    static bool prev_screen_touched = false;
+    static uint16_t prev_x = 0;
+    static uint16_t prev_y = 0;
     bool update_screen = false;
     uint32_t rand_temp = a->Random;
     BlockType t = rand_temp % BlockTypeLen;
@@ -206,25 +205,33 @@ Result game_event(AppState* a) {
     BlockColor c = rand_temp % BlockColorLen;
     rand_temp /= BlockColorLen;
 
-    if(a->ButtonPressed){
+    if (a->ButtonPressed) {
         ignore(rotate_block(a->Game));
         update_screen = true;
     }
 
-    if(a->ScreenTouched && !a->PrevScreenTouched){
-        if(a->ScreenTouchedPos.x < LCD_PIXEL_WIDTH / 2) {
-            ignore(move_block(a->Game, DirLeft));
+    if (a->ScreenTouched && !prev_screen_touched) {
+        if (a->ScreenTouchedPos.y > ((LCD_PIXEL_WIDTH * 3) / 4)) {
+            set_timer_time(a->GameTick, BLOCK_FALL_RATE_SEC / 30);
         } else {
-            ignore(move_block(a->Game, DirRight));
+            if (a->ScreenTouchedPos.x < LCD_PIXEL_WIDTH / 2) {
+                ignore(move_block(a->Game, DirLeft));
+            } else {
+                ignore(move_block(a->Game, DirRight));
+            }
+            update_screen = true;
         }
-        update_screen = true;
+    } else if (!a->ScreenTouched && prev_screen_touched){
+        if (prev_y > ((LCD_PIXEL_WIDTH * 3) / 4)){
+            prev_x;
+            set_timer_time(a->GameTick, BLOCK_FALL_RATE_SEC);
+        }
     }
-
 
     // Error means that there is still a block in play
     // We shouldn't use the random number in this case
-    if(c_is_error(new_current_block(a->Game, t, c))) {
-        if(a->TimerEvent){
+    if (c_is_error(new_current_block(a->Game, t, c))) {
+        if (a->TimerEvent) {
             Result move_res = move_block(a->Game, DirDown);
             if (c_is_error(move_res)) {
                 Result lay_res = lay_current_block(a->Game);
@@ -240,9 +247,11 @@ Result game_event(AppState* a) {
         a->Random = rand_temp;
     }
 
-    a->PrevScreenTouched = a->ScreenTouched;
-    if (update_screen || old_time != a->GameTime){
-        old_time = a->GameTime;
+    prev_screen_touched = a->ScreenTouched;
+    prev_x = a->ScreenTouchedPos.x;
+    prev_y = a->ScreenTouchedPos.y;
+    if (update_screen || prev_time != a->GameTime) {
+        prev_time = a->GameTime;
         return show_game_board(a->Game, a->GameTime);
     }
     return result(0);
@@ -313,8 +322,9 @@ static uint8_t statusFlag;
 void EXTI15_10_IRQHandler() {
     HAL_NVIC_DisableIRQ(EXTI15_10_IRQn); // May consider making this a
                                          // universial interrupt guard
-                                         
-    while (!STMPE811_Read(STMPE811_FIFO_SIZE));
+
+    while (!STMPE811_Read(STMPE811_FIFO_SIZE))
+        ;
 
     // Disable touch interrupt bit on the STMPE811
     uint8_t currentIRQEnables = ReadRegisterFromTouchModule(STMPE811_INT_EN);
@@ -322,8 +332,7 @@ void EXTI15_10_IRQHandler() {
 
     // Clear the interrupt bit in the STMPE811
     statusFlag = ReadRegisterFromTouchModule(STMPE811_INT_STA);
-    uint8_t clearIRQData =
-        (statusFlag | TOUCH_DETECTED_IRQ_STATUS_BIT); // Write one to clear bit
+    uint8_t clearIRQData = (statusFlag | TOUCH_DETECTED_IRQ_STATUS_BIT); // Write one to clear bit
     WriteDataToTouchModule(STMPE811_INT_STA, clearIRQData);
 
     uint8_t ctrlReg = ReadRegisterFromTouchModule(STMPE811_TSC_CTRL);
