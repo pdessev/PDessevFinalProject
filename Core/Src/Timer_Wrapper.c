@@ -105,6 +105,15 @@ void clear_timer_interrupt_flag(GpTimers timer) {
     __HAL_TIM_CLEAR_IT(timer_handles[timer], TIM_IT_UPDATE);
 }
 
+void set_timer_time(GpTimers timer, float seconds){
+    uint16_t prescalar = timer_calculate_prescalar(seconds);
+    uint32_t arr = timer_calculate_AutoReload(seconds, prescalar);
+    set_timer_auto_reload(timer, arr);
+    __HAL_TIM_SET_PRESCALER(timer_handles[timer], prescalar);
+    reset_timer(timer);
+}
+
+
 static union FtoU {
     float f;
     uint32_t u;

@@ -13,9 +13,7 @@
 typedef enum Event {
     EventDrawMainMenu,
     EventStartGame,
-    EventDropBlock,
-    EventMoveBlockLeft,
-    EventMoveBlockRight,
+    EventEndGame,
 } Event;
 
 // #define LED_TOGGLE_EVENT (1 << EventLedToggle)

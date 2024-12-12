@@ -8,22 +8,32 @@
 #pragma once
 #include "ErrorHandling.h"
 
+#define BLOCK_FALL_RATE_SEC 3.0f
+
 #ifdef __APPLICATION_CODE_INTERNAL__
 // #include <stdlib.h>
 #include <stdio.h>
 #include "Gyro.h"
 #include "Game/Game.h"
+#include "Timer_Wrapper.h"
 
 typedef struct AppState {
     Gyro* Gyro;
     GameState* Game;
     bool ScreenTouched;
+    bool PrevScreenTouched;
     struct {
         uint16_t x;
         uint16_t y;
     } ScreenTouchedPos;
     bool TimerEvent;
+    bool ButtonPressed;
     uint32_t Random;
+
+    GpTimers GameTick;
+    GpTimers GameTimer;
+
+    uint32_t GameTime;
 } AppState;
 
 #else

@@ -25,12 +25,13 @@ static struct {
 // static uint32_t rng_result;
 
 static bool timer_is_triggered;
-
+static bool button_pressed;
 static EXTI_HandleTypeDef LCDTouchIRQ;
+static uint32_t time = -1;
 
 void LCDTouchScreenInterruptGPIOInit(void);
 
-Result main_menue_event(AppState* a);
+Result main_menu_event(AppState* a);
 Result game_event(AppState* a);
 void update_app_state(AppState* a);
 
@@ -95,16 +96,36 @@ AppState* init_app() {
     // ignore(rng);
 
     // ----
+    // App State
+    // ----
+    AppState* state = calloc(1, sizeof(*state));
+
+    // ----
     // Timers
     // ----
+    state->GameTick = TimerTwo;
     GpTimerConfig* cfg = calloc(1, sizeof(*cfg));
-    cfg->Prescaler = timer_calculate_prescalar(1);
+    cfg->Prescaler = timer_calculate_prescalar(3);
+    cfg->AutoReload = timer_calculate_AutoReload(3, cfg->Prescaler);
+    cfg->ClockDivision = ClockDivisionOne;
+    cfg->CenterAlignMode = EdgeAlign;
+    cfg->Direction = CountUp;
+    cfg->AutoReloadBuffer = EnableAutoReloadBuffer;
+    init_timer(state->GameTick, cfg);
+    set_timer_time(state->GameTick, 1.0);
+    free(cfg);
+
+    
+    state->GameTimer = TimerThree;
+    cfg = calloc(1, sizeof(*cfg));
+    cfg->Prescaler = 0xFFFF; //100 * timer_calculate_prescalar(1);
     cfg->AutoReload = timer_calculate_AutoReload(1, cfg->Prescaler);
     cfg->ClockDivision = ClockDivisionOne;
     cfg->CenterAlignMode = EdgeAlign;
     cfg->Direction = CountUp;
     cfg->AutoReloadBuffer = EnableAutoReloadBuffer;
-    init_timer(TimerTwo, cfg);
+    init_timer(state->GameTimer, cfg);
+    // set_timer_time(state->GameTimer, 1.0);
     free(cfg);
 
     // ----
@@ -112,7 +133,6 @@ AppState* init_app() {
     // ----
     addSchedulerEvent(EventDrawMainMenu);
 
-    AppState* state = calloc(1, sizeof(*state));
 
     return state;
 }
@@ -133,11 +153,11 @@ Result app_loop(AppState** state) {
     AppState* a = *state;
 
     a->Game = create_game(0);
-    start_timer(TimerTwo);
+    start_timer(a->GameTick);
+    a->TimerEvent = 1;
 
     while (1) {
         RETURN_OR_IGNORE_CLOSURE(generate_random(&a->Random), {free_app(state);});
-        // printf("%ld\n", a->Random);
         update_app_state(a);
 
         uint32_t events = getScheduledEvents();
@@ -147,27 +167,29 @@ Result app_loop(AppState** state) {
             }
             switch (i) {
             case EventDrawMainMenu:
-                RETURN_OR_IGNORE_CLOSURE(main_menue_event(a), {free_app(state);});
+                RETURN_OR_IGNORE_CLOSURE(main_menu_event(a), {free_app(state);});
                 break;
             case EventStartGame:
                 RETURN_OR_IGNORE_CLOSURE(game_event(a), {free_app(state);});
-                removeSchedulerEvent(EventStartGame);
+                break;
+            case EventEndGame:
+                break;
+            default:
                 break;
             }
         }
-        // printf("Random: %ld\n", get_random());
-//        HAL_Delay(500);
     }
     
     free_app(state);
     return result(0);
 }
 
-Result main_menue_event(AppState* a) {
+Result main_menu_event(AppState* a) {
     if (a->ScreenTouched) {
-        stop_timer(TimerTwo);
+        set_timer_time(a->GameTick, BLOCK_FALL_RATE_SEC);
         addSchedulerEvent(EventStartGame);
         removeSchedulerEvent(EventDrawMainMenu);
+        start_timer(a->GameTimer);
     }
     if (a->TimerEvent) {
         return show_main_menu(a->Game);
@@ -176,20 +198,54 @@ Result main_menue_event(AppState* a) {
 }
 
 Result game_event(AppState* a) {
-    BlockType t = a->Random % BlockTypeLen;
-    a->Random /= BlockTypeLen;
-    BlockColor c = a->Random % BlockColorLen;
-    a->Random /= BlockColorLen;
+    static uint32_t old_time = 0;
+    bool update_screen = false;
+    uint32_t rand_temp = a->Random;
+    BlockType t = rand_temp % BlockTypeLen;
+    rand_temp /= BlockTypeLen;
+    BlockColor c = rand_temp % BlockColorLen;
+    rand_temp /= BlockColorLen;
+
+    if(a->ButtonPressed){
+        ignore(rotate_block(a->Game));
+        update_screen = true;
+    }
+
+    if(a->ScreenTouched && !a->PrevScreenTouched){
+        if(a->ScreenTouchedPos.x < LCD_PIXEL_WIDTH / 2) {
+            ignore(move_block(a->Game, DirLeft));
+        } else {
+            ignore(move_block(a->Game, DirRight));
+        }
+        update_screen = true;
+    }
+
+
     // Error means that there is still a block in play
+    // We shouldn't use the random number in this case
     if(c_is_error(new_current_block(a->Game, t, c))) {
         if(a->TimerEvent){
             Result move_res = move_block(a->Game, DirDown);
-            if (is_error(move_res)) {
-                lay_current_block(a->Game);
+            if (c_is_error(move_res)) {
+                Result lay_res = lay_current_block(a->Game);
+                if (c_is_error(lay_res)) {
+                    removeSchedulerEvent(EventStartGame);
+                    addSchedulerEvent(EventEndGame);
+                }
+            } else {
+                update_screen = true;
             }
         }
+    } else {
+        a->Random = rand_temp;
     }
-    return show_game_board(a->Game);
+
+    a->PrevScreenTouched = a->ScreenTouched;
+    if (update_screen || old_time != a->GameTime){
+        old_time = a->GameTime;
+        return show_game_board(a->Game, a->GameTime);
+    }
+    return result(0);
 }
 
 void update_app_state(AppState* a) {
@@ -197,24 +253,35 @@ void update_app_state(AppState* a) {
     a->ScreenTouchedPos.x = screen_state.StaticTouchData.x;
     a->ScreenTouchedPos.y = screen_state.StaticTouchData.y;
     a->TimerEvent = timer_is_triggered;
-    // a->Random = rng_result; 
+    a->ButtonPressed = button_pressed;
+    a->GameTime = time;
 
+    button_pressed = false;
     timer_is_triggered = false;
 }
 
 void TIM2_IRQHandler() {
     disable_IRQ(TIM2_IRQn);
     clear_timer_interrupt_flag(TimerTwo);
-    // addSchedulerEvent(EventDrawMainMenu);
     timer_is_triggered = true;
     clear_pending_IRQ(TIM2_IRQn);
     enable_IRQ(TIM2_IRQn);
 }
 
+void TIM3_IRQHandler() {
+    disable_IRQ(TIM3_IRQn);
+    clear_timer_interrupt_flag(TimerThree);
+    time += 1;
+    clear_pending_IRQ(TIM3_IRQn);
+    enable_IRQ(TIM3_IRQn);
+}
+
 void EXTI0_IRQHandler() {
     disable_IRQ(EXTI0_IRQn);
     __HAL_GPIO_EXTI_CLEAR_IT(EXTI_LINE_1);
-
+    if (button_is_pressed(UserButton)) {
+        button_pressed = true;
+    }
     clear_pending_IRQ(EXTI0_IRQn);
     enable_IRQ(EXTI0_IRQn);
 }

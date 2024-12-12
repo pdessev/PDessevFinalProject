@@ -27,6 +27,7 @@ Result result(char* str) {
     Result res = malloc(sizeof(*res));
     res->msg = malloc(sizeof(*(res->msg)) * (len + 1));
     strncpy(res->msg, str, len);
+    str[len] = '\0';
     res->error = 1;
     return res;
 }

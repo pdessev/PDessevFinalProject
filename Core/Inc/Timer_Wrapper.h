@@ -135,6 +135,7 @@ void set_timer_interrupt(GpTimers timer, GpTimerInterruptUpdateEnable en);
 
 void clear_timer_interrupt_flag(GpTimers timer);
 
+void set_timer_time(GpTimers timer, float seconds);
 // -----------------------------------------------
 // Automatic Prescalar and AutoReload Calculation
 // -----------------------------------------------

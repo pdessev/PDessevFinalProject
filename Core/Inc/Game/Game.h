@@ -89,10 +89,12 @@ void free_game(GameState** g);
 
 Result show_main_menu(GameState* s);
 
-Result show_game_board(GameState* s);
+Result show_game_board(GameState* s, uint32_t time);
 
 Result move_block(GameState* s, Direction dir) __attribute__((warn_unused_result));
 
-void lay_current_block(GameState* s);
+Result rotate_block(GameState* s);
+
+Result lay_current_block(GameState* s);
 
 Result new_current_block(GameState* s, BlockType type, BlockColor color) __attribute__((warn_unused_result));

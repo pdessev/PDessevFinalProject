@@ -51,7 +51,6 @@ int main(void) {
         printf("Error initializing app.\n");
         return 1;
     }
-    // ignore(print_error(result("Test")));
     print_error(result("Test"));
 
     print_error(app_loop(&a));
