@@ -64,6 +64,14 @@ Result show_main_menu(GameState* s) {
                                      destroy_block(&blocks[__free_blocks]);
                                  }
                              });
+    RETURN_OR_IGNORE_CLOSURE(draw_text_line("Tap to Start", 6, color(0, 0, 0), &Font12x12,
+                                            (LCD_PIXEL_WIDTH / 2) - 3 * Font12x12.Width,
+                                            (LCD_PIXEL_HEIGHT / 3) - 25),
+                             {
+                                 for (int __free_blocks = 0; __free_blocks < BlockTypeLen; __free_blocks++) {
+                                     destroy_block(&blocks[__free_blocks]);
+                                 }
+                             });
 
     // Loop through blocks
     for (uint8_t i = 0; i < BlockTypeLen; i++) {
