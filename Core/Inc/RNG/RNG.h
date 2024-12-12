@@ -1,19 +1,10 @@
 #pragma once
 
 #include <stdint.h>
+#include "ErrorHandling.h"
 
-#ifdef __RNG_INTERNAL__
-typedef struct RandomNum {
-    
-} RandomNum;
-#else
-typedef void RandomNum;
-#endif
+Result init_random();
 
-RandomNum* new_random_num();
+Result generate_random(uint32_t* dest);
 
-uint8_t free_random_num(RandomNum** r);
-
-uint8_t init_random_num(RandomNum* r);
-
-uint32_t get_random_num(RandomNum* r);
+// uint32_t get_random();

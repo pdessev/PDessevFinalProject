@@ -19,36 +19,54 @@ Block* generate_new_block(BlockType type, BlockColor color, BlockRotation rot, P
     return block;
 }
 
-GameState* create_game(RandomNum* rng) {
+void destroy_block(Block** b) {
+    free(*b);
+    *b = 0;
+}
+
+GameState* create_game() {
     GameState* g = calloc(1, sizeof(*g));
-    g->rng = rng;
     g->main_menu_state = 0;
     return g;
+}
+
+void free_game(GameState** g) {
+    free((*g)->active_block);
+    for (uint16_t i = 0; i < BOARD_WIDTH; i++) {
+        for (uint16_t j = 0; j < BOARD_HEIGHT; j++) {
+            if (!(*g)->board[i][j]) {
+                continue;
+            }
+            free((*g)->board[i][j]);
+        }
+    }
+    free(*g);
+    *g = 0;
 }
 
 Result show_main_menu(GameState* s) {
     const static uint16_t block_positions[][2] = { { 38, 190 }, { 96, 190 },  { 144, 190 }, { 192, 190 },
                                                    { 60, 240 }, { 120, 240 }, { 180, 240 } };
 
-    Block* blocks[7];
+    Block* blocks[BlockTypeLen];
     for (uint8_t i = 0; i < BlockTypeLen; i++) {
-        blocks[i] = generate_new_block(i, i, RotUp, point(0, 0));
+        blocks[i] = generate_new_block(i, i, s->main_menu_state, point(0, 0));
     }
 
     // Text "TETRIS"
-    LCD_Clear(0, LCD_COLOR_WHITE);
-    Color* text_c = color(0, 0, 0);
-    RETURN_OR_IGNORE(draw_text_line("TETRIS", 6, text_c, &Font16x24,
-                                    (LCD_PIXEL_WIDTH / 2) - 3 * Font16x24.Width, (LCD_PIXEL_HEIGHT / 3)));
-
-    // Debug line
-    RETURN_OR_IGNORE(draw_line(0, 0, 100, 100, text_c));
-
-    free_color(&text_c);
+    LCD_Clear(0, color(255, 255, 255));
+    RETURN_OR_IGNORE_CLOSURE(draw_text_line("TETRIS", 6, color(0, 0, 0), &Font16x24,
+                                            (LCD_PIXEL_WIDTH / 2) - 3 * Font16x24.Width,
+                                            (LCD_PIXEL_HEIGHT / 3)),
+                             {
+                                 for (int __free_blocks = 0; __free_blocks < BlockTypeLen; __free_blocks++) {
+                                     destroy_block(&blocks[__free_blocks]);
+                                 }
+                             });
 
     // Loop through blocks
     for (uint8_t i = 0; i < BlockTypeLen; i++) {
-        Color* c = get_rgb_from_block_color(i); // Get Color
+        Color c = get_rgb_from_block_color(i); // Get Color
         blocks[i]->rotation = s->main_menu_state;
         set_block_points(blocks[i]);
 
@@ -56,9 +74,12 @@ Result show_main_menu(GameState* s) {
             uint16_t x = block_positions[i][0] + BOARD_BLOCK_PIXEL_LEN * blocks[i]->points[k].x;
             uint16_t y = block_positions[i][1] + BOARD_BLOCK_PIXEL_LEN * blocks[i]->points[k].y;
 
-            RETURN_OR_IGNORE(draw_rect(x, y, BOARD_BLOCK_PIXEL_LEN, BOARD_BLOCK_PIXEL_LEN, c));
+            RETURN_OR_IGNORE_CLOSURE(draw_rect(x, y, BOARD_BLOCK_PIXEL_LEN, BOARD_BLOCK_PIXEL_LEN, c), {
+                for (int __free_blocks = 0; __free_blocks < BlockTypeLen; __free_blocks++) {
+                    destroy_block(&blocks[__free_blocks]);
+                }
+            });
         }
-        free_color(&c);
     }
 
     for (uint8_t i = 0; i < BlockTypeLen; i++) {
@@ -70,9 +91,48 @@ Result show_main_menu(GameState* s) {
     return result(0);
 }
 
-Result show_game_board(GameState* s) { return result(0); }
+Result show_game_board(GameState* s) {
+    const static uint16_t board_left = (BOARD_WIDTH * BOARD_BLOCK_PIXEL_LEN) / 2;
+    const static uint16_t board_right = LCD_PIXEL_WIDTH - board_left;
+    const static uint16_t board_up = (BOARD_HEIGHT * BOARD_BLOCK_PIXEL_LEN) / 2;
+    const static uint16_t board_down = LCD_PIXEL_HEIGHT - board_up;
 
-void move_block(GameState* s, Direction dir) {
+    LCD_Clear(0, color(255, 255, 255));
+    // Draw Border
+    Color line_color = color(0, 0, 0);
+    RETURN_OR_IGNORE(
+        draw_line(board_left - 1, board_up - 1, board_right + 1, board_up - 1, line_color)); // Top
+    RETURN_OR_IGNORE(
+        draw_line(board_left - 1, board_down + 1, board_right + 1, board_down + 1, line_color)); // Bottom
+    RETURN_OR_IGNORE(
+        draw_line(board_left - 1, board_up - 1, board_left - 1, board_down + 1, line_color)); // Left
+    RETURN_OR_IGNORE(
+        draw_line(board_right + 1, board_up - 1, board_right + 1, board_down + 1, line_color)); // Right
+
+    // Draw set blocks
+    for (uint8_t i = 0; i < BOARD_WIDTH; i++) {
+        for (uint8_t j = 0; j < BOARD_HEIGHT; i++) {
+            if (s->board[i][j]) {
+                RETURN_OR_IGNORE(draw_rect(board_left + i * BOARD_BLOCK_PIXEL_LEN,
+                                           board_up + j * BOARD_BLOCK_PIXEL_LEN, BOARD_BLOCK_PIXEL_LEN,
+                                           BOARD_BLOCK_PIXEL_LEN,
+                                           get_rgb_from_block_color(s->board[i][j]->color)));
+            }
+        }
+    }
+
+    // Draw active block
+    for (uint8_t i = 0; i < 4; i++) {
+        Block* b = s->active_block;
+        RETURN_OR_IGNORE(draw_rect(board_left + b->points[i].x * BOARD_BLOCK_PIXEL_LEN,
+                                   board_up + b->points[i].y * BOARD_BLOCK_PIXEL_LEN, BOARD_BLOCK_PIXEL_LEN,
+                                   BOARD_BLOCK_PIXEL_LEN, get_rgb_from_block_color(b->color)));
+    }
+
+    return result(0);
+}
+
+Result move_block(GameState* s, Direction dir) {
     int delta_x = 0, delta_y = 0;
     switch (dir) {
     case DirUp:
@@ -90,9 +150,24 @@ void move_block(GameState* s, Direction dir) {
     }
 
     for (uint8_t i = 0; i < 4; i++) {
+        Point* cur = &s->active_block->points[i];
+
+        if (((int16_t)cur->x + (int16_t)delta_x < 0) || ((int16_t)cur->y + (int16_t)delta_y < 0) ||
+            ((int16_t)cur->x + (int16_t)delta_x > BOARD_WIDTH - 1) ||
+            ((int16_t)cur->y + (int16_t)delta_y > BOARD_HEIGHT - 1)) {
+            return result("Unable to move block, out of bounds detected.");
+        }
+
+        if (s->board[cur->x + delta_x][cur->y + delta_y]) {
+            return result("Unable to move block, collision detected.");
+        }
+    }
+
+    for (uint8_t i = 0; i < 4; i++) {
         s->active_block->points[i].x += delta_x;
         s->active_block->points[i].y += delta_y;
     }
+    return result(0);
 }
 
 void lay_current_block(GameState* s) {
@@ -101,11 +176,18 @@ void lay_current_block(GameState* s) {
         // s->board[b->points[i].x][b->points[i].y]->valid = true;
         s->board[b->points[i].x][b->points[i].y]->color = b->color;
     }
+    destroy_block(&s->active_block);
 }
 
-Result new_current_block(GameState* s) { return result(0); }
+Result new_current_block(GameState* s, BlockType type, BlockColor color) {
+    if (s->active_block) {
+        return result("Unable to generate new block, block already exists");
+    }
+    s->active_block = generate_new_block(type, color, RotUp, point(BOARD_WIDTH / 2, 4));
+    return result(0);
+}
 
-Color* get_rgb_from_block_color(BlockColor b) {
+Color get_rgb_from_block_color(BlockColor b) {
     switch (b) {
     case BlockRed:
         return color(255, 0, 0);

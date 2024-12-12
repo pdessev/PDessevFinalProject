@@ -7,6 +7,7 @@
 // #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdio.h>
 
 #define __ERROR_HANDLING_INTERNAL__
 #include "Debug/mem.h"
@@ -30,12 +31,9 @@ Result result(char* str) {
     return res;
 }
 
-Result print_error(Result e) {
-    if (is_error(&e) && printf("%s\n", e->msg) < 0) {
-        return result("Output or encoding error");
-    } else {
-        return result(0);
-    }
+void print_error(Result e) {
+    if (is_error(&e) && printf("%s\n", e->msg) < 0);
+    ignore(e);
 }
 
 void ignore(Result e) {

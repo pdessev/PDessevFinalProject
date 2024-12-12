@@ -6,21 +6,24 @@
  */
 
 #pragma once
-#include "LED_Driver.h"
-#include "Scheduler.h"
-#include "Button_Driver.h"
-#include "Gyro.h"
-#include "stm32f4xx_hal.h"
-#include "LCD/LCD_Driver.h"
 #include "ErrorHandling.h"
-#include "Debug/mem.h"
 
 #ifdef __APPLICATION_CODE_INTERNAL__
 // #include <stdlib.h>
 #include <stdio.h>
+#include "Gyro.h"
+#include "Game/Game.h"
 
 typedef struct AppState {
-    Gyro* g;
+    Gyro* Gyro;
+    GameState* Game;
+    bool ScreenTouched;
+    struct {
+        uint16_t x;
+        uint16_t y;
+    } ScreenTouchedPos;
+    bool TimerEvent;
+    uint32_t Random;
 } AppState;
 
 #else
@@ -32,7 +35,3 @@ typedef void AppState;
 AppState* init_app();
 
 Result app_loop(AppState** state);
-
-void print_gyro(AppState* state);
-
-void delay(uint32_t count);

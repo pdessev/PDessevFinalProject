@@ -47,9 +47,15 @@ int main(void) {
     SystemClockOverride();
 
     AppState* a = init_app();
-    ignore(print_error(result("Test")));
+    if (!a){
+        printf("Error initializing app.\n");
+        return 1;
+    }
+    // ignore(print_error(result("Test")));
+    print_error(result("Test"));
 
-    ignore(print_error(app_loop(&a)));
+    print_error(app_loop(&a));
+    return 0;
 }
 
 /**

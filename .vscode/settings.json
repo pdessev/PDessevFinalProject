@@ -22,6 +22,10 @@
         "timer_wrapper.h": "c",
         "stm32f429xx.h": "c",
         "led_driver.h": "c",
-        "stm32f4xx_hal_rcc.h": "c"
+        "stm32f4xx_hal_rcc.h": "c",
+        "stm32f4xx_hal_rng.h": "c",
+        "stdio.h": "c",
+        "button_driver.h": "c",
+        "format": "cpp"
     }
 }

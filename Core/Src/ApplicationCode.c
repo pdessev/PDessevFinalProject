@@ -8,33 +8,51 @@
 #define __APPLICATION_CODE_INTERNAL__
 #include "ApplicationCode.h"
 #include "Debug/mem.h"
-#include "Game/Game.h"
 #include "LCD/graphics.h"
 #include "Scheduler.h"
 #include "Timer_Wrapper.h"
+#include "LCD/LCD_Driver.h"
+#include "stm32f4xx_hal.h"
+#include "Button_Driver.h"
+#include "Scheduler.h"
 
 
 static struct {
     STMPE811_TouchData StaticTouchData;
     bool IsPressed;
-} ScreenState; 
+} screen_state;
+
+// static uint32_t rng_result;
+
+static bool timer_is_triggered;
 
 static EXTI_HandleTypeDef LCDTouchIRQ;
 
 void LCDTouchScreenInterruptGPIOInit(void);
 
-AppState* init_app() {
+Result main_menue_event(AppState* a);
+Result game_event(AppState* a);
+void update_app_state(AppState* a);
 
+AppState* init_app() {
+    // ----
+    // LCD
+    // ----
     Result graphics = init_graphics();
     if (is_error(&graphics)) {
-        ignore(print_error(graphics));
+        // ignore(print_error(graphics));
+        print_error(graphics);
         return NULL;
     }
     ignore(graphics);
 
+    // ----
+    // LCD
+    // ----
     Result lcd = InitializeLCDTouch();
     if (is_error(&lcd)) {
-        ignore(print_error(lcd));
+        // ignore(print_error(lcd));
+        print_error(lcd);
         return NULL;
     }
     ignore(graphics);
@@ -42,7 +60,7 @@ AppState* init_app() {
     // This is the orientation for the board to be direclty up where the buttons
     // are vertically above the screen Top left would be low x value, high y
     // value. Bottom right would be low x value, low y value.
-    ScreenState.StaticTouchData.orientation = STMPE811_Orientation_Portrait_2;
+    screen_state.StaticTouchData.orientation = STMPE811_Orientation_Portrait_2;
     LCDTouchScreenInterruptGPIOInit();
 
     // ----
@@ -57,6 +75,24 @@ AppState* init_app() {
     // Button
     // ----
     init_interrupt_button(UserButton);
+
+    // ----
+    // RNG
+    // ----
+    Result rng = init_random();
+    if (is_error(&rng)) {
+        // ignore(print_error(rng));
+        print_error(rng);
+        return NULL;
+    }
+    ignore(rng);
+
+    // rng = generate_random();
+    // if (is_error(&rng)) {
+    //     ignore(print_error(rng));
+    //     return NULL;
+    // }
+    // ignore(rng);
 
     // ----
     // Timers
@@ -81,13 +117,29 @@ AppState* init_app() {
     return state;
 }
 
-Result app_loop(AppState** state) {
-    // AppState* s = *state;
+void free_app(AppState** state) {
+    if ((*state)->Game) {
+        free_game(&(*state)->Game);
+    }
+    if ((*state)->Gyro) {
+        free_gyro(&(*state)->Gyro);
+    }
 
-    GameState* game = create_game(0);
+    free(*state);
+    *state = 0;
+}
+
+Result app_loop(AppState** state) {
+    AppState* a = *state;
+
+    a->Game = create_game(0);
     start_timer(TimerTwo);
 
     while (1) {
+        RETURN_OR_IGNORE_CLOSURE(generate_random(&a->Random), {free_app(state);});
+        // printf("%ld\n", a->Random);
+        update_app_state(a);
+
         uint32_t events = getScheduledEvents();
         for (int i = 0; i < 32; i++) {
             if (!(events & (1 << i))) {
@@ -95,52 +147,67 @@ Result app_loop(AppState** state) {
             }
             switch (i) {
             case EventDrawMainMenu:
-                RETURN_OR_IGNORE(show_main_menu(game));
-                removeSchedulerEvent(EventDrawMainMenu);
+                RETURN_OR_IGNORE_CLOSURE(main_menue_event(a), {free_app(state);});
                 break;
             case EventStartGame:
-                // removeSchedulerEvent(EventDrawMainMenu);
-                break;
-            case EventDropBlock:
-                removeSchedulerEvent(EventDropBlock);
-                break;
-            case EventMoveBlockLeft:
-                removeSchedulerEvent(EventMoveBlockLeft);
-                break;
-            case EventMoveBlockRight:
-                removeSchedulerEvent(EventMoveBlockRight);
+                RETURN_OR_IGNORE_CLOSURE(game_event(a), {free_app(state);});
+                removeSchedulerEvent(EventStartGame);
                 break;
             }
         }
+        // printf("Random: %ld\n", get_random());
+//        HAL_Delay(500);
     }
-
-    free(*state);
-    *state = 0;
+    
+    free_app(state);
     return result(0);
 }
 
-void print_gyro(AppState* state) {
-    uint8_t id = gyro_get_id(state->g);
-    int8_t temp = gyro_get_temp(state->g);
-
-    printf("Gyro Id: %X\nTemperature: %d\n", id, temp);
+Result main_menue_event(AppState* a) {
+    if (a->ScreenTouched) {
+        stop_timer(TimerTwo);
+        addSchedulerEvent(EventStartGame);
+        removeSchedulerEvent(EventDrawMainMenu);
+    }
+    if (a->TimerEvent) {
+        return show_main_menu(a->Game);
+    }
+    return result(0);
 }
 
-void delay(uint32_t count) {
-    char name[] = "Peter";
-    char* copy = calloc(NAME_LEN, sizeof(*copy));
-    for (uint32_t _ = count; _; _--) {
-        for (uint8_t i = NAME_LEN; i; i--) {
-            *(copy + i - 1) = *(name + i - 1);
+Result game_event(AppState* a) {
+    BlockType t = a->Random % BlockTypeLen;
+    a->Random /= BlockTypeLen;
+    BlockColor c = a->Random % BlockColorLen;
+    a->Random /= BlockColorLen;
+    // Error means that there is still a block in play
+    if(c_is_error(new_current_block(a->Game, t, c))) {
+        if(a->TimerEvent){
+            Result move_res = move_block(a->Game, DirDown);
+            if (is_error(move_res)) {
+                lay_current_block(a->Game);
+            }
         }
     }
-    free(copy);
+    return show_game_board(a->Game);
+}
+
+void update_app_state(AppState* a) {
+    a->ScreenTouched = screen_state.IsPressed;
+    a->ScreenTouchedPos.x = screen_state.StaticTouchData.x;
+    a->ScreenTouchedPos.y = screen_state.StaticTouchData.y;
+    a->TimerEvent = timer_is_triggered;
+    // a->Random = rng_result; 
+
+    timer_is_triggered = false;
 }
 
 void TIM2_IRQHandler() {
     disable_IRQ(TIM2_IRQn);
     clear_timer_interrupt_flag(TimerTwo);
-    addSchedulerEvent(EventDrawMainMenu);
+    // addSchedulerEvent(EventDrawMainMenu);
+    timer_is_triggered = true;
+    clear_pending_IRQ(TIM2_IRQn);
     enable_IRQ(TIM2_IRQn);
 }
 
@@ -193,12 +260,12 @@ void EXTI15_10_IRQHandler() {
     WriteDataToTouchModule(STMPE811_INT_STA, clearIRQData);
 
     uint8_t ctrlReg = ReadRegisterFromTouchModule(STMPE811_TSC_CTRL);
-    ScreenState.IsPressed = ctrlReg & 0x80;
+    screen_state.IsPressed = ctrlReg & 0x80;
 
     // Determine if it is pressed or unpressed
-    if (ScreenState.IsPressed) { // Touch has been detected
+    if (screen_state.IsPressed) { // Touch has been detected
         // May need to do numerous retries?
-        DetermineTouchPosition(&ScreenState.StaticTouchData);
+        DetermineTouchPosition(&screen_state.StaticTouchData);
     }
 
     STMPE811_Write(STMPE811_FIFO_STA, 0x01);

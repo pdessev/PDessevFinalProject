@@ -8,13 +8,6 @@
 #define BOARD_WIDTH 10
 #define BOARD_HEIGHT 25
 
-#ifdef __GAME_INTERNAL__
-#define BOARD_BLOCK_PIXEL_LEN 10 // approx 320 * 0.8 / 25
-#include "LCD/graphics.h"
-#include "Debug/mem.h"
-#include "stm32f4xx_hal.h"
-// #include "stdlib.h"
-
 typedef enum BlockType {
     TypeO,
     TypeI,
@@ -26,13 +19,6 @@ typedef enum BlockType {
     BlockTypeLen,
 } BlockType;
 
-typedef enum BlockRotation {
-    RotUp,
-    RotRight,
-    RotDown,
-    RotLeft,
-} BlockRotation;
-
 typedef enum BlockColor {
     BlockRed,
     BlockOrange,
@@ -43,6 +29,20 @@ typedef enum BlockColor {
     BlockPurple,
     BlockColorLen,
 } BlockColor;
+
+#ifdef __GAME_INTERNAL__
+#define BOARD_BLOCK_PIXEL_LEN 10 // approx 320 * 0.8 / 25
+#include "LCD/graphics.h"
+#include "Debug/mem.h"
+#include "stm32f4xx_hal.h"
+// #include "stdlib.h"
+
+typedef enum BlockRotation {
+    RotUp,
+    RotRight,
+    RotDown,
+    RotLeft,
+} BlockRotation;
 
 typedef struct Point {
     int x;
@@ -62,13 +62,13 @@ typedef struct LaidBlock {
 } LaidBlock;
 
 typedef struct GameState {
+    uint16_t score;
     Block* active_block;
-    RandomNum* rng;
     LaidBlock* board[BOARD_WIDTH][BOARD_HEIGHT];
     uint8_t main_menu_state;
 } GameState;
 
-Color* get_rgb_from_block_color(BlockColor b);
+Color get_rgb_from_block_color(BlockColor b);
 
 void set_block_points(Block* b);
 
@@ -83,14 +83,16 @@ typedef enum Direction {
     DirLeft,
 } Direction;
 
-GameState* create_game(RandomNum* rng);
+GameState* create_game();
+
+void free_game(GameState** g);
 
 Result show_main_menu(GameState* s);
 
 Result show_game_board(GameState* s);
 
-void move_block(GameState* s, Direction dir);
+Result move_block(GameState* s, Direction dir) __attribute__((warn_unused_result));
 
 void lay_current_block(GameState* s);
 
-Result new_current_block(GameState* s) __attribute__((warn_unused_result));
+Result new_current_block(GameState* s, BlockType type, BlockColor color) __attribute__((warn_unused_result));

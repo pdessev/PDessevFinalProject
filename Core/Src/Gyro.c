@@ -146,6 +146,15 @@ Gyro* gyro_init(){
     return g;
 }
 
+void free_gyro(Gyro** g) {
+    if ((*g)->handle) {
+        free((*g)->handle);
+    }
+
+    free(*g);
+    *g = 0;
+}
+
 uint8_t gyro_get_id(Gyro* g){
     uint16_t id = 0;
     

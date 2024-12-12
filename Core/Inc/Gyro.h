@@ -104,6 +104,8 @@ typedef void Gyro;
 
 Gyro* gyro_init();
 
+void free_gyro(Gyro** g);
+
 uint8_t gyro_get_id(Gyro* g);
 
 void gyro_power(Gyro* g);
