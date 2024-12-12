@@ -196,6 +196,7 @@ Result main_menu_event(AppState* a) {
 Result game_event(AppState* a) {
     static uint32_t prev_time = 0;
     static bool prev_screen_touched = false;
+    __attribute__((unused))
     static uint16_t prev_x = 0;
     static uint16_t prev_y = 0;
     bool update_screen = false;
@@ -223,7 +224,6 @@ Result game_event(AppState* a) {
         }
     } else if (!a->ScreenTouched && prev_screen_touched){
         if (prev_y > ((LCD_PIXEL_WIDTH * 3) / 4)){
-            prev_x;
             set_timer_time(a->GameTick, BLOCK_FALL_RATE_SEC);
         }
     }

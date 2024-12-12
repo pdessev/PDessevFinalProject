@@ -268,7 +268,7 @@ Result new_current_block(GameState* s, BlockType type, BlockColor color) {
         if (x_coord < 0) { // Shift all to the right
             x_error = x_coord;
         } else if (x_coord >= BOARD_WIDTH) { // Shift all to the left
-            x_error = x_coord - BOARD_WIDTH;
+            x_error = x_coord - BOARD_WIDTH + 1;
         }
         s->active_block->center.x -= x_error;
 
@@ -277,16 +277,11 @@ Result new_current_block(GameState* s, BlockType type, BlockColor color) {
         if (y_coord < 0) { // Shift all to the down
             y_error = y_coord;
         } else if (y_coord >= BOARD_HEIGHT) { // Shift all to the up
-            y_error = y_coord - BOARD_HEIGHT;
+            y_error = y_coord - BOARD_HEIGHT + 1;
         }
         s->active_block->center.y -= y_error;
-
-        // Check if any collisions are present. If there are, then don't rotate the block
-        // if (s->board[x_coord - x_error][y_coord - y_error]) {
-        //     destroy_block(&block);
-        //     return result("Unable to rotate block due to collisions");
-        // }
     }
+    set_block_points(s->active_block);
     return result(0);
 }
 
