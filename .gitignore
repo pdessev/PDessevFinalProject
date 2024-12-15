@@ -6,8 +6,8 @@ StarterCodeForLCD/**
 # Eclipse
 .metadata
 .settings
-[Rr]elease
-[Dd]ebug
+/[Rr]elease
+/[Dd]ebug
 .launch
 
 # Prerequisites
