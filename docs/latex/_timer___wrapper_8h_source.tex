@@ -1,0 +1,142 @@
+\doxysection{Timer\+\_\+\+Wrapper.\+h}
+\hypertarget{_timer___wrapper_8h_source}{}\label{_timer___wrapper_8h_source}\index{Core/Inc/Timer\_Wrapper.h@{Core/Inc/Timer\_Wrapper.h}}
+\mbox{\hyperlink{_timer___wrapper_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_interrupt_control_8h}{InterruptControl.h}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}stm32f429xx.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}stm32f4xx\_hal.h"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_CLOCK\_FREQ\ 84000000}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_CONTROL\_ONE\_ENABLE\_OFST\ 0}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \#define\ GP\_TIMER\_CONTROL\_ONE\_ENABLE\_CLEAR\ 0b1}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ TimerTwo,}
+\DoxyCodeLine{00028\ \ \ \ \ TimerThree,}
+\DoxyCodeLine{00029\ \ \ \ \ TimerFour,}
+\DoxyCodeLine{00030\ \ \ \ \ TimerFive,}
+\DoxyCodeLine{00031\ \ \ \ \ GpTimerSize,}
+\DoxyCodeLine{00032\ \}\ \mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ ControlTwo(TIMx\_CR2)\ Bit\ 6:4}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_MASTER\_MODE\_CLEAR\ 0b111}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_MASTER\_MODE\_OFST\ 4}}
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_timer___wrapper_8h_aafb7807b8afb0b8a3e86fbe04af95aaa}{GpTimerMasterModes}}\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ MasterModeReset\ =\ 0b000,}
+\DoxyCodeLine{00042\ \ \ \ \ MasterModeEnable\ =\ 0b001,}
+\DoxyCodeLine{00043\ \ \ \ \ MasterModeUpdate\ =\ 0b010,}
+\DoxyCodeLine{00044\ \ \ \ \ MasterModeComparePulse\ =\ 0b011,}
+\DoxyCodeLine{00045\ \ \ \ \ MasterModeOutCompOne\ =\ 0b100,}
+\DoxyCodeLine{00046\ \ \ \ \ MasterModeOutCompTwo\ =\ 0b101,}
+\DoxyCodeLine{00047\ \ \ \ \ MasterModeOutCompThree\ =\ 0b110,}
+\DoxyCodeLine{00048\ \ \ \ \ MasterModeOutCompFour\ =\ 0b111,}
+\DoxyCodeLine{00049\ \}\ \mbox{\hyperlink{_timer___wrapper_8h_aafb7807b8afb0b8a3e86fbe04af95aaa}{GpTimerMasterModes}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ ControlOne(TIMx\_CR1)\ Bit\ 9:8}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_CLOCK\_DIVISION\_CLEAR\ 0b11}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_CLOCK\_DIVISION\_OFST\ 8}}
+\DoxyCodeLine{00057\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_timer___wrapper_8h_ab9c5e79cdfeaf4d06fa87a33ba9758e8}{GpTimerClockDivision}}\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ ClockDivisionOne\ =\ TIM\_CLOCKDIVISION\_DIV1,}
+\DoxyCodeLine{00059\ \ \ \ \ ClockDivisionTwo\ =\ TIM\_CLOCKDIVISION\_DIV2,}
+\DoxyCodeLine{00060\ \ \ \ \ ClockDivisionFour\ =\ TIM\_CLOCKDIVISION\_DIV4,}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ ClockDivisionReserved\ =\ 0b11,}}
+\DoxyCodeLine{00062\ \}\ \mbox{\hyperlink{_timer___wrapper_8h_ab9c5e79cdfeaf4d06fa87a33ba9758e8}{GpTimerClockDivision}};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ ControlOne(TIMx\_CR1)\ Bits\ 6:5}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_CENTER\_ALIGN\_MODE\_CLEAR\ 0b11}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_CENTER\_ALIGN\_MODE\_OFST\ 5}}
+\DoxyCodeLine{00070\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_timer___wrapper_8h_acf3f13acbd091d2fe9057510c8260151}{GpTimerCenterAlignMode}}\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ EdgeAlign\ =\ 0b00,}
+\DoxyCodeLine{00072\ \ \ \ \ SetFlagsCountingDown\ =\ TIM\_COUNTERMODE\_CENTERALIGNED1,}
+\DoxyCodeLine{00073\ \ \ \ \ SetFlagsCountingUp\ =\ TIM\_COUNTERMODE\_CENTERALIGNED2,}
+\DoxyCodeLine{00074\ \ \ \ \ SetFlagsCountingBoth\ =\ TIM\_COUNTERMODE\_CENTERALIGNED3,}
+\DoxyCodeLine{00075\ \}\ \mbox{\hyperlink{_timer___wrapper_8h_acf3f13acbd091d2fe9057510c8260151}{GpTimerCenterAlignMode}};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ ControlOne(TIMx\_CR1)\ Bit\ 7}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_AUTO\_RELOAD\_BUFFER\_EN\_CLEAR\ 0b1}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_AUTO\_RELOAD\_BUFFER\_EN\_OFST\ 7}}
+\DoxyCodeLine{00083\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_timer___wrapper_8h_a81729ba3079aa38534d359977d13c389}{GpTimerAutoReloadBufferEnable}}\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ DisableAutoReloadBuffer\ =\ TIM\_AUTORELOAD\_PRELOAD\_DISABLE,}
+\DoxyCodeLine{00085\ \ \ \ \ EnableAutoReloadBuffer\ =\ TIM\_AUTORELOAD\_PRELOAD\_ENABLE,}
+\DoxyCodeLine{00086\ \}\ \mbox{\hyperlink{_timer___wrapper_8h_a81729ba3079aa38534d359977d13c389}{GpTimerAutoReloadBufferEnable}};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ ControlOne(TIMx\_CR1)\ Bit\ 4}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_DIRECTION\_CLEAR\ 0b1}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_DIRECTION\_OFST\ 4}}
+\DoxyCodeLine{00094\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_timer___wrapper_8h_a040201f4cea09b959741356e74892b85}{GpTimerDirection}}\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ CountUp\ =\ TIM\_COUNTERMODE\_UP,}
+\DoxyCodeLine{00096\ \ \ \ \ CountDown\ =\ TIM\_COUNTERMODE\_DOWN,}
+\DoxyCodeLine{00097\ \}\ \mbox{\hyperlink{_timer___wrapper_8h_a040201f4cea09b959741356e74892b85}{GpTimerDirection}};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{comment}{//\ DmaInterruptEnable(TIMx\_DIER)\ Bit\ 0}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_GENERATE\_INTERRUPT\_CLEAR\ 0b1}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_GENERATE\_INTERRUPT\_OFST\ 0}}
+\DoxyCodeLine{00105\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6}{GpTimerInterruptUpdateEnable}}\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ DisableInterruptUpdate\ =\ 0b0,}
+\DoxyCodeLine{00107\ \ \ \ \ EnableInterruptUpdate\ =\ 0b1,}
+\DoxyCodeLine{00108\ \}\ \mbox{\hyperlink{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6}{GpTimerInterruptUpdateEnable}};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{comment}{//\ ControlOne(TIMx\_CR1)\ Bit\ 1}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_ENABLE\_UPDATE\_EVENTS\_CLEAR\ 0b1}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_ENABLE\_UPDATE\_EVENTS\_OFST\ 1}}
+\DoxyCodeLine{00116\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_timer___wrapper_8h_aa42387a65469bd34cff9cf9b73cccf7d}{GpTimerEnableUpdateEvents}}\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ EnableUpdateEvents\ =\ 0b0,}
+\DoxyCodeLine{00118\ \ \ \ \ DisableUpdateEvents\ =\ 0b1,}
+\DoxyCodeLine{00119\ \}\ \mbox{\hyperlink{_timer___wrapper_8h_aa42387a65469bd34cff9cf9b73cccf7d}{GpTimerEnableUpdateEvents}};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ ControlOne(TIMx\_CR1)\ Bit\ 3}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_ONE\_PULSE\_CLEAR\ 0b1}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_ONE\_PULSE\_OFST\ 3}}
+\DoxyCodeLine{00127\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_timer___wrapper_8h_a822c15caf95145768dd24b942e29494c}{GpTimerOnePulseMode}}\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ DisableOnePulseMode\ =\ 0b0,}
+\DoxyCodeLine{00129\ \ \ \ \ EnableOnePulseMode\ =\ 0b1,}
+\DoxyCodeLine{00130\ \}\ \mbox{\hyperlink{_timer___wrapper_8h_a822c15caf95145768dd24b942e29494c}{GpTimerOnePulseMode}};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_gp_timer_config}{GpTimerConfig}}\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{struct_gp_timer_config_ae1500c15e8f47f1e83b7d20c3f8d4911}{AutoReload}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{comment}{//\ GpTimerMasterModes\ MasterMode;}}
+\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{_timer___wrapper_8h_ab9c5e79cdfeaf4d06fa87a33ba9758e8}{GpTimerClockDivision}}\ \mbox{\hyperlink{struct_gp_timer_config_a9b0acca4af15f08fc812f7c350ef11d7}{ClockDivision}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00139\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{struct_gp_timer_config_a5b9ec426ab78852febbcb0f2d2c4625f}{Prescaler}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00140\ \ \ \ \ \mbox{\hyperlink{_timer___wrapper_8h_acf3f13acbd091d2fe9057510c8260151}{GpTimerCenterAlignMode}}\ \mbox{\hyperlink{struct_gp_timer_config_a8c63d0e3f70b1fe9e2c2efcb22637ce4}{CenterAlignMode}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00141\ \ \ \ \ \mbox{\hyperlink{_timer___wrapper_8h_a81729ba3079aa38534d359977d13c389}{GpTimerAutoReloadBufferEnable}}\ \mbox{\hyperlink{struct_gp_timer_config_a63359ddd77056854bcfdb048941f5f85}{AutoReloadBuffer}};\ \ \ \ \ }
+\DoxyCodeLine{00142\ \ \ \ \ \mbox{\hyperlink{_timer___wrapper_8h_a040201f4cea09b959741356e74892b85}{GpTimerDirection}}\ \mbox{\hyperlink{struct_gp_timer_config_aec728c5353d83461e2cb32bcc5537e1d}{Direction}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{comment}{//\ GpTimerInterruptUpdateEnable\ GenerateInterrupt;}}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{comment}{//\ GpTimerEnableUpdateEvents\ EnableUpdateEvents;}}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{comment}{//\ GpTimerOnePulseMode\ OnePulseMode;}}
+\DoxyCodeLine{00146\ \}\ \mbox{\hyperlink{_timer___wrapper_8h_a44f22b024fa4cc2a4a1d0d700145a0f4}{GpTimerConfig}};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{comment}{//\ Status(TIMx\_SR)\ Bit\ 0}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_UPDATE\_INTERRUPT\_FLAG\_CLEAR\ 0b1}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ GP\_TIMER\_UPDATE\_INTERRUPT\_FLAG\_OFST\ 0}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00160\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_timer___wrapper_8h_a07807b56ac98422bef3c3935c736cf04}{init\_timer}}(\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ timer,\ \mbox{\hyperlink{struct_gp_timer_config}{GpTimerConfig}}*\ cfg);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00169\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_timer___wrapper_8h_a39bb6f2c137c2a4113c136498d150cc3}{start\_timer}}(\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ timer);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00178\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_timer___wrapper_8h_a8c77fd724f7a348f97a58277fa14b8c9}{stop\_timer}}(\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ timer);}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00187\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_timer___wrapper_8h_a3421a9320ae91ee8139bc6ead56f81f1}{reset\_timer}}(\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ timer);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00196\ uint32\_t\ \mbox{\hyperlink{_timer___wrapper_8h_a4fc142306624ae0063f3aea22fd44f84}{get\_timer\_count}}(\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ timer);}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00206\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_timer___wrapper_8h_a6bebb5fb6f87c6e67ff25ebc2a9090b3}{timer\_start\_from}}(\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ timer,\ uint32\_t\ val);}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00215\ uint32\_t\ \mbox{\hyperlink{_timer___wrapper_8h_ad2d9393ffea3452b2137f29b60153623}{get\_timer\_auto\_reload}}(\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ timer);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00225\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_timer___wrapper_8h_a418b807efe03e8f7fadac959faeb6e2a}{set\_timer\_auto\_reload}}(\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ timer,\ uint32\_t\ val);}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00235\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_timer___wrapper_8h_af3de3319004d2a6d15e34a2fd0951dd7}{set\_timer\_interrupt}}(\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ timer,\ \mbox{\hyperlink{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6}{GpTimerInterruptUpdateEnable}}\ en);}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00246\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_timer___wrapper_8h_adae050e9a683c4a99b4b098d38876032}{clear\_timer\_interrupt\_flag}}(\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ timer);}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00258\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_timer___wrapper_8h_adfec6da51390374f18ba005369fc4652}{set\_timer\_time}}(\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ timer,\ \textcolor{keywordtype}{float}\ seconds);}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00271\ uint16\_t\ \mbox{\hyperlink{_timer___wrapper_8h_a96e7c91101209342eab15d78ce8db25b}{timer\_calculate\_prescalar}}(\textcolor{keywordtype}{float}\ seconds);}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00285\ uint32\_t\ \mbox{\hyperlink{_timer___wrapper_8h_a67aae5ae9b28e910e581fe272436af06}{timer\_calculate\_AutoReload}}(\textcolor{keywordtype}{float}\ seconds,\ uint16\_t\ prescalar);}
+
+\end{DoxyCode}

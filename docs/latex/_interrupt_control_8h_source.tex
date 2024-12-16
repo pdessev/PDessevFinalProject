@@ -1,0 +1,52 @@
+\doxysection{Interrupt\+Control.\+h}
+\hypertarget{_interrupt_control_8h_source}{}\label{_interrupt_control_8h_source}\index{Core/Inc/InterruptControl.h@{Core/Inc/InterruptControl.h}}
+\mbox{\hyperlink{_interrupt_control_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}stm32f429xx.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}stm32f4xx\_hal.h"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c}{ExtiLines}}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ ExtiPin0\ =\ EXTI\_LINE\_0,}
+\DoxyCodeLine{00021\ \ \ \ \ ExtiPin1\ =\ EXTI\_LINE\_1,}
+\DoxyCodeLine{00022\ \ \ \ \ ExtiPin2\ =\ EXTI\_LINE\_2,}
+\DoxyCodeLine{00023\ \ \ \ \ ExtiPin3\ =\ EXTI\_LINE\_3,}
+\DoxyCodeLine{00024\ \ \ \ \ ExtiPin4\ =\ EXTI\_LINE\_4,}
+\DoxyCodeLine{00025\ \ \ \ \ ExtiPin5\ =\ EXTI\_LINE\_5,}
+\DoxyCodeLine{00026\ \ \ \ \ ExtiPin6\ =\ EXTI\_LINE\_6,}
+\DoxyCodeLine{00027\ \ \ \ \ ExtiPin7\ =\ EXTI\_LINE\_7,}
+\DoxyCodeLine{00028\ \ \ \ \ ExtiPin8\ =\ EXTI\_LINE\_8,}
+\DoxyCodeLine{00029\ \ \ \ \ ExtiPin9\ =\ EXTI\_LINE\_9,}
+\DoxyCodeLine{00030\ \ \ \ \ ExtiPin10\ =\ EXTI\_LINE\_10,}
+\DoxyCodeLine{00031\ \ \ \ \ ExtiPin11\ =\ EXTI\_LINE\_11,}
+\DoxyCodeLine{00032\ \ \ \ \ ExtiPin12\ =\ EXTI\_LINE\_12,}
+\DoxyCodeLine{00033\ \ \ \ \ ExtiPin13\ =\ EXTI\_LINE\_13,}
+\DoxyCodeLine{00034\ \ \ \ \ ExtiPin14\ =\ EXTI\_LINE\_14,}
+\DoxyCodeLine{00035\ \ \ \ \ ExtiPin15\ =\ EXTI\_LINE\_15,}
+\DoxyCodeLine{00036\ \ \ \ \ ExtiPvd\ =\ EXTI\_LINE\_16,}
+\DoxyCodeLine{00037\ \ \ \ \ ExtiRtc\ =\ EXTI\_LINE\_17,}
+\DoxyCodeLine{00038\ \ \ \ \ ExtiUsbOtgFsWake\ =\ EXTI\_LINE\_18,}
+\DoxyCodeLine{00039\ \ \ \ \ ExtiEthWake\ =\ EXTI\_LINE\_19,}
+\DoxyCodeLine{00040\ \ \ \ \ ExtiUsbOtgHsWake\ =\ EXTI\_LINE\_20,}
+\DoxyCodeLine{00041\ \ \ \ \ ExtiRtcTmprTs\ =\ EXTI\_LINE\_21,}
+\DoxyCodeLine{00042\ \ \ \ \ ExtiRtcWake\ =\ EXTI\_LINE\_22,}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#ifdef\ EXTI\_IMR\_IM23}}
+\DoxyCodeLine{00045\ \ \ \ \ ExtiPin23\ =\ EXTI\_LINE\_23,}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ \}\ \mbox{\hyperlink{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c}{ExtiLines}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{typedef}\ IRQn\_Type\ \mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_interrupt_control_8h_a43ba065c80111368874d4ed026977aab}{enable\_IRQ}}(\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}}\ irq);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_interrupt_control_8h_a00070518af261cca8e394f06070203d6}{disable\_IRQ}}(\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}}\ irq);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_interrupt_control_8h_a78f1bfd5e1dfb113a5ff45ede4e1502b}{clear\_pending\_IRQ}}(\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}}\ irq);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_interrupt_control_8h_a5ef958738d206971b85b889b8b6a5930}{set\_pending\_IRQ}}(\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}}\ irq);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_interrupt_control_8h_aa3ca49be5ef2777fccff5bab7ad33b73}{clear\_pending\_exti\_interrupt}}(\mbox{\hyperlink{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c}{ExtiLines}}\ line);}
+
+\end{DoxyCode}

@@ -1,0 +1,172 @@
+\doxysection{Core/\+Inc/\+Interrupt\+Control.h File Reference}
+\hypertarget{_interrupt_control_8h}{}\label{_interrupt_control_8h}\index{Core/Inc/InterruptControl.h@{Core/Inc/InterruptControl.h}}
+
+
+Header for {\ttfamily Interrupt\+Control.\+c} ~\newline
+ This file contains functions and structure definitions for controlling NVIC and EXTI interrupts. ~\newline
+ Created on\+: Oct 1, 2024 ~\newline
+ Author\+: peter.  
+
+
+{\ttfamily \#include "{}stm32f429xx.\+h"{}}\newline
+{\ttfamily \#include "{}stm32f4xx\+\_\+hal.\+h"{}}\newline
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \mbox{\hyperlink{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c}{Exti\+Lines}} \mbox{\hyperlink{_interrupt_control_8h_a2d10a2188ae9d65db692801fac64ded2}{Exti\+Lines}}
+\item 
+typedef IRQn\+\_\+\+Type \mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c}{Exti\+Lines}} \{ \newline
+{\bfseries Exti\+Pin0} = EXTI\+\_\+\+LINE\+\_\+0
+, {\bfseries Exti\+Pin1} = EXTI\+\_\+\+LINE\+\_\+1
+, {\bfseries Exti\+Pin2} = EXTI\+\_\+\+LINE\+\_\+2
+, {\bfseries Exti\+Pin3} = EXTI\+\_\+\+LINE\+\_\+3
+, \newline
+{\bfseries Exti\+Pin4} = EXTI\+\_\+\+LINE\+\_\+4
+, {\bfseries Exti\+Pin5} = EXTI\+\_\+\+LINE\+\_\+5
+, {\bfseries Exti\+Pin6} = EXTI\+\_\+\+LINE\+\_\+6
+, {\bfseries Exti\+Pin7} = EXTI\+\_\+\+LINE\+\_\+7
+, \newline
+{\bfseries Exti\+Pin8} = EXTI\+\_\+\+LINE\+\_\+8
+, {\bfseries Exti\+Pin9} = EXTI\+\_\+\+LINE\+\_\+9
+, {\bfseries Exti\+Pin10} = EXTI\+\_\+\+LINE\+\_\+10
+, {\bfseries Exti\+Pin11} = EXTI\+\_\+\+LINE\+\_\+11
+, \newline
+{\bfseries Exti\+Pin12} = EXTI\+\_\+\+LINE\+\_\+12
+, {\bfseries Exti\+Pin13} = EXTI\+\_\+\+LINE\+\_\+13
+, {\bfseries Exti\+Pin14} = EXTI\+\_\+\+LINE\+\_\+14
+, {\bfseries Exti\+Pin15} = EXTI\+\_\+\+LINE\+\_\+15
+, \newline
+{\bfseries Exti\+Pvd} = EXTI\+\_\+\+LINE\+\_\+16
+, {\bfseries Exti\+Rtc} = EXTI\+\_\+\+LINE\+\_\+17
+, {\bfseries Exti\+Usb\+Otg\+Fs\+Wake} = EXTI\+\_\+\+LINE\+\_\+18
+, {\bfseries Exti\+Eth\+Wake} = EXTI\+\_\+\+LINE\+\_\+19
+, \newline
+{\bfseries Exti\+Usb\+Otg\+Hs\+Wake} = EXTI\+\_\+\+LINE\+\_\+20
+, {\bfseries Exti\+Rtc\+Tmpr\+Ts} = EXTI\+\_\+\+LINE\+\_\+21
+, {\bfseries Exti\+Rtc\+Wake} = EXTI\+\_\+\+LINE\+\_\+22
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_interrupt_control_8h_a43ba065c80111368874d4ed026977aab}{enable\+\_\+\+IRQ}} (\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}} irq)
+\item 
+void \mbox{\hyperlink{_interrupt_control_8h_a00070518af261cca8e394f06070203d6}{disable\+\_\+\+IRQ}} (\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}} irq)
+\item 
+void \mbox{\hyperlink{_interrupt_control_8h_a78f1bfd5e1dfb113a5ff45ede4e1502b}{clear\+\_\+pending\+\_\+\+IRQ}} (\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}} irq)
+\item 
+void \mbox{\hyperlink{_interrupt_control_8h_a5ef958738d206971b85b889b8b6a5930}{set\+\_\+pending\+\_\+\+IRQ}} (\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}} irq)
+\item 
+void \mbox{\hyperlink{_interrupt_control_8h_aa3ca49be5ef2777fccff5bab7ad33b73}{clear\+\_\+pending\+\_\+exti\+\_\+interrupt}} (\mbox{\hyperlink{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c}{Exti\+Lines}} line)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header for {\ttfamily Interrupt\+Control.\+c} ~\newline
+ This file contains functions and structure definitions for controlling NVIC and EXTI interrupts. ~\newline
+ Created on\+: Oct 1, 2024 ~\newline
+ Author\+: peter. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_interrupt_control_8h_a2d10a2188ae9d65db692801fac64ded2}\index{InterruptControl.h@{InterruptControl.h}!ExtiLines@{ExtiLines}}
+\index{ExtiLines@{ExtiLines}!InterruptControl.h@{InterruptControl.h}}
+\doxysubsubsection{\texorpdfstring{ExtiLines}{ExtiLines}}
+{\footnotesize\ttfamily \label{_interrupt_control_8h_a2d10a2188ae9d65db692801fac64ded2} 
+typedef enum \mbox{\hyperlink{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c}{Exti\+Lines}} \mbox{\hyperlink{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c}{Exti\+Lines}}}
+
+Defines the pin numbers for EXTI interrupt lines. \Hypertarget{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}\index{InterruptControl.h@{InterruptControl.h}!Irq@{Irq}}
+\index{Irq@{Irq}!InterruptControl.h@{InterruptControl.h}}
+\doxysubsubsection{\texorpdfstring{Irq}{Irq}}
+{\footnotesize\ttfamily \label{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8} 
+typedef IRQn\+\_\+\+Type \mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}}}
+
+Redefines the existing IRQ datatype for nicer typenames 
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c}\index{InterruptControl.h@{InterruptControl.h}!ExtiLines@{ExtiLines}}
+\index{ExtiLines@{ExtiLines}!InterruptControl.h@{InterruptControl.h}}
+\doxysubsubsection{\texorpdfstring{ExtiLines}{ExtiLines}}
+{\footnotesize\ttfamily \label{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c} 
+enum \mbox{\hyperlink{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c}{Exti\+Lines}}}
+
+Defines the pin numbers for EXTI interrupt lines. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_interrupt_control_8h_aa3ca49be5ef2777fccff5bab7ad33b73}\index{InterruptControl.h@{InterruptControl.h}!clear\_pending\_exti\_interrupt@{clear\_pending\_exti\_interrupt}}
+\index{clear\_pending\_exti\_interrupt@{clear\_pending\_exti\_interrupt}!InterruptControl.h@{InterruptControl.h}}
+\doxysubsubsection{\texorpdfstring{clear\_pending\_exti\_interrupt()}{clear\_pending\_exti\_interrupt()}}
+{\footnotesize\ttfamily \label{_interrupt_control_8h_aa3ca49be5ef2777fccff5bab7ad33b73} 
+void clear\+\_\+pending\+\_\+exti\+\_\+interrupt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_interrupt_control_8h_ad85c152c0eaa10af85b7ce6e1b837d6c}{Exti\+Lines}}}]{line}{}\end{DoxyParamCaption})}
+
+Clears the EXIT interrupt {\ttfamily line}\textquotesingle{}s pending interrupt flag. \hypertarget{_interrupt_control_8h_autotoc_md47}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_interrupt_control_8h_autotoc_md47}
+
+\begin{DoxyItemize}
+\item {\ttfamily Exti\+Lines line}\+: The EXTI line to be cleared. 
+\end{DoxyItemize}\hypertarget{_interrupt_control_8h_autotoc_md48}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_interrupt_control_8h_autotoc_md48}
+
+\begin{DoxyItemize}
+\item `void' 
+\end{DoxyItemize}\Hypertarget{_interrupt_control_8h_a78f1bfd5e1dfb113a5ff45ede4e1502b}\index{InterruptControl.h@{InterruptControl.h}!clear\_pending\_IRQ@{clear\_pending\_IRQ}}
+\index{clear\_pending\_IRQ@{clear\_pending\_IRQ}!InterruptControl.h@{InterruptControl.h}}
+\doxysubsubsection{\texorpdfstring{clear\_pending\_IRQ()}{clear\_pending\_IRQ()}}
+{\footnotesize\ttfamily \label{_interrupt_control_8h_a78f1bfd5e1dfb113a5ff45ede4e1502b} 
+void clear\+\_\+pending\+\_\+\+IRQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}}}]{irq}{}\end{DoxyParamCaption})}
+
+Clears the IRQ {\ttfamily irq}\textquotesingle{}s pending interrupt flag. \hypertarget{_interrupt_control_8h_autotoc_md43}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_interrupt_control_8h_autotoc_md43}
+
+\begin{DoxyItemize}
+\item {\ttfamily IRQ irq}\+: The IRQ line to be cleared. 
+\end{DoxyItemize}\hypertarget{_interrupt_control_8h_autotoc_md44}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_interrupt_control_8h_autotoc_md44}
+
+\begin{DoxyItemize}
+\item `void' 
+\end{DoxyItemize}\Hypertarget{_interrupt_control_8h_a00070518af261cca8e394f06070203d6}\index{InterruptControl.h@{InterruptControl.h}!disable\_IRQ@{disable\_IRQ}}
+\index{disable\_IRQ@{disable\_IRQ}!InterruptControl.h@{InterruptControl.h}}
+\doxysubsubsection{\texorpdfstring{disable\_IRQ()}{disable\_IRQ()}}
+{\footnotesize\ttfamily \label{_interrupt_control_8h_a00070518af261cca8e394f06070203d6} 
+void disable\+\_\+\+IRQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}}}]{irq}{}\end{DoxyParamCaption})}
+
+Disables the IRQ line {\ttfamily irq}. \hypertarget{_interrupt_control_8h_autotoc_md41}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_interrupt_control_8h_autotoc_md41}
+
+\begin{DoxyItemize}
+\item {\ttfamily IRQ irq}\+: The IRQ line to be disabled. 
+\end{DoxyItemize}\hypertarget{_interrupt_control_8h_autotoc_md42}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_interrupt_control_8h_autotoc_md42}
+
+\begin{DoxyItemize}
+\item `void' 
+\end{DoxyItemize}\Hypertarget{_interrupt_control_8h_a43ba065c80111368874d4ed026977aab}\index{InterruptControl.h@{InterruptControl.h}!enable\_IRQ@{enable\_IRQ}}
+\index{enable\_IRQ@{enable\_IRQ}!InterruptControl.h@{InterruptControl.h}}
+\doxysubsubsection{\texorpdfstring{enable\_IRQ()}{enable\_IRQ()}}
+{\footnotesize\ttfamily \label{_interrupt_control_8h_a43ba065c80111368874d4ed026977aab} 
+void enable\+\_\+\+IRQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}}}]{irq}{}\end{DoxyParamCaption})}
+
+Enables the IRQ line {\ttfamily irq}. \hypertarget{_interrupt_control_8h_autotoc_md39}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_interrupt_control_8h_autotoc_md39}
+
+\begin{DoxyItemize}
+\item {\ttfamily IRQ irq}\+: The IRQ line to be enabled. 
+\end{DoxyItemize}\hypertarget{_interrupt_control_8h_autotoc_md40}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_interrupt_control_8h_autotoc_md40}
+
+\begin{DoxyItemize}
+\item `void' 
+\end{DoxyItemize}\Hypertarget{_interrupt_control_8h_a5ef958738d206971b85b889b8b6a5930}\index{InterruptControl.h@{InterruptControl.h}!set\_pending\_IRQ@{set\_pending\_IRQ}}
+\index{set\_pending\_IRQ@{set\_pending\_IRQ}!InterruptControl.h@{InterruptControl.h}}
+\doxysubsubsection{\texorpdfstring{set\_pending\_IRQ()}{set\_pending\_IRQ()}}
+{\footnotesize\ttfamily \label{_interrupt_control_8h_a5ef958738d206971b85b889b8b6a5930} 
+void set\+\_\+pending\+\_\+\+IRQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_interrupt_control_8h_abab1805841e823ed22db5250fe6efba8}{Irq}}}]{irq}{}\end{DoxyParamCaption})}
+
+Sets the IRQ {\ttfamily irq}\textquotesingle{}s pending interrupt flag. \hypertarget{_interrupt_control_8h_autotoc_md45}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_interrupt_control_8h_autotoc_md45}
+
+\begin{DoxyItemize}
+\item {\ttfamily IRQ irq}\+: The IRQ line to be set. 
+\end{DoxyItemize}\hypertarget{_interrupt_control_8h_autotoc_md46}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_interrupt_control_8h_autotoc_md46}
+
+\begin{DoxyItemize}
+\item `void' 
+\end{DoxyItemize}

@@ -1,0 +1,133 @@
+\doxysection{Core/\+Inc/\+Button\+\_\+\+Driver.h File Reference}
+\hypertarget{_button___driver_8h}{}\label{_button___driver_8h}\index{Core/Inc/Button\_Driver.h@{Core/Inc/Button\_Driver.h}}
+
+
+Header for {\ttfamily Button\+\_\+\+Driver.\+c} ~\newline
+ This file contains functions and structure definitions for the button interface. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter.  
+
+
+{\ttfamily \#include "{}stm32f4xx\+\_\+hal.\+h"{}}\newline
+{\ttfamily \#include "{}stm32f4xx\+\_\+hal\+\_\+conf.\+h"{}}\newline
+{\ttfamily \#include "{}GPIO\+\_\+\+Wrapper.\+h"{}}\newline
+{\ttfamily \#include "{}Interrupt\+Control.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_button___driver_8h_a122d98da2c5c2666cb014b44cf513c4f}\label{_button___driver_8h_a122d98da2c5c2666cb014b44cf513c4f} 
+\#define {\bfseries USER\+\_\+\+BUTTON\+\_\+\+PORT}~Gpio\+PortA
+\item 
+\Hypertarget{_button___driver_8h_a34df6915e3013d6a0c74131d3946b659}\label{_button___driver_8h_a34df6915e3013d6a0c74131d3946b659} 
+\#define {\bfseries USER\+\_\+\+BUTTON\+\_\+\+PIN}~Gpio\+Pin0
+\item 
+\Hypertarget{_button___driver_8h_ae55d462ae6c3998bec8c94f3c0e96374}\label{_button___driver_8h_ae55d462ae6c3998bec8c94f3c0e96374} 
+\#define {\bfseries BUTTON\+\_\+\+UN\+\_\+\+PRESSED}~Unpressed
+\item 
+\Hypertarget{_button___driver_8h_a666f4a9872b7185170dd9318ceff91c6}\label{_button___driver_8h_a666f4a9872b7185170dd9318ceff91c6} 
+\#define {\bfseries BUTTON\+\_\+\+PRESSED}~Pressed
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_button___driver_8h_a57c45574d9d6643e2e0c5b6f419ce5f4}\label{_button___driver_8h_a57c45574d9d6643e2e0c5b6f419ce5f4} 
+typedef enum Button\+State {\bfseries Button\+State}
+\item 
+typedef enum \mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}} \mbox{\hyperlink{_button___driver_8h_a2fd6b844c2428b3073872448e86ab66a}{Buttons}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_button___driver_8h_aa46074d34fe2d6631c6bd9dc74633657}\label{_button___driver_8h_aa46074d34fe2d6631c6bd9dc74633657} 
+enum {\bfseries Button\+State} \{ {\bfseries Unpressed} = 0
+, {\bfseries Pressed} = 1
+ \}
+\item 
+enum \mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}} \{ {\bfseries User\+Button}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_button___driver_8h_a4e44ba72acb528081dfe53bf7d9c8a19}{init\+\_\+button}} (\mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}} button)
+\item 
+void \mbox{\hyperlink{_button___driver_8h_a9a68470213926b3b2d95f9de13a64c6d}{init\+\_\+interrupt\+\_\+button}} (\mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}} button)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{_button___driver_8h_a68dc539656aa21415f9f94f3c1c217d9}{button\+\_\+is\+\_\+pressed}} (\mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}} button)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header for {\ttfamily Button\+\_\+\+Driver.\+c} ~\newline
+ This file contains functions and structure definitions for the button interface. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_button___driver_8h_a2fd6b844c2428b3073872448e86ab66a}\index{Button\_Driver.h@{Button\_Driver.h}!Buttons@{Buttons}}
+\index{Buttons@{Buttons}!Button\_Driver.h@{Button\_Driver.h}}
+\doxysubsubsection{\texorpdfstring{Buttons}{Buttons}}
+{\footnotesize\ttfamily \label{_button___driver_8h_a2fd6b844c2428b3073872448e86ab66a} 
+typedef enum \mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}} \mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}}}
+
+The available buttons to be used by the user \hypertarget{_button___driver_8h_autotoc_md6}{}\doxysubsection{\texorpdfstring{Buttons}{Buttons}}\label{_button___driver_8h_autotoc_md6}
+
+\begin{DoxyItemize}
+\item {\ttfamily User\+Button}\+: The button which is not the reset button. 
+\end{DoxyItemize}
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}\index{Button\_Driver.h@{Button\_Driver.h}!Buttons@{Buttons}}
+\index{Buttons@{Buttons}!Button\_Driver.h@{Button\_Driver.h}}
+\doxysubsubsection{\texorpdfstring{Buttons}{Buttons}}
+{\footnotesize\ttfamily \label{_button___driver_8h_a2200c9a3564da59c1160338587ecb034} 
+enum \mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}}}
+
+The available buttons to be used by the user \hypertarget{_button___driver_8h_autotoc_md6}{}\doxysubsection{\texorpdfstring{Buttons}{Buttons}}\label{_button___driver_8h_autotoc_md6}
+
+\begin{DoxyItemize}
+\item {\ttfamily User\+Button}\+: The button which is not the reset button. 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_button___driver_8h_a68dc539656aa21415f9f94f3c1c217d9}\index{Button\_Driver.h@{Button\_Driver.h}!button\_is\_pressed@{button\_is\_pressed}}
+\index{button\_is\_pressed@{button\_is\_pressed}!Button\_Driver.h@{Button\_Driver.h}}
+\doxysubsubsection{\texorpdfstring{button\_is\_pressed()}{button\_is\_pressed()}}
+{\footnotesize\ttfamily \label{_button___driver_8h_a68dc539656aa21415f9f94f3c1c217d9} 
+uint8\+\_\+t button\+\_\+is\+\_\+pressed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}}}]{button}{}\end{DoxyParamCaption})}
+
+Returns the state of the current button. \hypertarget{_button___driver_8h_autotoc_md12}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_button___driver_8h_autotoc_md12}
+
+\begin{DoxyItemize}
+\item {\ttfamily Button button}\+: Button to get state 
+\end{DoxyItemize}\hypertarget{_button___driver_8h_autotoc_md13}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_button___driver_8h_autotoc_md13}
+
+\begin{DoxyItemize}
+\item {\ttfamily 0} if button is not pressed
+\item {\ttfamily 1} if button is pressed 
+\end{DoxyItemize}\Hypertarget{_button___driver_8h_a4e44ba72acb528081dfe53bf7d9c8a19}\index{Button\_Driver.h@{Button\_Driver.h}!init\_button@{init\_button}}
+\index{init\_button@{init\_button}!Button\_Driver.h@{Button\_Driver.h}}
+\doxysubsubsection{\texorpdfstring{init\_button()}{init\_button()}}
+{\footnotesize\ttfamily \label{_button___driver_8h_a4e44ba72acb528081dfe53bf7d9c8a19} 
+void init\+\_\+button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}}}]{button}{}\end{DoxyParamCaption})}
+
+Initializes the selected button for use with polling. \hypertarget{_button___driver_8h_autotoc_md7}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_button___driver_8h_autotoc_md7}
+
+\begin{DoxyItemize}
+\item {\ttfamily Button button}\+: Button to be initialized 
+\end{DoxyItemize}\hypertarget{_button___driver_8h_autotoc_md8}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_button___driver_8h_autotoc_md8}
+Void \Hypertarget{_button___driver_8h_a9a68470213926b3b2d95f9de13a64c6d}\index{Button\_Driver.h@{Button\_Driver.h}!init\_interrupt\_button@{init\_interrupt\_button}}
+\index{init\_interrupt\_button@{init\_interrupt\_button}!Button\_Driver.h@{Button\_Driver.h}}
+\doxysubsubsection{\texorpdfstring{init\_interrupt\_button()}{init\_interrupt\_button()}}
+{\footnotesize\ttfamily \label{_button___driver_8h_a9a68470213926b3b2d95f9de13a64c6d} 
+void init\+\_\+interrupt\+\_\+button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}}}]{button}{}\end{DoxyParamCaption})}
+
+Initializes the selected button for use with interrupts when pressed. \hypertarget{_button___driver_8h_autotoc_md9}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_button___driver_8h_autotoc_md9}
+
+\begin{DoxyItemize}
+\item {\ttfamily Button button}\+: Button to be initialized 
+\end{DoxyItemize}\hypertarget{_button___driver_8h_autotoc_md10}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_button___driver_8h_autotoc_md10}
+Void \hypertarget{_button___driver_8h_autotoc_md11}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{_button___driver_8h_autotoc_md11}
+The requisite {\ttfamily IRQ} must be created seperatly. 

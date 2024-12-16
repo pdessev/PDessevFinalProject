@@ -1,0 +1,99 @@
+\doxysection{GPIO\+\_\+\+Wrapper.\+h}
+\hypertarget{_g_p_i_o___wrapper_8h_source}{}\label{_g_p_i_o___wrapper_8h_source}\index{Core/Inc/GPIO\_Wrapper.h@{Core/Inc/GPIO\_Wrapper.h}}
+\mbox{\hyperlink{_g_p_i_o___wrapper_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_interrupt_control_8h}{InterruptControl.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}stm32f429xx.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}stm32f4xx\_hal.h"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{GpioPorts}}\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ GpioPortA,}
+\DoxyCodeLine{00022\ \ \ \ \ GpioPortB,}
+\DoxyCodeLine{00023\ \ \ \ \ GpioPortC,}
+\DoxyCodeLine{00024\ \ \ \ \ GpioPortD,}
+\DoxyCodeLine{00025\ \ \ \ \ GpioPortE,}
+\DoxyCodeLine{00026\ \ \ \ \ GpioPortF,}
+\DoxyCodeLine{00027\ \ \ \ \ GpioPortG,}
+\DoxyCodeLine{00028\ \ \ \ \ GpioPortH,}
+\DoxyCodeLine{00029\ \ \ \ \ GpioPortI,}
+\DoxyCodeLine{00030\ \ \ \ \ GpioPortJ,}
+\DoxyCodeLine{00031\ \ \ \ \ GpioPortK,}
+\DoxyCodeLine{00032\ \}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{GpioPorts}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pinNumbers}}\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ GpioPin0\ =\ GPIO\_PIN\_0,}
+\DoxyCodeLine{00039\ \ \ \ \ GpioPin1\ =\ GPIO\_PIN\_1,}
+\DoxyCodeLine{00040\ \ \ \ \ GpioPin2\ =\ GPIO\_PIN\_2,}
+\DoxyCodeLine{00041\ \ \ \ \ GpioPin3\ =\ GPIO\_PIN\_3,}
+\DoxyCodeLine{00042\ \ \ \ \ GpioPin4\ =\ GPIO\_PIN\_4,}
+\DoxyCodeLine{00043\ \ \ \ \ GpioPin5\ =\ GPIO\_PIN\_5,}
+\DoxyCodeLine{00044\ \ \ \ \ GpioPin6\ =\ GPIO\_PIN\_6,}
+\DoxyCodeLine{00045\ \ \ \ \ GpioPin7\ =\ GPIO\_PIN\_7,}
+\DoxyCodeLine{00046\ \ \ \ \ GpioPin8\ =\ GPIO\_PIN\_8,}
+\DoxyCodeLine{00047\ \ \ \ \ GpioPin9\ =\ GPIO\_PIN\_9,}
+\DoxyCodeLine{00048\ \ \ \ \ GpioPin10\ =\ GPIO\_PIN\_10,}
+\DoxyCodeLine{00049\ \ \ \ \ GpioPin11\ =\ GPIO\_PIN\_11,}
+\DoxyCodeLine{00050\ \ \ \ \ GpioPin12\ =\ GPIO\_PIN\_12,}
+\DoxyCodeLine{00051\ \ \ \ \ GpioPin13\ =\ GPIO\_PIN\_13,}
+\DoxyCodeLine{00052\ \ \ \ \ GpioPin14\ =\ GPIO\_PIN\_14,}
+\DoxyCodeLine{00053\ \ \ \ \ GpioPin15\ =\ GPIO\_PIN\_15,}
+\DoxyCodeLine{00054\ \ \ \ \ GpioPinAll\ =\ GPIO\_PIN\_All,}
+\DoxyCodeLine{00055\ \}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pinNumbers}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ad8184dcca14e0b62b8dcb68f0fee981c}{pinMode}}\ \{\ }
+\DoxyCodeLine{00061\ \ \ \ \ GpioPinModeInput\ =\ MODE\_INPUT,}
+\DoxyCodeLine{00062\ \ \ \ \ GpioPinModeGpOut\ =\ MODE\_OUTPUT,}
+\DoxyCodeLine{00063\ \ \ \ \ GpioPinModeAltFunc\ =\ MODE\_AF,}
+\DoxyCodeLine{00064\ \ \ \ \ GpioPinModeAnalog\ =\ MODE\_ANALOG,}
+\DoxyCodeLine{00065\ \}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ad8184dcca14e0b62b8dcb68f0fee981c}{pinMode}};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_adc72d03b0853feb6cb18a149e7937be9}{outputType}}\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ GpioPushPull\ =\ OUTPUT\_PP,}
+\DoxyCodeLine{00072\ \ \ \ \ GpioOpenDrain\ =\ OUTPUT\_OD,}
+\DoxyCodeLine{00073\ \}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_adc72d03b0853feb6cb18a149e7937be9}{outputType}};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aee0e68a15109deffa03285c1d9af12d4}{outputSpeed}}\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ GpioSpeedLow\ =\ GPIO\_SPEED\_FREQ\_LOW,}
+\DoxyCodeLine{00080\ \ \ \ \ GpioSpeedMedium\ =\ GPIO\_SPEED\_FREQ\_MEDIUM,}
+\DoxyCodeLine{00081\ \ \ \ \ GpioSpeedHigh\ =\ GPIO\_SPEED\_FREQ\_HIGH,}
+\DoxyCodeLine{00082\ \ \ \ \ GpioSpeedVeryHigh\ =\ GPIO\_SPEED\_FREQ\_VERY\_HIGH,}
+\DoxyCodeLine{00083\ \}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aee0e68a15109deffa03285c1d9af12d4}{outputSpeed}};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a8d577eef3a39e04452d48e4bf58a24d6}{pullUpPullDown}}\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ GpioFloat\ =\ GPIO\_NOPULL,}
+\DoxyCodeLine{00090\ \ \ \ \ GpioPullUp\ =\ GPIO\_PULLUP,}
+\DoxyCodeLine{00091\ \ \ \ \ GpioPullDown\ =\ GPIO\_PULLDOWN,}
+\DoxyCodeLine{00092\ \}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a8d577eef3a39e04452d48e4bf58a24d6}{pullUpPullDown}};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aa004d28b3cc128fb30f577f93d370794}{InterruptMode}}\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ InterruptModeNone\ =\ EXTI\_IT,}
+\DoxyCodeLine{00099\ \ \ \ \ InterruptModeFalling\ =\ EXTI\_IT\ |\ TRIGGER\_FALLING,}
+\DoxyCodeLine{00100\ \ \ \ \ InterruptModeRising\ =\ EXTI\_IT\ |\ TRIGGER\_RISING,}
+\DoxyCodeLine{00101\ \ \ \ \ InterruptModeBoth\ =\ EXTI\_IT\ |\ TRIGGER\_FALLING\ |\ TRIGGER\_RISING,}
+\DoxyCodeLine{00102\ \}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aa004d28b3cc128fb30f577f93d370794}{InterruptMode}};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#pragma\ pack(4)}}
+\DoxyCodeLine{00108\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_gpio_pin_config}{GpioPinConfig}}\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pinNumbers}}\ \mbox{\hyperlink{struct_gpio_pin_config_afead01b8866b35fcfe5b6606f9df0c99}{PinNumber}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ad8184dcca14e0b62b8dcb68f0fee981c}{pinMode}}\ \mbox{\hyperlink{struct_gpio_pin_config_a1243967f6bdc76fce160d14b01416c6c}{PinMode}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00111\ \ \ \ \ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a8d577eef3a39e04452d48e4bf58a24d6}{pullUpPullDown}}\ \mbox{\hyperlink{struct_gpio_pin_config_ac01fc2051bf1612bae7c942a80436c1e}{PinPuPdControl}};\ \ }
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aee0e68a15109deffa03285c1d9af12d4}{outputSpeed}}\ \mbox{\hyperlink{struct_gpio_pin_config_a4fd054685ecee51e2425485817af1e7a}{PinSpeed}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{struct_gpio_pin_config_af1a2fd1a68d06f0ef6c7b60f790cd6c1}{PinAltFunMode}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00114\ \ \ \ \ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_adc72d03b0853feb6cb18a149e7937be9}{outputType}}\ \mbox{\hyperlink{struct_gpio_pin_config_aa668402e0260d729cc40e171cc74a565}{OutputType}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aa004d28b3cc128fb30f577f93d370794}{InterruptMode}}\ \mbox{\hyperlink{struct_gpio_pin_config_ab05292f994a34b6fd2ac20b0020a5945}{IntrMode}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00116\ \}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_abd21ff3409dc74c843e905e48816bcad}{GpioPinConfig}};}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#pragma\ pack()}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ad85c81da32fd56a83ab54bf17c9e6f56}{GPIO\_init\_gpio}}(\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{GpioPorts}}\ port,\ \mbox{\hyperlink{struct_gpio_pin_config}{GpioPinConfig}}*\ config);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00138\ uint8\_t\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a8bc45934e558934d5d252943aafc24ca}{GPIO\_read\_gpio\_pin}}(\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{GpioPorts}}\ port,\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pinNumbers}}\ pin);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00151\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_acc6181d80aeb999f1406de2ecf7c4945}{GPIO\_write\_gpio\_pin}}(\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{GpioPorts}}\ port,\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pinNumbers}}\ pin,\ uint8\_t\ set);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a5cd439d9b6ebf289961d770ffecd527b}{GPIO\_toggle\_gpio\_pin}}(\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{GpioPorts}}\ port,\ \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pinNumbers}}\ pin);}
+
+\end{DoxyCode}

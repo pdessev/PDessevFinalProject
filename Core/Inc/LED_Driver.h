@@ -1,9 +1,12 @@
-/*
- * LED_Driver.h
- *
- *  Created on: Sep 24, 2024
- *      Author: peter
+/**
+ * @file            LED_Driver.h
+ * @brief           Header for `LED_Driver.c` \n
+ *                  Unused
+ * \n Created on: Sep 24, 2024
+ * \n Author: peter
+ * 
  */
+
 
 #pragma once
 #include "GPIO_Wrapper.h"

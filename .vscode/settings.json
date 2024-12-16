@@ -26,6 +26,16 @@
         "stm32f4xx_hal_rng.h": "c",
         "stdio.h": "c",
         "button_driver.h": "c",
-        "format": "cpp"
+        "format": "cpp",
+        "gpio_wrapper.h": "c",
+        "charconv": "c",
+        "optional": "c",
+        "ratio": "c",
+        "system_error": "c",
+        "array": "c",
+        "functional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c"
     }
 }

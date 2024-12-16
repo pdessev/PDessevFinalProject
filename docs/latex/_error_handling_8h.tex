@@ -1,0 +1,197 @@
+\doxysection{Core/\+Inc/\+Error\+Handling.h File Reference}
+\hypertarget{_error_handling_8h}{}\label{_error_handling_8h}\index{Core/Inc/ErrorHandling.h@{Core/Inc/ErrorHandling.h}}
+
+
+Header for {\ttfamily Error\+Handling.\+c} ~\newline
+ This file contains functions and structure definitions for the error handling interface. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter.  
+
+
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_____result}{\+\_\+\+\_\+\+Result}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_error_handling_8h_a37ce597f4b0718554bfbdf09ab8cdb69}\label{_error_handling_8h_a37ce597f4b0718554bfbdf09ab8cdb69} 
+\#define {\bfseries MAX\+\_\+\+ERROR\+\_\+\+LENGTH}~500
+\item 
+\#define \mbox{\hyperlink{_error_handling_8h_aa8cc25d6574086c6905c96741de11575}{RETURN\+\_\+\+OR\+\_\+\+IGNORE}}(\+\_\+\+\_\+error)
+\item 
+\#define \mbox{\hyperlink{_error_handling_8h_a6bda71ab1f8c59c0f52d7df4204aba58}{RETURN\+\_\+\+OR\+\_\+\+IGNORE\+\_\+\+CLOSURE}}(\+\_\+\+\_\+error,  \+\_\+\+\_\+closure\+\_\+\+\_\+)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \+\_\+\+\_\+\+Result \mbox{\hyperlink{_error_handling_8h_aaefb56aa220c1b5a1c148ec03c1dd13a}{\+\_\+\+\_\+\+Result}}
+\item 
+\Hypertarget{_error_handling_8h_af13999ce263ecff6eff56ea65bb55700}\label{_error_handling_8h_af13999ce263ecff6eff56ea65bb55700} 
+typedef \mbox{\hyperlink{struct_____result}{\+\_\+\+\_\+\+Result}} \texorpdfstring{$\ast$}{*} {\bfseries Result}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_____result}{Result}} \mbox{\hyperlink{_error_handling_8h_a893f271f5ca1c064c3f68d2ab6da09d7}{result}} (char \texorpdfstring{$\ast$}{*}str) \+\_\+\+\_\+attribute\+\_\+\+\_\+((warn\+\_\+unused\+\_\+result))
+\item 
+void \mbox{\hyperlink{_error_handling_8h_a16cd54139a676852bcdd41131099ffab}{print\+\_\+error}} (\mbox{\hyperlink{struct_____result}{Result}} e)
+\item 
+void \mbox{\hyperlink{_error_handling_8h_ad95b68df6deb25f51016a40944f6f06a}{ignore}} (\mbox{\hyperlink{struct_____result}{Result}} e)
+\item 
+bool \mbox{\hyperlink{_error_handling_8h_a1fa509755fbb82a5c3d58deda876436e}{is\+\_\+error}} (\mbox{\hyperlink{struct_____result}{Result}} \texorpdfstring{$\ast$}{*}e)
+\item 
+bool \mbox{\hyperlink{_error_handling_8h_a8c5ecc5482f0222cd47e341199f990f7}{c\+\_\+is\+\_\+error}} (\mbox{\hyperlink{struct_____result}{Result}} e)
+\item 
+void \mbox{\hyperlink{_error_handling_8h_ac4d5f7a51903a69dce636ba3641e94e6}{a\+\_\+assert}} (bool check)
+\item 
+void \mbox{\hyperlink{_error_handling_8h_aa08891b797e8577b1193207bf44b0924}{e\+\_\+assert}} (\mbox{\hyperlink{struct_____result}{Result}} e)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header for {\ttfamily Error\+Handling.\+c} ~\newline
+ This file contains functions and structure definitions for the error handling interface. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter. 
+
+\begin{DoxyNote}{Note}
+Any {\ttfamily Result} returned from any function MUST be used by a function in this file to avoid leaking memory.  
+\end{DoxyNote}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_error_handling_8h_aa8cc25d6574086c6905c96741de11575}\index{ErrorHandling.h@{ErrorHandling.h}!RETURN\_OR\_IGNORE@{RETURN\_OR\_IGNORE}}
+\index{RETURN\_OR\_IGNORE@{RETURN\_OR\_IGNORE}!ErrorHandling.h@{ErrorHandling.h}}
+\doxysubsubsection{\texorpdfstring{RETURN\_OR\_IGNORE}{RETURN\_OR\_IGNORE}}
+{\footnotesize\ttfamily \label{_error_handling_8h_aa8cc25d6574086c6905c96741de11575} 
+\#define RETURN\+\_\+\+OR\+\_\+\+IGNORE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+error}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\ \mbox{\hyperlink{struct_____result}{Result}}\ \_\_e\_ROI\_int\ =\ \_\_error;\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_error_handling_8h_a1fa509755fbb82a5c3d58deda876436e}{is\_error}}(\&\_\_e\_ROI\_int))\ \{\ \textcolor{keywordflow}{return}\ \_\_e\_ROI\_int;\ \}\ \mbox{\hyperlink{_error_handling_8h_ad95b68df6deb25f51016a40944f6f06a}{ignore}}(\_\_e\_ROI\_int);\ \}}
+
+\end{DoxyCode}
+Returns the current error from the function this macro is called from, or ignores it if not an error. Safe for any input, function calls included. \Hypertarget{_error_handling_8h_a6bda71ab1f8c59c0f52d7df4204aba58}\index{ErrorHandling.h@{ErrorHandling.h}!RETURN\_OR\_IGNORE\_CLOSURE@{RETURN\_OR\_IGNORE\_CLOSURE}}
+\index{RETURN\_OR\_IGNORE\_CLOSURE@{RETURN\_OR\_IGNORE\_CLOSURE}!ErrorHandling.h@{ErrorHandling.h}}
+\doxysubsubsection{\texorpdfstring{RETURN\_OR\_IGNORE\_CLOSURE}{RETURN\_OR\_IGNORE\_CLOSURE}}
+{\footnotesize\ttfamily \label{_error_handling_8h_a6bda71ab1f8c59c0f52d7df4204aba58} 
+\#define RETURN\+\_\+\+OR\+\_\+\+IGNORE\+\_\+\+CLOSURE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+error}{, }\item[{}]{\+\_\+\+\_\+closure\+\_\+\+\_\+}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\ \mbox{\hyperlink{struct_____result}{Result}}\ \_\_e\_ROI\_int\ =\ \_\_error;\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_error_handling_8h_a1fa509755fbb82a5c3d58deda876436e}{is\_error}}(\&\_\_e\_ROI\_int))\ \{\ \{\ \_\_closure\_\_\ \}\ \textcolor{keywordflow}{return}\ \_\_e\_ROI\_int;\ \}\ \mbox{\hyperlink{_error_handling_8h_ad95b68df6deb25f51016a40944f6f06a}{ignore}}(\_\_e\_ROI\_int);\ \}}
+
+\end{DoxyCode}
+Returns the current error from the function this macro is called from, or ignores it if not an error. Safe for any input, function calls included. {\ttfamily closure} is a code block to be executed before returning if an error is found. {\ttfamily closure} is not exectued on pass. 
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_error_handling_8h_aaefb56aa220c1b5a1c148ec03c1dd13a}\index{ErrorHandling.h@{ErrorHandling.h}!\_\_Result@{\_\_Result}}
+\index{\_\_Result@{\_\_Result}!ErrorHandling.h@{ErrorHandling.h}}
+\doxysubsubsection{\texorpdfstring{\_\_Result}{\_\_Result}}
+{\footnotesize\ttfamily \label{_error_handling_8h_aaefb56aa220c1b5a1c148ec03c1dd13a} 
+typedef struct \+\_\+\+\_\+\+Result \+\_\+\+\_\+\+Result}
+
+Result object. Wrapped by {\ttfamily Result} for safety. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_error_handling_8h_ac4d5f7a51903a69dce636ba3641e94e6}\index{ErrorHandling.h@{ErrorHandling.h}!a\_assert@{a\_assert}}
+\index{a\_assert@{a\_assert}!ErrorHandling.h@{ErrorHandling.h}}
+\doxysubsubsection{\texorpdfstring{a\_assert()}{a\_assert()}}
+{\footnotesize\ttfamily \label{_error_handling_8h_ac4d5f7a51903a69dce636ba3641e94e6} 
+void a\+\_\+assert (\begin{DoxyParamCaption}\item[{bool}]{check}{}\end{DoxyParamCaption})}
+
+Asserts that the input value is true. \hypertarget{_error_handling_8h_autotoc_md25}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_error_handling_8h_autotoc_md25}
+
+\begin{DoxyItemize}
+\item {\ttfamily bool check}\+: input to be asserted. 
+\end{DoxyItemize}\hypertarget{_error_handling_8h_autotoc_md26}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_error_handling_8h_autotoc_md26}
+
+\begin{DoxyItemize}
+\item {\ttfamily void} if the inptut is true.
+\item Does not retrun otherwise. 
+\end{DoxyItemize}\Hypertarget{_error_handling_8h_a8c5ecc5482f0222cd47e341199f990f7}\index{ErrorHandling.h@{ErrorHandling.h}!c\_is\_error@{c\_is\_error}}
+\index{c\_is\_error@{c\_is\_error}!ErrorHandling.h@{ErrorHandling.h}}
+\doxysubsubsection{\texorpdfstring{c\_is\_error()}{c\_is\_error()}}
+{\footnotesize\ttfamily \label{_error_handling_8h_a8c5ecc5482f0222cd47e341199f990f7} 
+bool c\+\_\+is\+\_\+error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_____result}{Result}}}]{e}{}\end{DoxyParamCaption})}
+
+Returns true if the input {\ttfamily Result} is an error, consuming the error. \hypertarget{_error_handling_8h_autotoc_md23}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_error_handling_8h_autotoc_md23}
+
+\begin{DoxyItemize}
+\item {\ttfamily Result e}\+: Error to be checked. 
+\end{DoxyItemize}\hypertarget{_error_handling_8h_autotoc_md24}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_error_handling_8h_autotoc_md24}
+
+\begin{DoxyItemize}
+\item {\ttfamily true} if the inptut is an error.
+\item {\ttfamily false} otherwise. 
+\end{DoxyItemize}\Hypertarget{_error_handling_8h_aa08891b797e8577b1193207bf44b0924}\index{ErrorHandling.h@{ErrorHandling.h}!e\_assert@{e\_assert}}
+\index{e\_assert@{e\_assert}!ErrorHandling.h@{ErrorHandling.h}}
+\doxysubsubsection{\texorpdfstring{e\_assert()}{e\_assert()}}
+{\footnotesize\ttfamily \label{_error_handling_8h_aa08891b797e8577b1193207bf44b0924} 
+void e\+\_\+assert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_____result}{Result}}}]{e}{}\end{DoxyParamCaption})}
+
+Asserts that the input value is not an error. \hypertarget{_error_handling_8h_autotoc_md27}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_error_handling_8h_autotoc_md27}
+
+\begin{DoxyItemize}
+\item {\ttfamily Result e}\+: Error to be checked. 
+\end{DoxyItemize}\hypertarget{_error_handling_8h_autotoc_md28}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_error_handling_8h_autotoc_md28}
+
+\begin{DoxyItemize}
+\item {\ttfamily void} if the inptut is true.
+\item Does not retrun otherwise. 
+\end{DoxyItemize}\Hypertarget{_error_handling_8h_ad95b68df6deb25f51016a40944f6f06a}\index{ErrorHandling.h@{ErrorHandling.h}!ignore@{ignore}}
+\index{ignore@{ignore}!ErrorHandling.h@{ErrorHandling.h}}
+\doxysubsubsection{\texorpdfstring{ignore()}{ignore()}}
+{\footnotesize\ttfamily \label{_error_handling_8h_ad95b68df6deb25f51016a40944f6f06a} 
+void ignore (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_____result}{Result}}}]{e}{}\end{DoxyParamCaption})}
+
+Consumes the input {\ttfamily Result}, doing nothing. \hypertarget{_error_handling_8h_autotoc_md18}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_error_handling_8h_autotoc_md18}
+
+\begin{DoxyItemize}
+\item {\ttfamily Result e}\+: {\ttfamily Result} to be consumed. 
+\end{DoxyItemize}\hypertarget{_error_handling_8h_autotoc_md19}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_error_handling_8h_autotoc_md19}
+Void \Hypertarget{_error_handling_8h_a1fa509755fbb82a5c3d58deda876436e}\index{ErrorHandling.h@{ErrorHandling.h}!is\_error@{is\_error}}
+\index{is\_error@{is\_error}!ErrorHandling.h@{ErrorHandling.h}}
+\doxysubsubsection{\texorpdfstring{is\_error()}{is\_error()}}
+{\footnotesize\ttfamily \label{_error_handling_8h_a1fa509755fbb82a5c3d58deda876436e} 
+bool is\+\_\+error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_____result}{Result}} \texorpdfstring{$\ast$}{*}}]{e}{}\end{DoxyParamCaption})}
+
+Returns true if the input {\ttfamily Result\texorpdfstring{$\ast$}{*}} is an error. \hypertarget{_error_handling_8h_autotoc_md20}{}\doxysubsection{\texorpdfstring{Note}{Note}}\label{_error_handling_8h_autotoc_md20}
+Does not consume the error. \hypertarget{_error_handling_8h_autotoc_md21}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_error_handling_8h_autotoc_md21}
+
+\begin{DoxyItemize}
+\item {\ttfamily Result\texorpdfstring{$\ast$}{*} e}\+: Error to be checked. 
+\end{DoxyItemize}\hypertarget{_error_handling_8h_autotoc_md22}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_error_handling_8h_autotoc_md22}
+
+\begin{DoxyItemize}
+\item {\ttfamily true} if the inptut is an error.
+\item {\ttfamily false} otherwise. 
+\end{DoxyItemize}\Hypertarget{_error_handling_8h_a16cd54139a676852bcdd41131099ffab}\index{ErrorHandling.h@{ErrorHandling.h}!print\_error@{print\_error}}
+\index{print\_error@{print\_error}!ErrorHandling.h@{ErrorHandling.h}}
+\doxysubsubsection{\texorpdfstring{print\_error()}{print\_error()}}
+{\footnotesize\ttfamily \label{_error_handling_8h_a16cd54139a676852bcdd41131099ffab} 
+void print\+\_\+error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_____result}{Result}}}]{e}{}\end{DoxyParamCaption})}
+
+Prints the error message of an error {\ttfamily Result}. Does nothing on non-\/error. Consumes the input {\ttfamily Result}. \hypertarget{_error_handling_8h_autotoc_md16}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_error_handling_8h_autotoc_md16}
+
+\begin{DoxyItemize}
+\item {\ttfamily Result e}\+: {\ttfamily Result} to be printed. 
+\end{DoxyItemize}\hypertarget{_error_handling_8h_autotoc_md17}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_error_handling_8h_autotoc_md17}
+Void \Hypertarget{_error_handling_8h_a893f271f5ca1c064c3f68d2ab6da09d7}\index{ErrorHandling.h@{ErrorHandling.h}!result@{result}}
+\index{result@{result}!ErrorHandling.h@{ErrorHandling.h}}
+\doxysubsubsection{\texorpdfstring{result()}{result()}}
+{\footnotesize\ttfamily \label{_error_handling_8h_a893f271f5ca1c064c3f68d2ab6da09d7} 
+\mbox{\hyperlink{struct_____result}{Result}} result (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+Produces a {\ttfamily Result} with error message {\ttfamily str}. \hypertarget{_error_handling_8h_autotoc_md14}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_error_handling_8h_autotoc_md14}
+
+\begin{DoxyItemize}
+\item {\ttfamily char\texorpdfstring{$\ast$}{*} str}\+: Error message. Input {\ttfamily 0} for no error. 
+\end{DoxyItemize}\hypertarget{_error_handling_8h_autotoc_md15}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_error_handling_8h_autotoc_md15}
+
+\begin{DoxyItemize}
+\item {\ttfamily Result}\+: The {\ttfamily Result} object. 
+\end{DoxyItemize}

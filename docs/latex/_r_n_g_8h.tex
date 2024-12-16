@@ -1,0 +1,58 @@
+\doxysection{Core/\+Inc/\+RNG/\+RNG.h File Reference}
+\hypertarget{_r_n_g_8h}{}\label{_r_n_g_8h}\index{Core/Inc/RNG/RNG.h@{Core/Inc/RNG/RNG.h}}
+
+
+Header for {\ttfamily RNG.\+c} ~\newline
+ This file contains functions and structure definitions for the random number generator interface. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}Error\+Handling.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_____result}{Result}} \mbox{\hyperlink{_r_n_g_8h_a0b942fe6c6729a13e782dbc727c651d4}{init\+\_\+random}} ()
+\item 
+\mbox{\hyperlink{struct_____result}{Result}} \mbox{\hyperlink{_r_n_g_8h_a96305ef8c9462366b7ecae54a4611785}{generate\+\_\+random}} (uint32\+\_\+t \texorpdfstring{$\ast$}{*}dest)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header for {\ttfamily RNG.\+c} ~\newline
+ This file contains functions and structure definitions for the random number generator interface. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_r_n_g_8h_a96305ef8c9462366b7ecae54a4611785}\index{RNG.h@{RNG.h}!generate\_random@{generate\_random}}
+\index{generate\_random@{generate\_random}!RNG.h@{RNG.h}}
+\doxysubsubsection{\texorpdfstring{generate\_random()}{generate\_random()}}
+{\footnotesize\ttfamily \label{_r_n_g_8h_a96305ef8c9462366b7ecae54a4611785} 
+\mbox{\hyperlink{struct_____result}{Result}} generate\+\_\+random (\begin{DoxyParamCaption}\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{dest}{}\end{DoxyParamCaption})}
+
+Generates a random number. \hypertarget{_r_n_g_8h_autotoc_md87}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_r_n_g_8h_autotoc_md87}
+
+\begin{DoxyItemize}
+\item {\ttfamily uint32\+\_\+t\texorpdfstring{$\ast$}{*} dest}\+: The location to store the newly generated random number. 
+\end{DoxyItemize}\hypertarget{_r_n_g_8h_autotoc_md88}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_r_n_g_8h_autotoc_md88}
+
+\begin{DoxyItemize}
+\item {\ttfamily Reuslt(char\texorpdfstring{$\ast$}{*})} on error.
+\item {\ttfamily Result(0)} on successful generation. 
+\end{DoxyItemize}\Hypertarget{_r_n_g_8h_a0b942fe6c6729a13e782dbc727c651d4}\index{RNG.h@{RNG.h}!init\_random@{init\_random}}
+\index{init\_random@{init\_random}!RNG.h@{RNG.h}}
+\doxysubsubsection{\texorpdfstring{init\_random()}{init\_random()}}
+{\footnotesize\ttfamily \label{_r_n_g_8h_a0b942fe6c6729a13e782dbc727c651d4} 
+\mbox{\hyperlink{struct_____result}{Result}} init\+\_\+random (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Initilaizes the random number generator. \hypertarget{_r_n_g_8h_autotoc_md85}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_r_n_g_8h_autotoc_md85}
+None \hypertarget{_r_n_g_8h_autotoc_md86}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_r_n_g_8h_autotoc_md86}
+
+\begin{DoxyItemize}
+\item {\ttfamily Reuslt(char\texorpdfstring{$\ast$}{*})} on error.
+\item {\ttfamily Result(0)} on successful initialization. 
+\end{DoxyItemize}

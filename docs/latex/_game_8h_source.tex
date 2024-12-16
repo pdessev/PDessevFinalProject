@@ -1,0 +1,107 @@
+\doxysection{Game.\+h}
+\hypertarget{_game_8h_source}{}\label{_game_8h_source}\index{Core/Inc/Game/Game.h@{Core/Inc/Game/Game.h}}
+\mbox{\hyperlink{_game_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_handling_8h}{ErrorHandling.h}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_r_n_g_8h}{RNG/RNG.h}}"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ BOARD\_WIDTH\ 10}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ BOARD\_HEIGHT\ 25}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ BlockType\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ TypeO,}
+\DoxyCodeLine{00023\ \ \ \ \ TypeI,}
+\DoxyCodeLine{00024\ \ \ \ \ TypeS,}
+\DoxyCodeLine{00025\ \ \ \ \ TypeZ,}
+\DoxyCodeLine{00026\ \ \ \ \ TypeL,}
+\DoxyCodeLine{00027\ \ \ \ \ TypeJ,}
+\DoxyCodeLine{00028\ \ \ \ \ TypeT,}
+\DoxyCodeLine{00029\ \ \ \ \ BlockTypeLen,}
+\DoxyCodeLine{00030\ \}\ BlockType;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ BlockColor\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ BlockRed,}
+\DoxyCodeLine{00034\ \ \ \ \ BlockOrange,}
+\DoxyCodeLine{00035\ \ \ \ \ BlockYellow,}
+\DoxyCodeLine{00036\ \ \ \ \ BlockGreen,}
+\DoxyCodeLine{00037\ \ \ \ \ BlockCyan,}
+\DoxyCodeLine{00038\ \ \ \ \ BlockBlue,}
+\DoxyCodeLine{00039\ \ \ \ \ BlockPurple,}
+\DoxyCodeLine{00040\ \ \ \ \ BlockColorLen,}
+\DoxyCodeLine{00041\ \}\ BlockColor;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#ifdef\ \_\_GAME\_INTERNAL\_\_}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ BOARD\_BLOCK\_PIXEL\_LEN\ 10\ }\textcolor{comment}{//\ approx\ 320\ *\ 0.8\ /\ 25}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}LCD/graphics.h"{}}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}Debug/mem.h"{}}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}stm32f4xx\_hal.h"{}}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ \#include\ "{}stdlib.h"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ BlockRotation\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ RotUp,}
+\DoxyCodeLine{00052\ \ \ \ \ RotRight,}
+\DoxyCodeLine{00053\ \ \ \ \ RotDown,}
+\DoxyCodeLine{00054\ \ \ \ \ RotLeft,}
+\DoxyCodeLine{00055\ \}\ BlockRotation;}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }Point\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ x;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ y;}
+\DoxyCodeLine{00060\ \}\ Point;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }Block\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ BlockType\ type;}
+\DoxyCodeLine{00064\ \ \ \ \ BlockRotation\ rotation;}
+\DoxyCodeLine{00065\ \ \ \ \ BlockColor\ color;}
+\DoxyCodeLine{00066\ \ \ \ \ Point\ points[4];}
+\DoxyCodeLine{00067\ \ \ \ \ Point\ center;}
+\DoxyCodeLine{00068\ \}\ Block;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }LaidBlock\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ BlockColor\ color;}
+\DoxyCodeLine{00072\ \}\ LaidBlock;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }GameState\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ uint16\_t\ score;}
+\DoxyCodeLine{00076\ \ \ \ \ Block*\ active\_block;}
+\DoxyCodeLine{00077\ \ \ \ \ LaidBlock*\ board[BOARD\_WIDTH][BOARD\_HEIGHT];}
+\DoxyCodeLine{00078\ \ \ \ \ uint8\_t\ main\_menu\_state;}
+\DoxyCodeLine{00079\ \}\ GameState;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ Color\ get\_rgb\_from\_block\_color(BlockColor\ b);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{void}\ set\_block\_points(Block*\ b);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00086\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ GameState;}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ Direction\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ DirUp,}
+\DoxyCodeLine{00091\ \ \ \ \ DirRight,}
+\DoxyCodeLine{00092\ \ \ \ \ DirDown,}
+\DoxyCodeLine{00093\ \ \ \ \ DirLeft,}
+\DoxyCodeLine{00094\ \}\ Direction;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ GameState*\ create\_game();}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{void}\ free\_game(GameState**\ g);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \mbox{\hyperlink{struct_____result}{Result}}\ show\_main\_menu(GameState*\ s);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \mbox{\hyperlink{struct_____result}{Result}}\ show\_game\_board(GameState*\ s,\ uint32\_t\ time);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \mbox{\hyperlink{struct_____result}{Result}}\ move\_block(GameState*\ s,\ Direction\ dir)\ \_\_attribute\_\_((warn\_unused\_result));}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \mbox{\hyperlink{struct_____result}{Result}}\ rotate\_block(GameState*\ s);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \mbox{\hyperlink{struct_____result}{Result}}\ lay\_current\_block(GameState*\ s);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \mbox{\hyperlink{struct_____result}{Result}}\ new\_current\_block(GameState*\ s,\ BlockType\ type,\ BlockColor\ color)\ \_\_attribute\_\_((warn\_unused\_result));}
+
+\end{DoxyCode}

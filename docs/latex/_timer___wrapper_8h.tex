@@ -1,0 +1,477 @@
+\doxysection{Core/\+Inc/\+Timer\+\_\+\+Wrapper.h File Reference}
+\hypertarget{_timer___wrapper_8h}{}\label{_timer___wrapper_8h}\index{Core/Inc/Timer\_Wrapper.h@{Core/Inc/Timer\_Wrapper.h}}
+
+
+Header for {\ttfamily Timer\+\_\+\+Wrapper.\+c} ~\newline
+ This file contains functions and structure definitions for the general purpose timer peripheral interface. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}Interrupt\+Control.\+h"{}}\newline
+{\ttfamily \#include "{}stm32f429xx.\+h"{}}\newline
+{\ttfamily \#include "{}stm32f4xx\+\_\+hal.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_gp_timer_config}{Gp\+Timer\+Config}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_timer___wrapper_8h_a3609cb91061a17ad51f17f7c27d12d31}\label{_timer___wrapper_8h_a3609cb91061a17ad51f17f7c27d12d31} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+CLOCK\+\_\+\+FREQ}~84000000
+\item 
+\Hypertarget{_timer___wrapper_8h_a62abd619909625978851d17ed6d69362}\label{_timer___wrapper_8h_a62abd619909625978851d17ed6d69362} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+CONTROL\+\_\+\+ONE\+\_\+\+ENABLE\+\_\+\+OFST}~0
+\item 
+\Hypertarget{_timer___wrapper_8h_a5e87661851bad25a9c2feaf7d8b8cc2f}\label{_timer___wrapper_8h_a5e87661851bad25a9c2feaf7d8b8cc2f} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+MASTER\+\_\+\+MODE\+\_\+\+CLEAR}~0b111
+\item 
+\Hypertarget{_timer___wrapper_8h_aa18b241a9053df7430baaa74cb1baa94}\label{_timer___wrapper_8h_aa18b241a9053df7430baaa74cb1baa94} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+MASTER\+\_\+\+MODE\+\_\+\+OFST}~4
+\item 
+\Hypertarget{_timer___wrapper_8h_a5d5e760e20e6d9928743325e73044140}\label{_timer___wrapper_8h_a5d5e760e20e6d9928743325e73044140} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+CLOCK\+\_\+\+DIVISION\+\_\+\+CLEAR}~0b11
+\item 
+\Hypertarget{_timer___wrapper_8h_a1da0f7c12cf05ae12e3d0478de9b77b6}\label{_timer___wrapper_8h_a1da0f7c12cf05ae12e3d0478de9b77b6} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+CLOCK\+\_\+\+DIVISION\+\_\+\+OFST}~8
+\item 
+\Hypertarget{_timer___wrapper_8h_ace0c42fab38278e0b56ac8a7706b552a}\label{_timer___wrapper_8h_ace0c42fab38278e0b56ac8a7706b552a} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+CENTER\+\_\+\+ALIGN\+\_\+\+MODE\+\_\+\+CLEAR}~0b11
+\item 
+\Hypertarget{_timer___wrapper_8h_aae29d93fd4eaf2083e8f187e82c23160}\label{_timer___wrapper_8h_aae29d93fd4eaf2083e8f187e82c23160} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+CENTER\+\_\+\+ALIGN\+\_\+\+MODE\+\_\+\+OFST}~5
+\item 
+\Hypertarget{_timer___wrapper_8h_ad8fe53dd80e23d7b8000ba090b535b3b}\label{_timer___wrapper_8h_ad8fe53dd80e23d7b8000ba090b535b3b} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+AUTO\+\_\+\+RELOAD\+\_\+\+BUFFER\+\_\+\+EN\+\_\+\+CLEAR}~0b1
+\item 
+\Hypertarget{_timer___wrapper_8h_a2a52cdbebbd9420096493a04270770cf}\label{_timer___wrapper_8h_a2a52cdbebbd9420096493a04270770cf} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+AUTO\+\_\+\+RELOAD\+\_\+\+BUFFER\+\_\+\+EN\+\_\+\+OFST}~7
+\item 
+\Hypertarget{_timer___wrapper_8h_a2075a4ad970e7b061705cf85603b4ca4}\label{_timer___wrapper_8h_a2075a4ad970e7b061705cf85603b4ca4} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+DIRECTION\+\_\+\+CLEAR}~0b1
+\item 
+\Hypertarget{_timer___wrapper_8h_ae47af623d1bf272b6b91024141c19658}\label{_timer___wrapper_8h_ae47af623d1bf272b6b91024141c19658} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+DIRECTION\+\_\+\+OFST}~4
+\item 
+\Hypertarget{_timer___wrapper_8h_a112766f8bb37b1bb799ee44f403383c5}\label{_timer___wrapper_8h_a112766f8bb37b1bb799ee44f403383c5} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+GENERATE\+\_\+\+INTERRUPT\+\_\+\+CLEAR}~0b1
+\item 
+\Hypertarget{_timer___wrapper_8h_ac7edce5e3a5549df4f5826ec3833f12a}\label{_timer___wrapper_8h_ac7edce5e3a5549df4f5826ec3833f12a} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+GENERATE\+\_\+\+INTERRUPT\+\_\+\+OFST}~0
+\item 
+\Hypertarget{_timer___wrapper_8h_a3ff1f98312e614b7ab7241f174e8b3a3}\label{_timer___wrapper_8h_a3ff1f98312e614b7ab7241f174e8b3a3} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+ENABLE\+\_\+\+UPDATE\+\_\+\+EVENTS\+\_\+\+CLEAR}~0b1
+\item 
+\Hypertarget{_timer___wrapper_8h_a17fdaca49f7b012776b1e66ad326856c}\label{_timer___wrapper_8h_a17fdaca49f7b012776b1e66ad326856c} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+ENABLE\+\_\+\+UPDATE\+\_\+\+EVENTS\+\_\+\+OFST}~1
+\item 
+\Hypertarget{_timer___wrapper_8h_a8117bb5ec475e25531c2e0c4e8ceeb82}\label{_timer___wrapper_8h_a8117bb5ec475e25531c2e0c4e8ceeb82} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+ONE\+\_\+\+PULSE\+\_\+\+CLEAR}~0b1
+\item 
+\Hypertarget{_timer___wrapper_8h_a320de636d290430a8240021ed6238844}\label{_timer___wrapper_8h_a320de636d290430a8240021ed6238844} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+ONE\+\_\+\+PULSE\+\_\+\+OFST}~3
+\item 
+\Hypertarget{_timer___wrapper_8h_a7792bf47f15be884a1cf1c4ba54a242b}\label{_timer___wrapper_8h_a7792bf47f15be884a1cf1c4ba54a242b} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+UPDATE\+\_\+\+INTERRUPT\+\_\+\+FLAG\+\_\+\+CLEAR}~0b1
+\item 
+\Hypertarget{_timer___wrapper_8h_a1acfc5bb8f9eb444124b5c14b512302d}\label{_timer___wrapper_8h_a1acfc5bb8f9eb444124b5c14b512302d} 
+\#define {\bfseries GP\+\_\+\+TIMER\+\_\+\+UPDATE\+\_\+\+INTERRUPT\+\_\+\+FLAG\+\_\+\+OFST}~0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} \mbox{\hyperlink{_timer___wrapper_8h_a9efe3367c0a64630cde7709451be94f8}{Gp\+Timers}}
+\item 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_aafb7807b8afb0b8a3e86fbe04af95aaa}{Gp\+Timer\+Master\+Modes}} \mbox{\hyperlink{_timer___wrapper_8h_ad494d77fc56b58a019e54ec98e0c88ed}{Gp\+Timer\+Master\+Modes}}
+\item 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_ab9c5e79cdfeaf4d06fa87a33ba9758e8}{Gp\+Timer\+Clock\+Division}} \mbox{\hyperlink{_timer___wrapper_8h_abe7f5b9dfdeccf76fc8c534cddaa4b7e}{Gp\+Timer\+Clock\+Division}}
+\item 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_acf3f13acbd091d2fe9057510c8260151}{Gp\+Timer\+Center\+Align\+Mode}} \mbox{\hyperlink{_timer___wrapper_8h_a81b12da9462fda68a5afe3bdc6cf0cbb}{Gp\+Timer\+Center\+Align\+Mode}}
+\item 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_a81729ba3079aa38534d359977d13c389}{Gp\+Timer\+Auto\+Reload\+Buffer\+Enable}} \mbox{\hyperlink{_timer___wrapper_8h_af1a58180dfd7a7861fbfaf3a704f1d02}{Gp\+Timer\+Auto\+Reload\+Buffer\+Enable}}
+\item 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_a040201f4cea09b959741356e74892b85}{Gp\+Timer\+Direction}} \mbox{\hyperlink{_timer___wrapper_8h_a92cf2ea7a6bdd7d5e1de7c2b37876c37}{Gp\+Timer\+Direction}}
+\item 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6}{Gp\+Timer\+Interrupt\+Update\+Enable}} \mbox{\hyperlink{_timer___wrapper_8h_a51356d1c9a2cfaaeeb87316f0326c529}{Gp\+Timer\+Interrupt\+Update\+Enable}}
+\item 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_aa42387a65469bd34cff9cf9b73cccf7d}{Gp\+Timer\+Enable\+Update\+Events}} \mbox{\hyperlink{_timer___wrapper_8h_a2c5c81cd0b4e7807019068a199bd85af}{Gp\+Timer\+Enable\+Update\+Events}}
+\item 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_a822c15caf95145768dd24b942e29494c}{Gp\+Timer\+One\+Pulse\+Mode}} \mbox{\hyperlink{_timer___wrapper_8h_a17971b25588ab5fdad8416ed07309c47}{Gp\+Timer\+One\+Pulse\+Mode}}
+\item 
+typedef struct Gp\+Timer\+Config \mbox{\hyperlink{_timer___wrapper_8h_a44f22b024fa4cc2a4a1d0d700145a0f4}{Gp\+Timer\+Config}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} \{ \newline
+{\bfseries Timer\+Two}
+, {\bfseries Timer\+Three}
+, {\bfseries Timer\+Four}
+, {\bfseries Timer\+Five}
+, \newline
+{\bfseries Gp\+Timer\+Size}
+ \}
+\item 
+enum \mbox{\hyperlink{_timer___wrapper_8h_aafb7807b8afb0b8a3e86fbe04af95aaa}{Gp\+Timer\+Master\+Modes}} \{ \newline
+{\bfseries Master\+Mode\+Reset} = 0b000
+, {\bfseries Master\+Mode\+Enable} = 0b001
+, {\bfseries Master\+Mode\+Update} = 0b010
+, {\bfseries Master\+Mode\+Compare\+Pulse} = 0b011
+, \newline
+{\bfseries Master\+Mode\+Out\+Comp\+One} = 0b100
+, {\bfseries Master\+Mode\+Out\+Comp\+Two} = 0b101
+, {\bfseries Master\+Mode\+Out\+Comp\+Three} = 0b110
+, {\bfseries Master\+Mode\+Out\+Comp\+Four} = 0b111
+ \}
+\item 
+enum \mbox{\hyperlink{_timer___wrapper_8h_ab9c5e79cdfeaf4d06fa87a33ba9758e8}{Gp\+Timer\+Clock\+Division}} \{ {\bfseries Clock\+Division\+One} = TIM\+\_\+\+CLOCKDIVISION\+\_\+\+DIV1
+, {\bfseries Clock\+Division\+Two} = TIM\+\_\+\+CLOCKDIVISION\+\_\+\+DIV2
+, {\bfseries Clock\+Division\+Four} = TIM\+\_\+\+CLOCKDIVISION\+\_\+\+DIV4
+ \}
+\item 
+enum \mbox{\hyperlink{_timer___wrapper_8h_acf3f13acbd091d2fe9057510c8260151}{Gp\+Timer\+Center\+Align\+Mode}} \{ {\bfseries Edge\+Align} = 0b00
+, {\bfseries Set\+Flags\+Counting\+Down} = TIM\+\_\+\+COUNTERMODE\+\_\+\+CENTERALIGNED1
+, {\bfseries Set\+Flags\+Counting\+Up} = TIM\+\_\+\+COUNTERMODE\+\_\+\+CENTERALIGNED2
+, {\bfseries Set\+Flags\+Counting\+Both} = TIM\+\_\+\+COUNTERMODE\+\_\+\+CENTERALIGNED3
+ \}
+\item 
+enum \mbox{\hyperlink{_timer___wrapper_8h_a81729ba3079aa38534d359977d13c389}{Gp\+Timer\+Auto\+Reload\+Buffer\+Enable}} \{ {\bfseries Disable\+Auto\+Reload\+Buffer} = TIM\+\_\+\+AUTORELOAD\+\_\+\+PRELOAD\+\_\+\+DISABLE
+, {\bfseries Enable\+Auto\+Reload\+Buffer} = TIM\+\_\+\+AUTORELOAD\+\_\+\+PRELOAD\+\_\+\+ENABLE
+ \}
+\item 
+enum \mbox{\hyperlink{_timer___wrapper_8h_a040201f4cea09b959741356e74892b85}{Gp\+Timer\+Direction}} \{ {\bfseries Count\+Up} = TIM\+\_\+\+COUNTERMODE\+\_\+\+UP
+, {\bfseries Count\+Down} = TIM\+\_\+\+COUNTERMODE\+\_\+\+DOWN
+ \}
+\item 
+enum \mbox{\hyperlink{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6}{Gp\+Timer\+Interrupt\+Update\+Enable}} \{ {\bfseries Disable\+Interrupt\+Update} = 0b0
+, {\bfseries Enable\+Interrupt\+Update} = 0b1
+ \}
+\item 
+enum \mbox{\hyperlink{_timer___wrapper_8h_aa42387a65469bd34cff9cf9b73cccf7d}{Gp\+Timer\+Enable\+Update\+Events}} \{ {\bfseries Enable\+Update\+Events} = 0b0
+, {\bfseries Disable\+Update\+Events} = 0b1
+ \}
+\item 
+enum \mbox{\hyperlink{_timer___wrapper_8h_a822c15caf95145768dd24b942e29494c}{Gp\+Timer\+One\+Pulse\+Mode}} \{ {\bfseries Disable\+One\+Pulse\+Mode} = 0b0
+, {\bfseries Enable\+One\+Pulse\+Mode} = 0b1
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_timer___wrapper_8h_a07807b56ac98422bef3c3935c736cf04}{init\+\_\+timer}} (\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} timer, \mbox{\hyperlink{struct_gp_timer_config}{Gp\+Timer\+Config}} \texorpdfstring{$\ast$}{*}cfg)
+\item 
+void \mbox{\hyperlink{_timer___wrapper_8h_a39bb6f2c137c2a4113c136498d150cc3}{start\+\_\+timer}} (\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} timer)
+\item 
+void \mbox{\hyperlink{_timer___wrapper_8h_a8c77fd724f7a348f97a58277fa14b8c9}{stop\+\_\+timer}} (\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} timer)
+\item 
+void \mbox{\hyperlink{_timer___wrapper_8h_a3421a9320ae91ee8139bc6ead56f81f1}{reset\+\_\+timer}} (\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} timer)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{_timer___wrapper_8h_a4fc142306624ae0063f3aea22fd44f84}{get\+\_\+timer\+\_\+count}} (\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} timer)
+\item 
+void \mbox{\hyperlink{_timer___wrapper_8h_a6bebb5fb6f87c6e67ff25ebc2a9090b3}{timer\+\_\+start\+\_\+from}} (\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} timer, uint32\+\_\+t val)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{_timer___wrapper_8h_ad2d9393ffea3452b2137f29b60153623}{get\+\_\+timer\+\_\+auto\+\_\+reload}} (\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} timer)
+\item 
+void \mbox{\hyperlink{_timer___wrapper_8h_a418b807efe03e8f7fadac959faeb6e2a}{set\+\_\+timer\+\_\+auto\+\_\+reload}} (\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} timer, uint32\+\_\+t val)
+\item 
+void \mbox{\hyperlink{_timer___wrapper_8h_af3de3319004d2a6d15e34a2fd0951dd7}{set\+\_\+timer\+\_\+interrupt}} (\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} timer, \mbox{\hyperlink{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6}{Gp\+Timer\+Interrupt\+Update\+Enable}} en)
+\item 
+void \mbox{\hyperlink{_timer___wrapper_8h_adae050e9a683c4a99b4b098d38876032}{clear\+\_\+timer\+\_\+interrupt\+\_\+flag}} (\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} timer)
+\item 
+void \mbox{\hyperlink{_timer___wrapper_8h_adfec6da51390374f18ba005369fc4652}{set\+\_\+timer\+\_\+time}} (\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} timer, float seconds)
+\item 
+uint16\+\_\+t \mbox{\hyperlink{_timer___wrapper_8h_a96e7c91101209342eab15d78ce8db25b}{timer\+\_\+calculate\+\_\+prescalar}} (float seconds)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{_timer___wrapper_8h_a67aae5ae9b28e910e581fe272436af06}{timer\+\_\+calculate\+\_\+\+Auto\+Reload}} (float seconds, uint16\+\_\+t prescalar)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header for {\ttfamily Timer\+\_\+\+Wrapper.\+c} ~\newline
+ This file contains functions and structure definitions for the general purpose timer peripheral interface. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_timer___wrapper_8h_af1a58180dfd7a7861fbfaf3a704f1d02}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerAutoReloadBufferEnable@{GpTimerAutoReloadBufferEnable}}
+\index{GpTimerAutoReloadBufferEnable@{GpTimerAutoReloadBufferEnable}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerAutoReloadBufferEnable}{GpTimerAutoReloadBufferEnable}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_af1a58180dfd7a7861fbfaf3a704f1d02} 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_a81729ba3079aa38534d359977d13c389}{Gp\+Timer\+Auto\+Reload\+Buffer\+Enable}} \mbox{\hyperlink{_timer___wrapper_8h_a81729ba3079aa38534d359977d13c389}{Gp\+Timer\+Auto\+Reload\+Buffer\+Enable}}}
+
+General purpose timer autoreload buffer settings. \Hypertarget{_timer___wrapper_8h_a81b12da9462fda68a5afe3bdc6cf0cbb}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerCenterAlignMode@{GpTimerCenterAlignMode}}
+\index{GpTimerCenterAlignMode@{GpTimerCenterAlignMode}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerCenterAlignMode}{GpTimerCenterAlignMode}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a81b12da9462fda68a5afe3bdc6cf0cbb} 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_acf3f13acbd091d2fe9057510c8260151}{Gp\+Timer\+Center\+Align\+Mode}} \mbox{\hyperlink{_timer___wrapper_8h_acf3f13acbd091d2fe9057510c8260151}{Gp\+Timer\+Center\+Align\+Mode}}}
+
+General purpose timer center alignment mode settings. \Hypertarget{_timer___wrapper_8h_abe7f5b9dfdeccf76fc8c534cddaa4b7e}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerClockDivision@{GpTimerClockDivision}}
+\index{GpTimerClockDivision@{GpTimerClockDivision}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerClockDivision}{GpTimerClockDivision}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_abe7f5b9dfdeccf76fc8c534cddaa4b7e} 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_ab9c5e79cdfeaf4d06fa87a33ba9758e8}{Gp\+Timer\+Clock\+Division}} \mbox{\hyperlink{_timer___wrapper_8h_ab9c5e79cdfeaf4d06fa87a33ba9758e8}{Gp\+Timer\+Clock\+Division}}}
+
+General purpose timer clock division settings. \Hypertarget{_timer___wrapper_8h_a44f22b024fa4cc2a4a1d0d700145a0f4}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerConfig@{GpTimerConfig}}
+\index{GpTimerConfig@{GpTimerConfig}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerConfig}{GpTimerConfig}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a44f22b024fa4cc2a4a1d0d700145a0f4} 
+typedef struct Gp\+Timer\+Config Gp\+Timer\+Config}
+
+General purpose timer configuration structure. Passed to initialization functions. \Hypertarget{_timer___wrapper_8h_a92cf2ea7a6bdd7d5e1de7c2b37876c37}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerDirection@{GpTimerDirection}}
+\index{GpTimerDirection@{GpTimerDirection}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerDirection}{GpTimerDirection}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a92cf2ea7a6bdd7d5e1de7c2b37876c37} 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_a040201f4cea09b959741356e74892b85}{Gp\+Timer\+Direction}} \mbox{\hyperlink{_timer___wrapper_8h_a040201f4cea09b959741356e74892b85}{Gp\+Timer\+Direction}}}
+
+General purpose timer count direction settings. \Hypertarget{_timer___wrapper_8h_a2c5c81cd0b4e7807019068a199bd85af}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerEnableUpdateEvents@{GpTimerEnableUpdateEvents}}
+\index{GpTimerEnableUpdateEvents@{GpTimerEnableUpdateEvents}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerEnableUpdateEvents}{GpTimerEnableUpdateEvents}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a2c5c81cd0b4e7807019068a199bd85af} 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_aa42387a65469bd34cff9cf9b73cccf7d}{Gp\+Timer\+Enable\+Update\+Events}} \mbox{\hyperlink{_timer___wrapper_8h_aa42387a65469bd34cff9cf9b73cccf7d}{Gp\+Timer\+Enable\+Update\+Events}}}
+
+General purpose timer update event settings. \Hypertarget{_timer___wrapper_8h_a51356d1c9a2cfaaeeb87316f0326c529}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerInterruptUpdateEnable@{GpTimerInterruptUpdateEnable}}
+\index{GpTimerInterruptUpdateEnable@{GpTimerInterruptUpdateEnable}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerInterruptUpdateEnable}{GpTimerInterruptUpdateEnable}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a51356d1c9a2cfaaeeb87316f0326c529} 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6}{Gp\+Timer\+Interrupt\+Update\+Enable}} \mbox{\hyperlink{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6}{Gp\+Timer\+Interrupt\+Update\+Enable}}}
+
+General purpose timer generate interrupt on update settings. \Hypertarget{_timer___wrapper_8h_ad494d77fc56b58a019e54ec98e0c88ed}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerMasterModes@{GpTimerMasterModes}}
+\index{GpTimerMasterModes@{GpTimerMasterModes}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerMasterModes}{GpTimerMasterModes}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_ad494d77fc56b58a019e54ec98e0c88ed} 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_aafb7807b8afb0b8a3e86fbe04af95aaa}{Gp\+Timer\+Master\+Modes}} \mbox{\hyperlink{_timer___wrapper_8h_aafb7807b8afb0b8a3e86fbe04af95aaa}{Gp\+Timer\+Master\+Modes}}}
+
+Master modes for the general purpose timers. \Hypertarget{_timer___wrapper_8h_a17971b25588ab5fdad8416ed07309c47}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerOnePulseMode@{GpTimerOnePulseMode}}
+\index{GpTimerOnePulseMode@{GpTimerOnePulseMode}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerOnePulseMode}{GpTimerOnePulseMode}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a17971b25588ab5fdad8416ed07309c47} 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_a822c15caf95145768dd24b942e29494c}{Gp\+Timer\+One\+Pulse\+Mode}} \mbox{\hyperlink{_timer___wrapper_8h_a822c15caf95145768dd24b942e29494c}{Gp\+Timer\+One\+Pulse\+Mode}}}
+
+General purpose timer one pulse settings. \Hypertarget{_timer___wrapper_8h_a9efe3367c0a64630cde7709451be94f8}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimers@{GpTimers}}
+\index{GpTimers@{GpTimers}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimers}{GpTimers}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a9efe3367c0a64630cde7709451be94f8} 
+typedef enum \mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} \mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}
+
+The list of all general purpose timers. 
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_timer___wrapper_8h_a81729ba3079aa38534d359977d13c389}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerAutoReloadBufferEnable@{GpTimerAutoReloadBufferEnable}}
+\index{GpTimerAutoReloadBufferEnable@{GpTimerAutoReloadBufferEnable}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerAutoReloadBufferEnable}{GpTimerAutoReloadBufferEnable}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a81729ba3079aa38534d359977d13c389} 
+enum \mbox{\hyperlink{_timer___wrapper_8h_a81729ba3079aa38534d359977d13c389}{Gp\+Timer\+Auto\+Reload\+Buffer\+Enable}}}
+
+General purpose timer autoreload buffer settings. \Hypertarget{_timer___wrapper_8h_acf3f13acbd091d2fe9057510c8260151}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerCenterAlignMode@{GpTimerCenterAlignMode}}
+\index{GpTimerCenterAlignMode@{GpTimerCenterAlignMode}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerCenterAlignMode}{GpTimerCenterAlignMode}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_acf3f13acbd091d2fe9057510c8260151} 
+enum \mbox{\hyperlink{_timer___wrapper_8h_acf3f13acbd091d2fe9057510c8260151}{Gp\+Timer\+Center\+Align\+Mode}}}
+
+General purpose timer center alignment mode settings. \Hypertarget{_timer___wrapper_8h_ab9c5e79cdfeaf4d06fa87a33ba9758e8}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerClockDivision@{GpTimerClockDivision}}
+\index{GpTimerClockDivision@{GpTimerClockDivision}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerClockDivision}{GpTimerClockDivision}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_ab9c5e79cdfeaf4d06fa87a33ba9758e8} 
+enum \mbox{\hyperlink{_timer___wrapper_8h_ab9c5e79cdfeaf4d06fa87a33ba9758e8}{Gp\+Timer\+Clock\+Division}}}
+
+General purpose timer clock division settings. \Hypertarget{_timer___wrapper_8h_a040201f4cea09b959741356e74892b85}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerDirection@{GpTimerDirection}}
+\index{GpTimerDirection@{GpTimerDirection}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerDirection}{GpTimerDirection}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a040201f4cea09b959741356e74892b85} 
+enum \mbox{\hyperlink{_timer___wrapper_8h_a040201f4cea09b959741356e74892b85}{Gp\+Timer\+Direction}}}
+
+General purpose timer count direction settings. \Hypertarget{_timer___wrapper_8h_aa42387a65469bd34cff9cf9b73cccf7d}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerEnableUpdateEvents@{GpTimerEnableUpdateEvents}}
+\index{GpTimerEnableUpdateEvents@{GpTimerEnableUpdateEvents}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerEnableUpdateEvents}{GpTimerEnableUpdateEvents}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_aa42387a65469bd34cff9cf9b73cccf7d} 
+enum \mbox{\hyperlink{_timer___wrapper_8h_aa42387a65469bd34cff9cf9b73cccf7d}{Gp\+Timer\+Enable\+Update\+Events}}}
+
+General purpose timer update event settings. \Hypertarget{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerInterruptUpdateEnable@{GpTimerInterruptUpdateEnable}}
+\index{GpTimerInterruptUpdateEnable@{GpTimerInterruptUpdateEnable}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerInterruptUpdateEnable}{GpTimerInterruptUpdateEnable}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6} 
+enum \mbox{\hyperlink{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6}{Gp\+Timer\+Interrupt\+Update\+Enable}}}
+
+General purpose timer generate interrupt on update settings. \Hypertarget{_timer___wrapper_8h_aafb7807b8afb0b8a3e86fbe04af95aaa}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerMasterModes@{GpTimerMasterModes}}
+\index{GpTimerMasterModes@{GpTimerMasterModes}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerMasterModes}{GpTimerMasterModes}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_aafb7807b8afb0b8a3e86fbe04af95aaa} 
+enum \mbox{\hyperlink{_timer___wrapper_8h_aafb7807b8afb0b8a3e86fbe04af95aaa}{Gp\+Timer\+Master\+Modes}}}
+
+Master modes for the general purpose timers. \Hypertarget{_timer___wrapper_8h_a822c15caf95145768dd24b942e29494c}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimerOnePulseMode@{GpTimerOnePulseMode}}
+\index{GpTimerOnePulseMode@{GpTimerOnePulseMode}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimerOnePulseMode}{GpTimerOnePulseMode}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a822c15caf95145768dd24b942e29494c} 
+enum \mbox{\hyperlink{_timer___wrapper_8h_a822c15caf95145768dd24b942e29494c}{Gp\+Timer\+One\+Pulse\+Mode}}}
+
+General purpose timer one pulse settings. \Hypertarget{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!GpTimers@{GpTimers}}
+\index{GpTimers@{GpTimers}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpTimers}{GpTimers}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391} 
+enum \mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}
+
+The list of all general purpose timers. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_timer___wrapper_8h_adae050e9a683c4a99b4b098d38876032}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!clear\_timer\_interrupt\_flag@{clear\_timer\_interrupt\_flag}}
+\index{clear\_timer\_interrupt\_flag@{clear\_timer\_interrupt\_flag}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{clear\_timer\_interrupt\_flag()}{clear\_timer\_interrupt\_flag()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_adae050e9a683c4a99b4b098d38876032} 
+void clear\+\_\+timer\+\_\+interrupt\+\_\+flag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}]{timer}{}\end{DoxyParamCaption})}
+
+Clears the GP Timer {\ttfamily timer}\textquotesingle{}s internal interrupt flag. \hypertarget{_timer___wrapper_8h_autotoc_md73}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md73}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gp\+Timers timer}\+: The timer to be reconfigured. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md74}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md74}
+{\ttfamily void} \hypertarget{_timer___wrapper_8h_autotoc_md75}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{_timer___wrapper_8h_autotoc_md75}
+Must be called after {\ttfamily timer} has triggered an interrupt, otherwise new interrupts will not be generated. \Hypertarget{_timer___wrapper_8h_ad2d9393ffea3452b2137f29b60153623}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!get\_timer\_auto\_reload@{get\_timer\_auto\_reload}}
+\index{get\_timer\_auto\_reload@{get\_timer\_auto\_reload}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{get\_timer\_auto\_reload()}{get\_timer\_auto\_reload()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_ad2d9393ffea3452b2137f29b60153623} 
+uint32\+\_\+t get\+\_\+timer\+\_\+auto\+\_\+reload (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}]{timer}{}\end{DoxyParamCaption})}
+
+Returns the GP Timer {\ttfamily timer}\textquotesingle{}s autoreload value. \hypertarget{_timer___wrapper_8h_autotoc_md67}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md67}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gp\+Timers timer}\+: The timer to be inspected. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md68}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md68}
+{\ttfamily uint32\+\_\+t}\+: The current autoreload value of {\ttfamily timer}. \Hypertarget{_timer___wrapper_8h_a4fc142306624ae0063f3aea22fd44f84}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!get\_timer\_count@{get\_timer\_count}}
+\index{get\_timer\_count@{get\_timer\_count}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{get\_timer\_count()}{get\_timer\_count()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a4fc142306624ae0063f3aea22fd44f84} 
+uint32\+\_\+t get\+\_\+timer\+\_\+count (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}]{timer}{}\end{DoxyParamCaption})}
+
+Returns the current count in the GP Timer {\ttfamily timer}. \hypertarget{_timer___wrapper_8h_autotoc_md63}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md63}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gp\+Timers timer}\+: The timer to be inspected. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md64}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md64}
+
+\begin{DoxyItemize}
+\item {\ttfamily uint32\+\_\+t}\+: The current count in {\ttfamily timer}. 
+\end{DoxyItemize}\Hypertarget{_timer___wrapper_8h_a07807b56ac98422bef3c3935c736cf04}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!init\_timer@{init\_timer}}
+\index{init\_timer@{init\_timer}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{init\_timer()}{init\_timer()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a07807b56ac98422bef3c3935c736cf04} 
+void init\+\_\+timer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}]{timer}{, }\item[{\mbox{\hyperlink{struct_gp_timer_config}{Gp\+Timer\+Config}} \texorpdfstring{$\ast$}{*}}]{cfg}{}\end{DoxyParamCaption})}
+
+Initializes the GP Timer {\ttfamily timer} using the configuration {\ttfamily config}. \hypertarget{_timer___wrapper_8h_autotoc_md55}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md55}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gp\+Timers timer}\+: The timer to be initialized.
+\item {\ttfamily Gp\+Timer\+Config\texorpdfstring{$\ast$}{*} cfg}\+: The configuration of the timer to be initialized. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md56}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md56}
+{\ttfamily void} \Hypertarget{_timer___wrapper_8h_a3421a9320ae91ee8139bc6ead56f81f1}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!reset\_timer@{reset\_timer}}
+\index{reset\_timer@{reset\_timer}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{reset\_timer()}{reset\_timer()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a3421a9320ae91ee8139bc6ead56f81f1} 
+void reset\+\_\+timer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}]{timer}{}\end{DoxyParamCaption})}
+
+Resets the GP Timer {\ttfamily timer}, setting its internal counter to 0. \hypertarget{_timer___wrapper_8h_autotoc_md61}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md61}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gp\+Timers timer}\+: The timer to be reset. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md62}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md62}
+{\ttfamily void} \Hypertarget{_timer___wrapper_8h_a418b807efe03e8f7fadac959faeb6e2a}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!set\_timer\_auto\_reload@{set\_timer\_auto\_reload}}
+\index{set\_timer\_auto\_reload@{set\_timer\_auto\_reload}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{set\_timer\_auto\_reload()}{set\_timer\_auto\_reload()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a418b807efe03e8f7fadac959faeb6e2a} 
+void set\+\_\+timer\+\_\+auto\+\_\+reload (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}]{timer}{, }\item[{uint32\+\_\+t}]{val}{}\end{DoxyParamCaption})}
+
+Sets the GP Timer {\ttfamily timer}\textquotesingle{}s autoreload value. \hypertarget{_timer___wrapper_8h_autotoc_md69}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md69}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gp\+Timers timer}\+: The timer to be reconfigured.
+\item {\ttfamily uint32\+\_\+t val}\+: The new autoreload value for {\ttfamily timer}. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md70}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md70}
+{\ttfamily void} \Hypertarget{_timer___wrapper_8h_af3de3319004d2a6d15e34a2fd0951dd7}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!set\_timer\_interrupt@{set\_timer\_interrupt}}
+\index{set\_timer\_interrupt@{set\_timer\_interrupt}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{set\_timer\_interrupt()}{set\_timer\_interrupt()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_af3de3319004d2a6d15e34a2fd0951dd7} 
+void set\+\_\+timer\+\_\+interrupt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}]{timer}{, }\item[{\mbox{\hyperlink{_timer___wrapper_8h_a0cbc803d891c0abf9bc94c7e3e3397d6}{Gp\+Timer\+Interrupt\+Update\+Enable}}}]{en}{}\end{DoxyParamCaption})}
+
+Sets the interrupt mode of the GP Timer {\ttfamily timer} to {\ttfamily en}. \hypertarget{_timer___wrapper_8h_autotoc_md71}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md71}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gp\+Timers timer}\+: The timer to be reconfigured.
+\item {\ttfamily Gp\+Timer\+Interrupt\+Update\+Enable en}\+: The new interrupt mode for the timer. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md72}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md72}
+{\ttfamily void} \Hypertarget{_timer___wrapper_8h_adfec6da51390374f18ba005369fc4652}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!set\_timer\_time@{set\_timer\_time}}
+\index{set\_timer\_time@{set\_timer\_time}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{set\_timer\_time()}{set\_timer\_time()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_adfec6da51390374f18ba005369fc4652} 
+void set\+\_\+timer\+\_\+time (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}]{timer}{, }\item[{float}]{seconds}{}\end{DoxyParamCaption})}
+
+Sets the GP Timer {\ttfamily timer}\textquotesingle{}s event interval to occur every {\ttfamily seconds} seconds. \hypertarget{_timer___wrapper_8h_autotoc_md76}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md76}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gp\+Timers timer}\+: The timer to be reconfigured.
+\item {\ttfamily float seconds}\+: The number of seconds to time. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md77}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md77}
+{\ttfamily void} \hypertarget{_timer___wrapper_8h_autotoc_md78}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{_timer___wrapper_8h_autotoc_md78}
+To see the range of values which can be input into {\ttfamily seconds}, refer to {\ttfamily timer\+\_\+calculate\+\_\+prescalar}. \Hypertarget{_timer___wrapper_8h_a39bb6f2c137c2a4113c136498d150cc3}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!start\_timer@{start\_timer}}
+\index{start\_timer@{start\_timer}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{start\_timer()}{start\_timer()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a39bb6f2c137c2a4113c136498d150cc3} 
+void start\+\_\+timer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}]{timer}{}\end{DoxyParamCaption})}
+
+Starts the GP Timer {\ttfamily timer}. \hypertarget{_timer___wrapper_8h_autotoc_md57}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md57}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gp\+Timers timer}\+: The timer to be started. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md58}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md58}
+{\ttfamily void} \Hypertarget{_timer___wrapper_8h_a8c77fd724f7a348f97a58277fa14b8c9}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!stop\_timer@{stop\_timer}}
+\index{stop\_timer@{stop\_timer}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{stop\_timer()}{stop\_timer()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a8c77fd724f7a348f97a58277fa14b8c9} 
+void stop\+\_\+timer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}]{timer}{}\end{DoxyParamCaption})}
+
+Stops the GP Timer {\ttfamily timer}. \hypertarget{_timer___wrapper_8h_autotoc_md59}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md59}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gp\+Timers timer}\+: The timer to be stopped. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md60}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md60}
+{\ttfamily void} \Hypertarget{_timer___wrapper_8h_a67aae5ae9b28e910e581fe272436af06}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!timer\_calculate\_AutoReload@{timer\_calculate\_AutoReload}}
+\index{timer\_calculate\_AutoReload@{timer\_calculate\_AutoReload}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{timer\_calculate\_AutoReload()}{timer\_calculate\_AutoReload()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a67aae5ae9b28e910e581fe272436af06} 
+uint32\+\_\+t timer\+\_\+calculate\+\_\+\+Auto\+Reload (\begin{DoxyParamCaption}\item[{float}]{seconds}{, }\item[{uint16\+\_\+t}]{prescalar}{}\end{DoxyParamCaption})}
+
+Performs an automatic calculation for the autoreload value, given a time in seconds and a prescalar, with the purpose of maximizing the automatic calculation coverage of the available timer range. \hypertarget{_timer___wrapper_8h_autotoc_md82}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md82}
+
+\begin{DoxyItemize}
+\item {\ttfamily float seconds}\+: The number of seconds to time. Can range from 10 microseconds up to 42 megaseconds.
+\item {\ttfamily uint16\+\_\+t prescalar}\+: The prescalar the timer will use, can be from any source, not just {\ttfamily timer\+\_\+calculate\+\_\+prescalar}. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md83}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md83}
+{\ttfamily uint32\+\_\+t}\+: The value to be put into the timer autoreload. \hypertarget{_timer___wrapper_8h_autotoc_md84}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{_timer___wrapper_8h_autotoc_md84}
+The expected accuracy of the timer for a given input is roughly 95\% at 10 microseconds, and 99.\+5\% at 100 microseconds. \Hypertarget{_timer___wrapper_8h_a96e7c91101209342eab15d78ce8db25b}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!timer\_calculate\_prescalar@{timer\_calculate\_prescalar}}
+\index{timer\_calculate\_prescalar@{timer\_calculate\_prescalar}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{timer\_calculate\_prescalar()}{timer\_calculate\_prescalar()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a96e7c91101209342eab15d78ce8db25b} 
+uint16\+\_\+t timer\+\_\+calculate\+\_\+prescalar (\begin{DoxyParamCaption}\item[{float}]{seconds}{}\end{DoxyParamCaption})}
+
+Performs an automatic calculation for the prescalar value, given a time in seconds, with the purpose of maximizing the automatic calculation coverage of the available timer range. \hypertarget{_timer___wrapper_8h_autotoc_md79}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md79}
+
+\begin{DoxyItemize}
+\item {\ttfamily float seconds}\+: The number of seconds to time. Can range from 10 microseconds up to 42 megaseconds. 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md80}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md80}
+{\ttfamily uint16\+\_\+t}\+: The value to be put into the timer prescalar. \hypertarget{_timer___wrapper_8h_autotoc_md81}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{_timer___wrapper_8h_autotoc_md81}
+The expected accuracy of the timer for a given input is roughly 95\% at 10 microseconds, and 99.\+5\% at 100 microseconds. \Hypertarget{_timer___wrapper_8h_a6bebb5fb6f87c6e67ff25ebc2a9090b3}\index{Timer\_Wrapper.h@{Timer\_Wrapper.h}!timer\_start\_from@{timer\_start\_from}}
+\index{timer\_start\_from@{timer\_start\_from}!Timer\_Wrapper.h@{Timer\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{timer\_start\_from()}{timer\_start\_from()}}
+{\footnotesize\ttfamily \label{_timer___wrapper_8h_a6bebb5fb6f87c6e67ff25ebc2a9090b3} 
+void timer\+\_\+start\+\_\+from (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}}}]{timer}{, }\item[{uint32\+\_\+t}]{val}{}\end{DoxyParamCaption})}
+
+Starts the GP Timer {\ttfamily timer}, loading the value {\ttfamily val} into the counter before doing so. \hypertarget{_timer___wrapper_8h_autotoc_md65}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_timer___wrapper_8h_autotoc_md65}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gp\+Timers timer}\+: The timer to be started.
+\item {\ttfamily uint32\+\_\+t val}\+: The value at which to start the timer 
+\end{DoxyItemize}\hypertarget{_timer___wrapper_8h_autotoc_md66}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_timer___wrapper_8h_autotoc_md66}
+{\ttfamily void} 

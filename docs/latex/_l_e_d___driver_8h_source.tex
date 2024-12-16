@@ -1,0 +1,31 @@
+\doxysection{LED\+\_\+\+Driver.\+h}
+\hypertarget{_l_e_d___driver_8h_source}{}\label{_l_e_d___driver_8h_source}\index{Core/Inc/LED\_Driver.h@{Core/Inc/LED\_Driver.h}}
+\mbox{\hyperlink{_l_e_d___driver_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_g_p_i_o___wrapper_8h}{GPIO\_Wrapper.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_timer___wrapper_8h}{Timer\_Wrapper.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifdef\ \_\_LED\_DRIVER\_INTERNAL\_\_}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}Debug/mem.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \#include\ <stdlib.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif\ }}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ RED\_LED\_PIN\ GpioPin14}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ GREEN\_LED\_PIN\ GpioPin13}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ Leds\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ LedRed,}
+\DoxyCodeLine{00025\ \ \ \ \ LedGreen,}
+\DoxyCodeLine{00026\ \}\ Leds;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{void}\ init\_led(Leds\ led);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{void}\ toggle\_led(Leds\ led);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{void}\ off\_led(Leds\ led);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{void}\ on\_led(Leds\ led);}
+
+\end{DoxyCode}

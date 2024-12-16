@@ -1,0 +1,123 @@
+\doxysection{Gyro.\+h}
+\hypertarget{_gyro_8h_source}{}\label{_gyro_8h_source}\index{Core/Inc/Gyro.h@{Core/Inc/Gyro.h}}
+\mbox{\hyperlink{_gyro_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ \#define\ GYRO\_Reserved\_ADDR\ 0x00}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ \#define\ GYRO\_Reserved\_ADDR\ 0x10}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifdef\ \_\_GYRO\_INTERNAL\_\_}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }Gyro\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ SPI\_HandleTypeDef*\ handle;}
+\DoxyCodeLine{00018\ \}\ Gyro;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ gyroAddresses\{}
+\DoxyCodeLine{00021\ \ \ \ \ GyroWhoAmIAddr\ =\ 0x0F,}
+\DoxyCodeLine{00022\ \ \ \ \ GyroCtrlReg1Addr\ =\ 0x20,}
+\DoxyCodeLine{00023\ \ \ \ \ GyroCtrlReg2Addr\ =\ 0x21,}
+\DoxyCodeLine{00024\ \ \ \ \ GyroCtrlReg3Addr\ =\ 0x22,}
+\DoxyCodeLine{00025\ \ \ \ \ GyroCtrlReg4Addr\ =\ 0x23,}
+\DoxyCodeLine{00026\ \ \ \ \ GyroCtrlReg5Addr\ =\ 0x24,}
+\DoxyCodeLine{00027\ \ \ \ \ GyroReferenceDatacaptureAddr\ =\ 0x25,}
+\DoxyCodeLine{00028\ \ \ \ \ GyroOutTempAddr\ =\ 0x26,}
+\DoxyCodeLine{00029\ \ \ \ \ GyroStatusRegAddr\ =\ 0x27,}
+\DoxyCodeLine{00030\ \ \ \ \ GyroOutXLAddr\ =\ 0x28,}
+\DoxyCodeLine{00031\ \ \ \ \ GyroOutXHAddr\ =\ 0x29,}
+\DoxyCodeLine{00032\ \ \ \ \ GyroOutYLAddr\ =\ 0x2A,}
+\DoxyCodeLine{00033\ \ \ \ \ GyroOutYHAddr\ =\ 0x2B,}
+\DoxyCodeLine{00034\ \ \ \ \ GyroOutZLAddr\ =\ 0x2C,}
+\DoxyCodeLine{00035\ \ \ \ \ GyroOutZHAddr\ =\ 0x2D,}
+\DoxyCodeLine{00036\ \ \ \ \ GyroFifoCtrlRegAddr\ =\ 0x2E,}
+\DoxyCodeLine{00037\ \ \ \ \ GyroFifoSrcRegAddr\ =\ 0x2F,}
+\DoxyCodeLine{00038\ \ \ \ \ GyroInt1CfgAddr\ =\ 0x30,}
+\DoxyCodeLine{00039\ \ \ \ \ GyroInt1SrcAddr\ =\ 0x31,}
+\DoxyCodeLine{00040\ \ \ \ \ GyroInt1ThsXhAddr\ =\ 0x32,}
+\DoxyCodeLine{00041\ \ \ \ \ GyroInt1ThsXlAddr\ =\ 0x33,}
+\DoxyCodeLine{00042\ \ \ \ \ GyroInt1ThsYhAddr\ =\ 0x34,}
+\DoxyCodeLine{00043\ \ \ \ \ GyroInt1ThsYlAddr\ =\ 0x35,}
+\DoxyCodeLine{00044\ \ \ \ \ GyroInt1ThsZhAddr\ =\ 0x36,}
+\DoxyCodeLine{00045\ \ \ \ \ GyroInt1ThsZlAddr\ =\ 0x37,}
+\DoxyCodeLine{00046\ \ \ \ \ GyroInt1DurationAddr\ =\ 0x38,}
+\DoxyCodeLine{00047\ \}\ gyroAddresses;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ GyroReadWrite\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ GyroWrite\ =\ 0,}
+\DoxyCodeLine{00051\ \ \ \ \ GyroRead\ =\ 1,}
+\DoxyCodeLine{00052\ \}\ GyroReadWrite;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ GyroMultiSelect\ \{\ }
+\DoxyCodeLine{00055\ \ \ \ \ GyroSingleData\ =\ 0,}
+\DoxyCodeLine{00056\ \ \ \ \ GyroMultiData\ =\ 1,}
+\DoxyCodeLine{00057\ \}\ GyroMultiSelect;}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ GyroMosiSize\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ GyroMosiReadSize\ =\ 1,}
+\DoxyCodeLine{00061\ \ \ \ \ GyroMosiWriteSize\ =\ 2,}
+\DoxyCodeLine{00062\ \}\ GyroMosiSize;\ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ GyroBitPositions\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ GyroAddrBitPos\ =\ 0,}
+\DoxyCodeLine{00066\ \ \ \ \ GyroMsBitPos\ =\ 6,}
+\DoxyCodeLine{00067\ \ \ \ \ GyroRwBitPos\ =\ 7,}
+\DoxyCodeLine{00068\ \ \ \ \ GyroDataBitPos\ =\ 8,}
+\DoxyCodeLine{00069\ \}\ GyroBitPositions;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ GyroBitMasks\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ GyroDataBitMask\ =\ 0xFF,}
+\DoxyCodeLine{00073\ \ \ \ \ GyroAddrBitMask\ =\ 0x3F,}
+\DoxyCodeLine{00074\ \ \ \ \ GyroMsBitMask\ =\ 0b1,}
+\DoxyCodeLine{00075\ \ \ \ \ GyroRwBitMask\ =\ 0b1,}
+\DoxyCodeLine{00076\ \}\ GyroBitMasks;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ GyroControl1Pos\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ GyroXen\ =\ 0,}
+\DoxyCodeLine{00080\ \ \ \ \ GyroYen\ =\ 1,}
+\DoxyCodeLine{00081\ \ \ \ \ GyroZen\ =\ 2,}
+\DoxyCodeLine{00082\ \ \ \ \ GyroPd\ =\ 3,}
+\DoxyCodeLine{00083\ \ \ \ \ GyroBw\ =\ 4,}
+\DoxyCodeLine{00084\ \ \ \ \ GyroOutputDataRate\ =\ 6,}
+\DoxyCodeLine{00085\ \}\ GyroControl1Pos;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ GyroControl2Pos\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ GyroOutSel0\ =\ 0,}
+\DoxyCodeLine{00089\ \ \ \ \ GyroOutSel1\ =\ 1,}
+\DoxyCodeLine{00090\ \ \ \ \ GyroInSel0\ =\ 2,}
+\DoxyCodeLine{00091\ \ \ \ \ GyroInSel1\ =\ 3,}
+\DoxyCodeLine{00092\ \ \ \ \ GyroHpen\ =\ 4,}
+\DoxyCodeLine{00093\ \ \ \ \ GyroFifoEn\ =\ 6,}
+\DoxyCodeLine{00094\ \ \ \ \ GyroBoot\ =\ 7,}
+\DoxyCodeLine{00095\ \}\ GyroControl2Pos;}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ Gyro;}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{//\ typedef\ struct\ GyroOutput\ \{}}
+\DoxyCodeLine{00102\ \textcolor{comment}{//\ \ \ \ \ int16\_t\ x,}}
+\DoxyCodeLine{00103\ \textcolor{comment}{//\ \ \ \ \ int16\_t\ y,}}
+\DoxyCodeLine{00104\ \textcolor{comment}{//\ \ \ \ \ int16\_t\ z,}}
+\DoxyCodeLine{00105\ \textcolor{comment}{//\ \}\ GyroOutput;}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ Gyro*\ gyro\_init();}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{void}\ free\_gyro(Gyro**\ g);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ uint8\_t\ gyro\_get\_id(Gyro*\ g);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{void}\ gyro\_power(Gyro*\ g);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ int8\_t\ gyro\_get\_temp(Gyro*\ g);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{void}\ gyro\_config\_regs(Gyro*\ g);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ void\ gyro\_read\_data(Gyro*\ g,\ GyroOutput*\ out);}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{keywordtype}{void}\ gyro\_verify\_spi\_state(Gyro*\ g);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keywordtype}{void}\ gyro\_enable\_slave\_comm();}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keywordtype}{void}\ gyro\_disable\_slave\_comm();}
+
+\end{DoxyCode}

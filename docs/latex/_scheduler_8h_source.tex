@@ -1,0 +1,27 @@
+\doxysection{Scheduler.\+h}
+\hypertarget{_scheduler_8h_source}{}\label{_scheduler_8h_source}\index{Core/Inc/Scheduler.h@{Core/Inc/Scheduler.h}}
+\mbox{\hyperlink{_scheduler_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifdef\ \_\_SCHEDULER\_INTERNAL\_\_}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_scheduler_8h_a5667b805d857c6d28f83f6038a0272d3}{Event}}\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ EventDrawMainMenu,}
+\DoxyCodeLine{00022\ \ \ \ \ EventStartGame,}
+\DoxyCodeLine{00023\ \ \ \ \ EventEndGame,}
+\DoxyCodeLine{00024\ \}\ \mbox{\hyperlink{_scheduler_8h_a5667b805d857c6d28f83f6038a0272d3}{Event}};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ \#define\ LED\_TOGGLE\_EVENT\ (1\ <<\ EventLedToggle)}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ \#define\ DELAY\_EVENT\ (1\ <<\ EventLedToggle)}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ \#define\ POLL\_BUTTON\_EVENT\ (1\ <<\ EventPollButton)}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00037\ uint32\_t\ \mbox{\hyperlink{_scheduler_8h_afe49376cc5298409a98e70adab289bb4}{getScheduledEvents}}();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_scheduler_8h_ae428998c3d870281cc0a97db62c5ea64}{addSchedulerEvent}}(\mbox{\hyperlink{_scheduler_8h_a5667b805d857c6d28f83f6038a0272d3}{Event}}\ e);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_scheduler_8h_a5f698a008fa0eddb611be3f5e8806b21}{removeSchedulerEvent}}(\mbox{\hyperlink{_scheduler_8h_a5667b805d857c6d28f83f6038a0272d3}{Event}}\ e);}
+
+\end{DoxyCode}

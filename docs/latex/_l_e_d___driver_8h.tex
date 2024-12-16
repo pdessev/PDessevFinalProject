@@ -1,0 +1,58 @@
+\doxysection{Core/\+Inc/\+LED\+\_\+\+Driver.h File Reference}
+\hypertarget{_l_e_d___driver_8h}{}\label{_l_e_d___driver_8h}\index{Core/Inc/LED\_Driver.h@{Core/Inc/LED\_Driver.h}}
+
+
+Header for {\ttfamily LED\+\_\+\+Driver.\+c} ~\newline
+ Unused ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter.  
+
+
+{\ttfamily \#include "{}GPIO\+\_\+\+Wrapper.\+h"{}}\newline
+{\ttfamily \#include "{}Timer\+\_\+\+Wrapper.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_l_e_d___driver_8h_ab16f55d54417647f44dca8b11d988f02}\label{_l_e_d___driver_8h_ab16f55d54417647f44dca8b11d988f02} 
+\#define {\bfseries RED\+\_\+\+LED\+\_\+\+PIN}~Gpio\+Pin14
+\item 
+\Hypertarget{_l_e_d___driver_8h_a8131714b6d25634105b1122f222dca26}\label{_l_e_d___driver_8h_a8131714b6d25634105b1122f222dca26} 
+\#define {\bfseries GREEN\+\_\+\+LED\+\_\+\+PIN}~Gpio\+Pin13
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_l_e_d___driver_8h_ad7646fea24fd834d84c704b22eb39e08}\label{_l_e_d___driver_8h_ad7646fea24fd834d84c704b22eb39e08} 
+typedef enum Leds {\bfseries Leds}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_l_e_d___driver_8h_a1e4b1d1d1b6272a280f18efef4db3f5e}\label{_l_e_d___driver_8h_a1e4b1d1d1b6272a280f18efef4db3f5e} 
+enum {\bfseries Leds} \{ {\bfseries Led\+Red}
+, {\bfseries Led\+Green}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_l_e_d___driver_8h_a1d2435cb43f8923c59a12f89b62fcab2}\label{_l_e_d___driver_8h_a1d2435cb43f8923c59a12f89b62fcab2} 
+void {\bfseries init\+\_\+led} (Leds led)
+\item 
+\Hypertarget{_l_e_d___driver_8h_a33ac7b5bee0029d7b86061e819d83528}\label{_l_e_d___driver_8h_a33ac7b5bee0029d7b86061e819d83528} 
+void {\bfseries toggle\+\_\+led} (Leds led)
+\item 
+\Hypertarget{_l_e_d___driver_8h_a93f460ba8954860fbff46117a28c278c}\label{_l_e_d___driver_8h_a93f460ba8954860fbff46117a28c278c} 
+void {\bfseries off\+\_\+led} (Leds led)
+\item 
+\Hypertarget{_l_e_d___driver_8h_a4e67fb4e25594878912684ccc355310e}\label{_l_e_d___driver_8h_a4e67fb4e25594878912684ccc355310e} 
+void {\bfseries on\+\_\+led} (Leds led)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header for {\ttfamily LED\+\_\+\+Driver.\+c} ~\newline
+ Unused ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter. 
+

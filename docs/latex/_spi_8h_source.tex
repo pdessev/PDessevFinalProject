@@ -1,0 +1,46 @@
+\doxysection{Spi.\+h}
+\hypertarget{_spi_8h_source}{}\label{_spi_8h_source}\index{Core/Inc/Spi.h@{Core/Inc/Spi.h}}
+\mbox{\hyperlink{_spi_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ \#include\ "{}Spi.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_g_p_i_o___wrapper_8h}{GPIO\_Wrapper.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}stm32f4xx\_hal.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ spiInterfaces\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ spi1\ =\ (uint32\_t)SPI1,}
+\DoxyCodeLine{00018\ \ \ \ \ spi2\ =\ (uint32\_t)SPI2,}
+\DoxyCodeLine{00019\ \ \ \ \ spi3\ =\ (uint32\_t)SPI3,}
+\DoxyCodeLine{00020\ \ \ \ \ spi4\ =\ (uint32\_t)SPI4,}
+\DoxyCodeLine{00021\ \ \ \ \ spi5\ =\ (uint32\_t)SPI5,}
+\DoxyCodeLine{00022\ \ \ \ \ spi6\ =\ (uint32\_t)SPI6,}
+\DoxyCodeLine{00023\ \}\ spiInterfaces;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ SPI5\_SCK\_PORT\ GpioPortF}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SPI5\_SCK\_PIN\ GpioPin7}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ SPI5\_MISO\_PORT\ GpioPortF}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ SPI5\_MISO\_PIN\ GpioPin8}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ SPI5\_MOSI\_PORT\ GpioPortF}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ SPI5\_MOSI\_PIN\ GpioPin9}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ SPI5\_MEMS\_PORT\ GpioPortC}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ SPI5\_MEMS\_PIN\ GpioPin1}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ typedef\ enum\ spiBidMode\ \{}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ \ \ \ \ spi2LineUnidirectional\ =\ SPI\_DIRECTION\_1LINE,}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ \ \ \ \ spi1LineBidirectional\ =\ SPI\_DIRECTION\_2LINES,}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ \ \ \ \ spi}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ \};}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ typedef\ struct\ config\ \{}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ \};}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ void\ init\_spi(spiInterfaces\ interface,\ spiConfig\ config);}}
+
+\end{DoxyCode}

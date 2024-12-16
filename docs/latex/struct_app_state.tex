@@ -1,0 +1,58 @@
+\doxysection{App\+State Struct Reference}
+\hypertarget{struct_app_state}{}\label{struct_app_state}\index{AppState@{AppState}}
+
+
+Contains the synchronous state of the peripherals used for the game.  
+
+
+
+
+{\ttfamily \#include $<$Application\+Code.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_app_state_a3e9184095cf3c9ea942bfa23d7d994a8}\label{struct_app_state_a3e9184095cf3c9ea942bfa23d7d994a8} 
+Gyro \texorpdfstring{$\ast$}{*} {\bfseries Gyro}
+\begin{DoxyCompactList}\small\item\em Gyro state; Unused. \end{DoxyCompactList}\item 
+\Hypertarget{struct_app_state_a92d017b619d0fd826d03c6523d410593}\label{struct_app_state_a92d017b619d0fd826d03c6523d410593} 
+Game\+State \texorpdfstring{$\ast$}{*} {\bfseries Game}
+\begin{DoxyCompactList}\small\item\em Game state. \end{DoxyCompactList}\item 
+\Hypertarget{struct_app_state_ab93aab839a11ced63f306c249cbb4e0b}\label{struct_app_state_ab93aab839a11ced63f306c249cbb4e0b} 
+bool {\bfseries Screen\+Touched}
+\begin{DoxyCompactList}\small\item\em Screen has been touched since last frame. \end{DoxyCompactList}\item 
+\Hypertarget{struct_app_state_a87e064d8530f5bf53645a15f92c3e13e}\label{struct_app_state_a87e064d8530f5bf53645a15f92c3e13e} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>uint16\_t {\bfseries x}\\
+\>uint16\_t {\bfseries y}\\
+\} {\bfseries ScreenTouchedPos}\\
+
+\end{tabbing}\begin{DoxyCompactList}\small\item\em Screen touch position. \end{DoxyCompactList}\item 
+\Hypertarget{struct_app_state_a13a9a343463225c074f56f88a5f773b4}\label{struct_app_state_a13a9a343463225c074f56f88a5f773b4} 
+bool {\bfseries Timer\+Event}
+\begin{DoxyCompactList}\small\item\em Game tick timer overflow. \end{DoxyCompactList}\item 
+\Hypertarget{struct_app_state_a728686870626b1c72b3bc439990dbaf1}\label{struct_app_state_a728686870626b1c72b3bc439990dbaf1} 
+bool {\bfseries Button\+Pressed}
+\begin{DoxyCompactList}\small\item\em User button has been pressed since last frame. \end{DoxyCompactList}\item 
+\Hypertarget{struct_app_state_ac639a03a9366cd1894f852aa2265b01e}\label{struct_app_state_ac639a03a9366cd1894f852aa2265b01e} 
+uint32\+\_\+t {\bfseries Random}
+\begin{DoxyCompactList}\small\item\em Latest random number generated. \end{DoxyCompactList}\item 
+\Hypertarget{struct_app_state_aac91126051fa3edfc5c01d1df4a74a1e}\label{struct_app_state_aac91126051fa3edfc5c01d1df4a74a1e} 
+\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} {\bfseries Game\+Tick}
+\begin{DoxyCompactList}\small\item\em Game tick timer instance. \end{DoxyCompactList}\item 
+\Hypertarget{struct_app_state_ae52af5e9dc85081859122f2ed1720ef2}\label{struct_app_state_ae52af5e9dc85081859122f2ed1720ef2} 
+\mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{Gp\+Timers}} {\bfseries Game\+Timer}
+\begin{DoxyCompactList}\small\item\em Game timer timer instance. \end{DoxyCompactList}\item 
+\Hypertarget{struct_app_state_ae5415060fe814723589f4816fe7b79e4}\label{struct_app_state_ae5415060fe814723589f4816fe7b79e4} 
+uint32\+\_\+t {\bfseries Game\+Time}
+\begin{DoxyCompactList}\small\item\em In-\/game time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the synchronous state of the peripherals used for the game. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Core/\+Inc/\mbox{\hyperlink{_application_code_8h}{Application\+Code.\+h}}\end{DoxyCompactItemize}

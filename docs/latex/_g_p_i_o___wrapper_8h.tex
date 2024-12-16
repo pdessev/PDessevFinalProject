@@ -1,0 +1,288 @@
+\doxysection{Core/\+Inc/\+GPIO\+\_\+\+Wrapper.h File Reference}
+\hypertarget{_g_p_i_o___wrapper_8h}{}\label{_g_p_i_o___wrapper_8h}\index{Core/Inc/GPIO\_Wrapper.h@{Core/Inc/GPIO\_Wrapper.h}}
+
+
+Header for {\ttfamily GPIO\+\_\+\+Wrapper.\+c} ~\newline
+ This file contains functions and structure definitions for the GPIO interface. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}Interrupt\+Control.\+h"{}}\newline
+{\ttfamily \#include "{}stm32f429xx.\+h"{}}\newline
+{\ttfamily \#include "{}stm32f4xx\+\_\+hal.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_gpio_pin_config}{Gpio\+Pin\+Config}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a1d5d6d0f98b9c8a6625fe39d0450e879}{Gpio\+Ports}}
+\item 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pin\+Numbers}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a8c491120c8013d48eb9d2f32611da370}{pin\+Numbers}}
+\item 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ad8184dcca14e0b62b8dcb68f0fee981c}{pin\+Mode}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ada01491d580caf075eb8ab5448d32385}{pin\+Mode}}
+\item 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_adc72d03b0853feb6cb18a149e7937be9}{output\+Type}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aae5059a81973e1fd1b27ac6bc132c742}{output\+Type}}
+\item 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aee0e68a15109deffa03285c1d9af12d4}{output\+Speed}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a77014c304240156165932320fdfa39eb}{output\+Speed}}
+\item 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a8d577eef3a39e04452d48e4bf58a24d6}{pull\+Up\+Pull\+Down}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_af7c9e744c106503d207a349ced0e3f3d}{pull\+Up\+Pull\+Down}}
+\item 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aa004d28b3cc128fb30f577f93d370794}{Interrupt\+Mode}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a420a1fa0d43d1662c8c6fac3c310ae79}{Interrupt\+Mode}}
+\item 
+typedef struct Gpio\+Pin\+Config \mbox{\hyperlink{_g_p_i_o___wrapper_8h_abd21ff3409dc74c843e905e48816bcad}{Gpio\+Pin\+Config}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}} \{ \newline
+{\bfseries Gpio\+PortA}
+, {\bfseries Gpio\+PortB}
+, {\bfseries Gpio\+PortC}
+, {\bfseries Gpio\+PortD}
+, \newline
+{\bfseries Gpio\+PortE}
+, {\bfseries Gpio\+PortF}
+, {\bfseries Gpio\+PortG}
+, {\bfseries Gpio\+PortH}
+, \newline
+{\bfseries Gpio\+PortI}
+, {\bfseries Gpio\+PortJ}
+, {\bfseries Gpio\+PortK}
+ \}
+\item 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pin\+Numbers}} \{ \newline
+{\bfseries Gpio\+Pin0} = GPIO\+\_\+\+PIN\+\_\+0
+, {\bfseries Gpio\+Pin1} = GPIO\+\_\+\+PIN\+\_\+1
+, {\bfseries Gpio\+Pin2} = GPIO\+\_\+\+PIN\+\_\+2
+, {\bfseries Gpio\+Pin3} = GPIO\+\_\+\+PIN\+\_\+3
+, \newline
+{\bfseries Gpio\+Pin4} = GPIO\+\_\+\+PIN\+\_\+4
+, {\bfseries Gpio\+Pin5} = GPIO\+\_\+\+PIN\+\_\+5
+, {\bfseries Gpio\+Pin6} = GPIO\+\_\+\+PIN\+\_\+6
+, {\bfseries Gpio\+Pin7} = GPIO\+\_\+\+PIN\+\_\+7
+, \newline
+{\bfseries Gpio\+Pin8} = GPIO\+\_\+\+PIN\+\_\+8
+, {\bfseries Gpio\+Pin9} = GPIO\+\_\+\+PIN\+\_\+9
+, {\bfseries Gpio\+Pin10} = GPIO\+\_\+\+PIN\+\_\+10
+, {\bfseries Gpio\+Pin11} = GPIO\+\_\+\+PIN\+\_\+11
+, \newline
+{\bfseries Gpio\+Pin12} = GPIO\+\_\+\+PIN\+\_\+12
+, {\bfseries Gpio\+Pin13} = GPIO\+\_\+\+PIN\+\_\+13
+, {\bfseries Gpio\+Pin14} = GPIO\+\_\+\+PIN\+\_\+14
+, {\bfseries Gpio\+Pin15} = GPIO\+\_\+\+PIN\+\_\+15
+, \newline
+{\bfseries Gpio\+Pin\+All} = GPIO\+\_\+\+PIN\+\_\+\+All
+ \}
+\item 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ad8184dcca14e0b62b8dcb68f0fee981c}{pin\+Mode}} \{ {\bfseries Gpio\+Pin\+Mode\+Input} = MODE\+\_\+\+INPUT
+, {\bfseries Gpio\+Pin\+Mode\+Gp\+Out} = MODE\+\_\+\+OUTPUT
+, {\bfseries Gpio\+Pin\+Mode\+Alt\+Func} = MODE\+\_\+\+AF
+, {\bfseries Gpio\+Pin\+Mode\+Analog} = MODE\+\_\+\+ANALOG
+ \}
+\item 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_adc72d03b0853feb6cb18a149e7937be9}{output\+Type}} \{ {\bfseries Gpio\+Push\+Pull} = OUTPUT\+\_\+\+PP
+, {\bfseries Gpio\+Open\+Drain} = OUTPUT\+\_\+\+OD
+ \}
+\item 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aee0e68a15109deffa03285c1d9af12d4}{output\+Speed}} \{ {\bfseries Gpio\+Speed\+Low} = GPIO\+\_\+\+SPEED\+\_\+\+FREQ\+\_\+\+LOW
+, {\bfseries Gpio\+Speed\+Medium} = GPIO\+\_\+\+SPEED\+\_\+\+FREQ\+\_\+\+MEDIUM
+, {\bfseries Gpio\+Speed\+High} = GPIO\+\_\+\+SPEED\+\_\+\+FREQ\+\_\+\+HIGH
+, {\bfseries Gpio\+Speed\+Very\+High} = GPIO\+\_\+\+SPEED\+\_\+\+FREQ\+\_\+\+VERY\+\_\+\+HIGH
+ \}
+\item 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a8d577eef3a39e04452d48e4bf58a24d6}{pull\+Up\+Pull\+Down}} \{ {\bfseries Gpio\+Float} = GPIO\+\_\+\+NOPULL
+, {\bfseries Gpio\+Pull\+Up} = GPIO\+\_\+\+PULLUP
+, {\bfseries Gpio\+Pull\+Down} = GPIO\+\_\+\+PULLDOWN
+ \}
+\item 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aa004d28b3cc128fb30f577f93d370794}{Interrupt\+Mode}} \{ {\bfseries Interrupt\+Mode\+None} = EXTI\+\_\+\+IT
+, {\bfseries Interrupt\+Mode\+Falling} = EXTI\+\_\+\+IT \texorpdfstring{$\vert$}{|} TRIGGER\+\_\+\+FALLING
+, {\bfseries Interrupt\+Mode\+Rising} = EXTI\+\_\+\+IT \texorpdfstring{$\vert$}{|} TRIGGER\+\_\+\+RISING
+, {\bfseries Interrupt\+Mode\+Both} = EXTI\+\_\+\+IT \texorpdfstring{$\vert$}{|} TRIGGER\+\_\+\+FALLING \texorpdfstring{$\vert$}{|} TRIGGER\+\_\+\+RISING
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ad85c81da32fd56a83ab54bf17c9e6f56}{GPIO\+\_\+init\+\_\+gpio}} (\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}} port, \mbox{\hyperlink{struct_gpio_pin_config}{Gpio\+Pin\+Config}} \texorpdfstring{$\ast$}{*}config)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a8bc45934e558934d5d252943aafc24ca}{GPIO\+\_\+read\+\_\+gpio\+\_\+pin}} (\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}} port, \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pin\+Numbers}} pin)
+\item 
+void \mbox{\hyperlink{_g_p_i_o___wrapper_8h_acc6181d80aeb999f1406de2ecf7c4945}{GPIO\+\_\+write\+\_\+gpio\+\_\+pin}} (\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}} port, \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pin\+Numbers}} pin, uint8\+\_\+t set)
+\item 
+void \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a5cd439d9b6ebf289961d770ffecd527b}{GPIO\+\_\+toggle\+\_\+gpio\+\_\+pin}} (\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}} port, \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pin\+Numbers}} pin)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header for {\ttfamily GPIO\+\_\+\+Wrapper.\+c} ~\newline
+ This file contains functions and structure definitions for the GPIO interface. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_g_p_i_o___wrapper_8h_abd21ff3409dc74c843e905e48816bcad}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!GpioPinConfig@{GpioPinConfig}}
+\index{GpioPinConfig@{GpioPinConfig}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpioPinConfig}{GpioPinConfig}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_abd21ff3409dc74c843e905e48816bcad} 
+typedef struct Gpio\+Pin\+Config Gpio\+Pin\+Config}
+
+GPIO pin configuration structure. Passed to initialization functions. \Hypertarget{_g_p_i_o___wrapper_8h_a1d5d6d0f98b9c8a6625fe39d0450e879}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!GpioPorts@{GpioPorts}}
+\index{GpioPorts@{GpioPorts}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpioPorts}{GpioPorts}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_a1d5d6d0f98b9c8a6625fe39d0450e879} 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}}}
+
+The list of all GPIO ports. \Hypertarget{_g_p_i_o___wrapper_8h_a420a1fa0d43d1662c8c6fac3c310ae79}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!InterruptMode@{InterruptMode}}
+\index{InterruptMode@{InterruptMode}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{InterruptMode}{InterruptMode}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_a420a1fa0d43d1662c8c6fac3c310ae79} 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aa004d28b3cc128fb30f577f93d370794}{Interrupt\+Mode}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aa004d28b3cc128fb30f577f93d370794}{Interrupt\+Mode}}}
+
+GPIO edge interrupt modes, see datasheet. \Hypertarget{_g_p_i_o___wrapper_8h_a77014c304240156165932320fdfa39eb}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!outputSpeed@{outputSpeed}}
+\index{outputSpeed@{outputSpeed}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{outputSpeed}{outputSpeed}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_a77014c304240156165932320fdfa39eb} 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aee0e68a15109deffa03285c1d9af12d4}{output\+Speed}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aee0e68a15109deffa03285c1d9af12d4}{output\+Speed}}}
+
+GPIO output speeds, see datasheet. \Hypertarget{_g_p_i_o___wrapper_8h_aae5059a81973e1fd1b27ac6bc132c742}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!outputType@{outputType}}
+\index{outputType@{outputType}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{outputType}{outputType}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_aae5059a81973e1fd1b27ac6bc132c742} 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_adc72d03b0853feb6cb18a149e7937be9}{output\+Type}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_adc72d03b0853feb6cb18a149e7937be9}{output\+Type}}}
+
+GPIO output types, see datasheet. \Hypertarget{_g_p_i_o___wrapper_8h_ada01491d580caf075eb8ab5448d32385}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!pinMode@{pinMode}}
+\index{pinMode@{pinMode}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{pinMode}{pinMode}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_ada01491d580caf075eb8ab5448d32385} 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ad8184dcca14e0b62b8dcb68f0fee981c}{pin\+Mode}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ad8184dcca14e0b62b8dcb68f0fee981c}{pin\+Mode}}}
+
+GPIO Pin modes, see datasheet. \Hypertarget{_g_p_i_o___wrapper_8h_a8c491120c8013d48eb9d2f32611da370}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!pinNumbers@{pinNumbers}}
+\index{pinNumbers@{pinNumbers}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{pinNumbers}{pinNumbers}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_a8c491120c8013d48eb9d2f32611da370} 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pin\+Numbers}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pin\+Numbers}}}
+
+The list of all GPIO pins. \Hypertarget{_g_p_i_o___wrapper_8h_af7c9e744c106503d207a349ced0e3f3d}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!pullUpPullDown@{pullUpPullDown}}
+\index{pullUpPullDown@{pullUpPullDown}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{pullUpPullDown}{pullUpPullDown}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_af7c9e744c106503d207a349ced0e3f3d} 
+typedef enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a8d577eef3a39e04452d48e4bf58a24d6}{pull\+Up\+Pull\+Down}} \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a8d577eef3a39e04452d48e4bf58a24d6}{pull\+Up\+Pull\+Down}}}
+
+GPIO pullup configurations, see datasheet. 
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!GpioPorts@{GpioPorts}}
+\index{GpioPorts@{GpioPorts}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GpioPorts}{GpioPorts}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be} 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}}}
+
+The list of all GPIO ports. \Hypertarget{_g_p_i_o___wrapper_8h_aa004d28b3cc128fb30f577f93d370794}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!InterruptMode@{InterruptMode}}
+\index{InterruptMode@{InterruptMode}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{InterruptMode}{InterruptMode}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_aa004d28b3cc128fb30f577f93d370794} 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aa004d28b3cc128fb30f577f93d370794}{Interrupt\+Mode}}}
+
+GPIO edge interrupt modes, see datasheet. \Hypertarget{_g_p_i_o___wrapper_8h_aee0e68a15109deffa03285c1d9af12d4}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!outputSpeed@{outputSpeed}}
+\index{outputSpeed@{outputSpeed}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{outputSpeed}{outputSpeed}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_aee0e68a15109deffa03285c1d9af12d4} 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_aee0e68a15109deffa03285c1d9af12d4}{output\+Speed}}}
+
+GPIO output speeds, see datasheet. \Hypertarget{_g_p_i_o___wrapper_8h_adc72d03b0853feb6cb18a149e7937be9}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!outputType@{outputType}}
+\index{outputType@{outputType}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{outputType}{outputType}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_adc72d03b0853feb6cb18a149e7937be9} 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_adc72d03b0853feb6cb18a149e7937be9}{output\+Type}}}
+
+GPIO output types, see datasheet. \Hypertarget{_g_p_i_o___wrapper_8h_ad8184dcca14e0b62b8dcb68f0fee981c}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!pinMode@{pinMode}}
+\index{pinMode@{pinMode}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{pinMode}{pinMode}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_ad8184dcca14e0b62b8dcb68f0fee981c} 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_ad8184dcca14e0b62b8dcb68f0fee981c}{pin\+Mode}}}
+
+GPIO Pin modes, see datasheet. \Hypertarget{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!pinNumbers@{pinNumbers}}
+\index{pinNumbers@{pinNumbers}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{pinNumbers}{pinNumbers}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15} 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pin\+Numbers}}}
+
+The list of all GPIO pins. \Hypertarget{_g_p_i_o___wrapper_8h_a8d577eef3a39e04452d48e4bf58a24d6}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!pullUpPullDown@{pullUpPullDown}}
+\index{pullUpPullDown@{pullUpPullDown}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{pullUpPullDown}{pullUpPullDown}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_a8d577eef3a39e04452d48e4bf58a24d6} 
+enum \mbox{\hyperlink{_g_p_i_o___wrapper_8h_a8d577eef3a39e04452d48e4bf58a24d6}{pull\+Up\+Pull\+Down}}}
+
+GPIO pullup configurations, see datasheet. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_g_p_i_o___wrapper_8h_ad85c81da32fd56a83ab54bf17c9e6f56}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!GPIO\_init\_gpio@{GPIO\_init\_gpio}}
+\index{GPIO\_init\_gpio@{GPIO\_init\_gpio}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GPIO\_init\_gpio()}{GPIO\_init\_gpio()}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_ad85c81da32fd56a83ab54bf17c9e6f56} 
+void GPIO\+\_\+init\+\_\+gpio (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}}}]{port}{, }\item[{\mbox{\hyperlink{struct_gpio_pin_config}{Gpio\+Pin\+Config}} \texorpdfstring{$\ast$}{*}}]{config}{}\end{DoxyParamCaption})}
+
+Initializes a GPIO pin on the port {\ttfamily port} using the configuration {\ttfamily config}. \hypertarget{_g_p_i_o___wrapper_8h_autotoc_md29}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_g_p_i_o___wrapper_8h_autotoc_md29}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gpio\+Ports port}\+: The port on which the pin is to be initialized.
+\item {\ttfamily Gpio\+Pin\+Config\texorpdfstring{$\ast$}{*} config}\+: The configuration of the pin to be initialized. 
+\end{DoxyItemize}\hypertarget{_g_p_i_o___wrapper_8h_autotoc_md30}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_g_p_i_o___wrapper_8h_autotoc_md30}
+{\ttfamily void} \Hypertarget{_g_p_i_o___wrapper_8h_a8bc45934e558934d5d252943aafc24ca}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!GPIO\_read\_gpio\_pin@{GPIO\_read\_gpio\_pin}}
+\index{GPIO\_read\_gpio\_pin@{GPIO\_read\_gpio\_pin}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GPIO\_read\_gpio\_pin()}{GPIO\_read\_gpio\_pin()}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_a8bc45934e558934d5d252943aafc24ca} 
+uint8\+\_\+t GPIO\+\_\+read\+\_\+gpio\+\_\+pin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}}}]{port}{, }\item[{\mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pin\+Numbers}}}]{pin}{}\end{DoxyParamCaption})}
+
+Gets the pin {\ttfamily pin}\textquotesingle{}s state on port {\ttfamily port}. \hypertarget{_g_p_i_o___wrapper_8h_autotoc_md31}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_g_p_i_o___wrapper_8h_autotoc_md31}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gpio\+Ports port}\+: The port of the desired pin.
+\item {\ttfamily pin\+Numbers pin}\+: The pin number of the desired pin. 
+\end{DoxyItemize}\hypertarget{_g_p_i_o___wrapper_8h_autotoc_md32}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_g_p_i_o___wrapper_8h_autotoc_md32}
+
+\begin{DoxyItemize}
+\item {\ttfamily 1} if the pin is logic high.
+\item {\ttfamily 0} if the pin is logic low. 
+\end{DoxyItemize}\Hypertarget{_g_p_i_o___wrapper_8h_a5cd439d9b6ebf289961d770ffecd527b}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!GPIO\_toggle\_gpio\_pin@{GPIO\_toggle\_gpio\_pin}}
+\index{GPIO\_toggle\_gpio\_pin@{GPIO\_toggle\_gpio\_pin}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GPIO\_toggle\_gpio\_pin()}{GPIO\_toggle\_gpio\_pin()}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_a5cd439d9b6ebf289961d770ffecd527b} 
+void GPIO\+\_\+toggle\+\_\+gpio\+\_\+pin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}}}]{port}{, }\item[{\mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pin\+Numbers}}}]{pin}{}\end{DoxyParamCaption})}
+
+Toggles the pin {\ttfamily pin}\textquotesingle{}s state on port {\ttfamily port}. \hypertarget{_g_p_i_o___wrapper_8h_autotoc_md36}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_g_p_i_o___wrapper_8h_autotoc_md36}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gpio\+Ports port}\+: The port of the desired pin.
+\item {\ttfamily pin\+Numbers pin}\+: The pin number of the desired pin. 
+\end{DoxyItemize}\hypertarget{_g_p_i_o___wrapper_8h_autotoc_md37}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_g_p_i_o___wrapper_8h_autotoc_md37}
+
+\begin{DoxyItemize}
+\item `void' 
+\end{DoxyItemize}\hypertarget{_g_p_i_o___wrapper_8h_autotoc_md38}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{_g_p_i_o___wrapper_8h_autotoc_md38}
+Undefined behaiviour if the selected pin is not on output mode. \Hypertarget{_g_p_i_o___wrapper_8h_acc6181d80aeb999f1406de2ecf7c4945}\index{GPIO\_Wrapper.h@{GPIO\_Wrapper.h}!GPIO\_write\_gpio\_pin@{GPIO\_write\_gpio\_pin}}
+\index{GPIO\_write\_gpio\_pin@{GPIO\_write\_gpio\_pin}!GPIO\_Wrapper.h@{GPIO\_Wrapper.h}}
+\doxysubsubsection{\texorpdfstring{GPIO\_write\_gpio\_pin()}{GPIO\_write\_gpio\_pin()}}
+{\footnotesize\ttfamily \label{_g_p_i_o___wrapper_8h_acc6181d80aeb999f1406de2ecf7c4945} 
+void GPIO\+\_\+write\+\_\+gpio\+\_\+pin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_g_p_i_o___wrapper_8h_ae82e4bea0d1879de23fbc4c4103387be}{Gpio\+Ports}}}]{port}{, }\item[{\mbox{\hyperlink{_g_p_i_o___wrapper_8h_a59b12846225db440ada83cad90766a15}{pin\+Numbers}}}]{pin}{, }\item[{uint8\+\_\+t}]{set}{}\end{DoxyParamCaption})}
+
+Set the pin {\ttfamily pin}\textquotesingle{}s state on port {\ttfamily port}. \hypertarget{_g_p_i_o___wrapper_8h_autotoc_md33}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_g_p_i_o___wrapper_8h_autotoc_md33}
+
+\begin{DoxyItemize}
+\item {\ttfamily Gpio\+Ports port}\+: The port of the desired pin.
+\item {\ttfamily pin\+Numbers pin}\+: The pin number of the desired pin.
+\item {\ttfamily uint8\+\_\+t set}\+: If `set \texorpdfstring{$>$}{>} 0', the pin will be set to logic high, and vice versa. 
+\end{DoxyItemize}\hypertarget{_g_p_i_o___wrapper_8h_autotoc_md34}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_g_p_i_o___wrapper_8h_autotoc_md34}
+
+\begin{DoxyItemize}
+\item `void' 
+\end{DoxyItemize}\hypertarget{_g_p_i_o___wrapper_8h_autotoc_md35}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{_g_p_i_o___wrapper_8h_autotoc_md35}
+Undefined behaiviour if the selected pin is not on output mode. 

@@ -1,0 +1,67 @@
+\doxysection{Core/\+Inc/\+Spi.h File Reference}
+\hypertarget{_spi_8h}{}\label{_spi_8h}\index{Core/Inc/Spi.h@{Core/Inc/Spi.h}}
+
+
+Header for {\ttfamily Spi.\+c} ~\newline
+ Unused ~\newline
+ Created on\+: Nov 12, 2024 ~\newline
+ Author\+: peter.  
+
+
+{\ttfamily \#include "{}GPIO\+\_\+\+Wrapper.\+h"{}}\newline
+{\ttfamily \#include "{}stm32f4xx\+\_\+hal.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_spi_8h_a6ca68f92f7c8992bf5e657f184f7824c}\label{_spi_8h_a6ca68f92f7c8992bf5e657f184f7824c} 
+\#define {\bfseries SPI5\+\_\+\+SCK\+\_\+\+PORT}~Gpio\+PortF
+\item 
+\Hypertarget{_spi_8h_a9532399c250931f4f7fd40812149b6e8}\label{_spi_8h_a9532399c250931f4f7fd40812149b6e8} 
+\#define {\bfseries SPI5\+\_\+\+SCK\+\_\+\+PIN}~Gpio\+Pin7
+\item 
+\Hypertarget{_spi_8h_a3639ded6def1a49f745f2cce93d3f7a4}\label{_spi_8h_a3639ded6def1a49f745f2cce93d3f7a4} 
+\#define {\bfseries SPI5\+\_\+\+MISO\+\_\+\+PORT}~Gpio\+PortF
+\item 
+\Hypertarget{_spi_8h_a9609b8dfc46bab0a55ca8b6cbde9c81d}\label{_spi_8h_a9609b8dfc46bab0a55ca8b6cbde9c81d} 
+\#define {\bfseries SPI5\+\_\+\+MISO\+\_\+\+PIN}~Gpio\+Pin8
+\item 
+\Hypertarget{_spi_8h_a943b764baa203d791c1b8dc7ed38ec0c}\label{_spi_8h_a943b764baa203d791c1b8dc7ed38ec0c} 
+\#define {\bfseries SPI5\+\_\+\+MOSI\+\_\+\+PORT}~Gpio\+PortF
+\item 
+\Hypertarget{_spi_8h_acb53908920f7dc164ca840608e362d1e}\label{_spi_8h_acb53908920f7dc164ca840608e362d1e} 
+\#define {\bfseries SPI5\+\_\+\+MOSI\+\_\+\+PIN}~Gpio\+Pin9
+\item 
+\Hypertarget{_spi_8h_a907a064e37dc9b2f73dce1f0e5621c2c}\label{_spi_8h_a907a064e37dc9b2f73dce1f0e5621c2c} 
+\#define {\bfseries SPI5\+\_\+\+MEMS\+\_\+\+PORT}~Gpio\+PortC
+\item 
+\Hypertarget{_spi_8h_a744b3519126a3339b5a51f8a548300a5}\label{_spi_8h_a744b3519126a3339b5a51f8a548300a5} 
+\#define {\bfseries SPI5\+\_\+\+MEMS\+\_\+\+PIN}~Gpio\+Pin1
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_spi_8h_acbd8e7dae59aef199bcb2e41c496db78}\label{_spi_8h_acbd8e7dae59aef199bcb2e41c496db78} 
+typedef enum spi\+Interfaces {\bfseries spi\+Interfaces}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_spi_8h_a053b72efc4e438fa5f0f936243fc1cbe}\label{_spi_8h_a053b72efc4e438fa5f0f936243fc1cbe} 
+enum {\bfseries spi\+Interfaces} \{ \newline
+{\bfseries spi1} = (uint32\+\_\+t)SPI1
+, {\bfseries spi2} = (uint32\+\_\+t)SPI2
+, {\bfseries spi3} = (uint32\+\_\+t)SPI3
+, {\bfseries spi4} = (uint32\+\_\+t)SPI4
+, \newline
+{\bfseries spi5} = (uint32\+\_\+t)SPI5
+, {\bfseries spi6} = (uint32\+\_\+t)SPI6
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header for {\ttfamily Spi.\+c} ~\newline
+ Unused ~\newline
+ Created on\+: Nov 12, 2024 ~\newline
+ Author\+: peter. 
+

@@ -1,0 +1,40 @@
+\doxysection{Error\+Handling.\+h}
+\hypertarget{_error_handling_8h_source}{}\label{_error_handling_8h_source}\index{Core/Inc/ErrorHandling.h@{Core/Inc/ErrorHandling.h}}
+\mbox{\hyperlink{_error_handling_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ MAX\_ERROR\_LENGTH\ 500}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ \_\_ERROR\_HANDLING\_INTERNAL\_\_}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_____result}{\_\_Result}}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ error;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{char}*\ msg;}
+\DoxyCodeLine{00025\ \}\ \mbox{\hyperlink{_error_handling_8h_aaefb56aa220c1b5a1c148ec03c1dd13a}{\_\_Result}};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_____result}{\_\_Result}}*\ \mbox{\hyperlink{struct_____result}{Result}};}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{struct_____result}{Result}};}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ RETURN\_OR\_IGNORE(\_\_error)\ \{\ Result\ \_\_e\_ROI\_int\ =\ \_\_error;\ if\ (is\_error(\&\_\_e\_ROI\_int))\ \{\ return\ \_\_e\_ROI\_int;\ \}\ ignore(\_\_e\_ROI\_int);\ \}}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ RETURN\_OR\_IGNORE\_CLOSURE(\_\_error,\ \_\_closure\_\_)\ \{\ Result\ \_\_e\_ROI\_int\ =\ \_\_error;\ if\ (is\_error(\&\_\_e\_ROI\_int))\ \{\ \{\ \_\_closure\_\_\ \}\ return\ \_\_e\_ROI\_int;\ \}\ ignore(\_\_e\_ROI\_int);\ \}}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00051\ \mbox{\hyperlink{struct_____result}{Result}}\ \mbox{\hyperlink{_error_handling_8h_a893f271f5ca1c064c3f68d2ab6da09d7}{result}}(\textcolor{keywordtype}{char}*\ str)\ \_\_attribute\_\_((warn\_unused\_result));}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_error_handling_8h_a16cd54139a676852bcdd41131099ffab}{print\_error}}(\mbox{\hyperlink{struct_____result}{Result}}\ e);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00069\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_error_handling_8h_ad95b68df6deb25f51016a40944f6f06a}{ignore}}(\mbox{\hyperlink{struct_____result}{Result}}\ e);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00082\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_error_handling_8h_a1fa509755fbb82a5c3d58deda876436e}{is\_error}}(\mbox{\hyperlink{struct_____result}{Result}}*\ e);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_error_handling_8h_a8c5ecc5482f0222cd47e341199f990f7}{c\_is\_error}}(\mbox{\hyperlink{struct_____result}{Result}}\ e);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00104\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_error_handling_8h_ac4d5f7a51903a69dce636ba3641e94e6}{a\_assert}}(\textcolor{keywordtype}{bool}\ check);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_error_handling_8h_aa08891b797e8577b1193207bf44b0924}{e\_assert}}(\mbox{\hyperlink{struct_____result}{Result}}\ e);}
+
+\end{DoxyCode}

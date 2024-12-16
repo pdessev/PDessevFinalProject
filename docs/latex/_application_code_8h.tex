@@ -1,0 +1,83 @@
+\doxysection{Core/\+Inc/\+Application\+Code.h File Reference}
+\hypertarget{_application_code_8h}{}\label{_application_code_8h}\index{Core/Inc/ApplicationCode.h@{Core/Inc/ApplicationCode.h}}
+
+
+Header for {\ttfamily Application\+Code.\+c} ~\newline
+ This file contains functions and structure definitions for interfacing game logic to the peripherals. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter.  
+
+
+{\ttfamily \#include "{}Error\+Handling.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include "{}Gyro.\+h"{}}\newline
+{\ttfamily \#include "{}Game/\+Game.\+h"{}}\newline
+{\ttfamily \#include "{}Timer\+\_\+\+Wrapper.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_app_state}{App\+State}}
+\begin{DoxyCompactList}\small\item\em Contains the synchronous state of the peripherals used for the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_application_code_8h_a26239349ccf61e565ebe70f1c667e684}\label{_application_code_8h_a26239349ccf61e565ebe70f1c667e684} 
+\#define {\bfseries BLOCK\+\_\+\+FALL\+\_\+\+RATE\+\_\+\+SEC}~3.\+0f
+\item 
+\Hypertarget{_application_code_8h_a4853f6c25c8394fd57c4d99f61d5cd89}\label{_application_code_8h_a4853f6c25c8394fd57c4d99f61d5cd89} 
+\#define {\bfseries NAME\+\_\+\+LEN}~5
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_application_code_8h_a20ef834769d47c2d37c444681671b252}\label{_application_code_8h_a20ef834769d47c2d37c444681671b252} 
+typedef struct App\+State {\bfseries App\+State}
+\begin{DoxyCompactList}\small\item\em Contains the synchronous state of the peripherals used for the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_app_state}{App\+State}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_application_code_8h_aaaaf2fb69b8659eb6f7072af0711a9b1}{init\+\_\+app}} ()
+\item 
+\mbox{\hyperlink{struct_____result}{Result}} \mbox{\hyperlink{_application_code_8h_aeae25fedbcf401287b8076166c1eb9ac}{app\+\_\+loop}} (\mbox{\hyperlink{struct_app_state}{App\+State}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}state)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header for {\ttfamily Application\+Code.\+c} ~\newline
+ This file contains functions and structure definitions for interfacing game logic to the peripherals. ~\newline
+ Created on\+: Sep 24, 2024 ~\newline
+ Author\+: peter. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_application_code_8h_aeae25fedbcf401287b8076166c1eb9ac}\index{ApplicationCode.h@{ApplicationCode.h}!app\_loop@{app\_loop}}
+\index{app\_loop@{app\_loop}!ApplicationCode.h@{ApplicationCode.h}}
+\doxysubsubsection{\texorpdfstring{app\_loop()}{app\_loop()}}
+{\footnotesize\ttfamily \label{_application_code_8h_aeae25fedbcf401287b8076166c1eb9ac} 
+\mbox{\hyperlink{struct_____result}{Result}} app\+\_\+loop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_app_state}{App\+State}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{state}{}\end{DoxyParamCaption})}
+
+Executes the application loop, including fetching information from peripherals and executing game states. \hypertarget{_application_code_8h_autotoc_md3}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_application_code_8h_autotoc_md3}
+
+\begin{DoxyItemize}
+\item {\ttfamily App\+State\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}} state 
+\end{DoxyItemize}\hypertarget{_application_code_8h_autotoc_md4}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_application_code_8h_autotoc_md4}
+
+\begin{DoxyItemize}
+\item {\ttfamily Result(0)} on sucessful game exit
+\item {\ttfamily Result(char\texorpdfstring{$\ast$}{*} error)} on error 
+\end{DoxyItemize}\hypertarget{_application_code_8h_autotoc_md5}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{_application_code_8h_autotoc_md5}
+{\ttfamily app\+\_\+loop} is expected not to exit. \Hypertarget{_application_code_8h_aaaaf2fb69b8659eb6f7072af0711a9b1}\index{ApplicationCode.h@{ApplicationCode.h}!init\_app@{init\_app}}
+\index{init\_app@{init\_app}!ApplicationCode.h@{ApplicationCode.h}}
+\doxysubsubsection{\texorpdfstring{init\_app()}{init\_app()}}
+{\footnotesize\ttfamily \label{_application_code_8h_aaaaf2fb69b8659eb6f7072af0711a9b1} 
+\mbox{\hyperlink{struct_app_state}{App\+State}} \texorpdfstring{$\ast$}{*} init\+\_\+app (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Initializes the application, the game, and all nescessary peripherals to run the game. \hypertarget{_application_code_8h_autotoc_md0}{}\doxysubsection{\texorpdfstring{Inputs}{Inputs}}\label{_application_code_8h_autotoc_md0}
+None \hypertarget{_application_code_8h_autotoc_md1}{}\doxysubsection{\texorpdfstring{Returns}{Returns}}\label{_application_code_8h_autotoc_md1}
+
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{struct_app_state}{App\+State} \texorpdfstring{$\ast$}{*}} on succesfull initialization of peripherals and application
+\item NULL on error 
+\end{DoxyItemize}\hypertarget{_application_code_8h_autotoc_md2}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{_application_code_8h_autotoc_md2}
+Calling this function multiple times is undefined behaiviour 

@@ -1,14 +1,21 @@
-/*
- * InterruptControl.h
- *
- *  Created on: Oct 1, 2024
- *      Author: peter
+/**
+ * @file            InterruptControl.h
+ * @brief           Header for `InterruptControl.c` \n
+ *                    This file contains functions and structure 
+ *                    definitions for controlling NVIC and EXTI interrupts.
+ * \n Created on: Oct 1, 2024
+ * \n Author: peter
+ * 
  */
 
 #pragma once
 #include "stm32f429xx.h"
 #include "stm32f4xx_hal.h"
 
+/**
+ * Defines the pin numbers for EXTI interrupt lines.
+ * 
+ */
 typedef enum ExtiLines {
     ExtiPin0 = EXTI_LINE_0,
     ExtiPin1 = EXTI_LINE_1,
@@ -39,14 +46,53 @@ typedef enum ExtiLines {
 #endif
 } ExtiLines;
 
+/**
+ * Redefines the existing IRQ datatype for nicer typenames
+ * 
+ */
 typedef IRQn_Type Irq;
 
+/** 
+ * Enables the IRQ line `irq`.
+ * # Inputs
+ * - `IRQ irq`: The IRQ line to be enabled.
+ * # Returns
+ * - `void'
+ */
 void enable_IRQ(Irq irq);
 
+/** 
+ * Disables the IRQ line `irq`.
+ * # Inputs
+ * - `IRQ irq`: The IRQ line to be disabled.
+ * # Returns
+ * - `void'
+ */
 void disable_IRQ(Irq irq);
 
+/** 
+ * Clears the IRQ `irq`'s pending interrupt flag.
+ * # Inputs
+ * - `IRQ irq`: The IRQ line to be cleared.
+ * # Returns
+ * - `void'
+ */
 void clear_pending_IRQ(Irq irq);
 
+/** 
+ * Sets the IRQ `irq`'s pending interrupt flag.
+ * # Inputs
+ * - `IRQ irq`: The IRQ line to be set.
+ * # Returns
+ * - `void'
+ */
 void set_pending_IRQ(Irq irq);
 
+/** 
+ * Clears the EXIT interrupt `line`'s pending interrupt flag.
+ * # Inputs
+ * - `ExtiLines line`: The EXTI line to be cleared.
+ * # Returns
+ * - `void'
+ */
 void clear_pending_exti_interrupt(ExtiLines line);

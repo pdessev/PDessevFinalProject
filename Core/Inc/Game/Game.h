@@ -1,3 +1,13 @@
+/**
+ * @file            Game.h
+ * @brief           Header for `Game.c` \n
+ *                    This file contains functions and structure 
+ *                    definitions for controlling blocks in the game.
+ * \n Created on: Dev 9, 2024
+ * \n Author: peter
+ * 
+ */
+
 #pragma once
 
 #include <stdint.h>

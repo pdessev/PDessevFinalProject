@@ -1,0 +1,46 @@
+\doxysection{Application\+Code.\+h}
+\hypertarget{_application_code_8h_source}{}\label{_application_code_8h_source}\index{Core/Inc/ApplicationCode.h@{Core/Inc/ApplicationCode.h}}
+\mbox{\hyperlink{_application_code_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_handling_8h}{ErrorHandling.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ BLOCK\_FALL\_RATE\_SEC\ 3.0f}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifdef\ \_\_APPLICATION\_CODE\_INTERNAL\_\_}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \#include\ <stdlib.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_gyro_8h}{Gyro.h}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_game_8h}{Game/Game.h}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_timer___wrapper_8h}{Timer\_Wrapper.h}}"{}}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_app_state}{AppState}}\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ Gyro*\ \mbox{\hyperlink{struct_app_state_a3e9184095cf3c9ea942bfa23d7d994a8}{Gyro}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ GameState*\ \mbox{\hyperlink{struct_app_state_a92d017b619d0fd826d03c6523d410593}{Game}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_app_state_ab93aab839a11ced63f306c249cbb4e0b}{ScreenTouched}};\ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{struct\ }\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ uint16\_t\ x;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ uint16\_t\ y;}
+\DoxyCodeLine{00033\ \ \ \ \ \}\ \mbox{\hyperlink{struct_app_state_a87e064d8530f5bf53645a15f92c3e13e}{ScreenTouchedPos}};\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_app_state_a13a9a343463225c074f56f88a5f773b4}{TimerEvent}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_app_state_a728686870626b1c72b3bc439990dbaf1}{ButtonPressed}};\ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{struct_app_state_ac639a03a9366cd1894f852aa2265b01e}{Random}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ \mbox{\hyperlink{struct_app_state_aac91126051fa3edfc5c01d1df4a74a1e}{GameTick}};\ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{_timer___wrapper_8h_abdc1f125aa5d6c1248aef558b4181391}{GpTimers}}\ \mbox{\hyperlink{struct_app_state_ae52af5e9dc85081859122f2ed1720ef2}{GameTimer}};\ \ \ \ \ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{struct_app_state_ae5415060fe814723589f4816fe7b79e4}{GameTime}};\ \ \ \ \ \ }
+\DoxyCodeLine{00042\ \}\ \mbox{\hyperlink{_application_code_8h_a20ef834769d47c2d37c444681671b252}{AppState}};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00045\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_application_code_8h_a20ef834769d47c2d37c444681671b252}{AppState}};}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ NAME\_LEN\ 5}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00060\ \mbox{\hyperlink{struct_app_state}{AppState}}*\ \mbox{\hyperlink{_application_code_8h_aaaaf2fb69b8659eb6f7072af0711a9b1}{init\_app}}();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00073\ \mbox{\hyperlink{struct_____result}{Result}}\ \mbox{\hyperlink{_application_code_8h_aeae25fedbcf401287b8076166c1eb9ac}{app\_loop}}(\mbox{\hyperlink{struct_app_state}{AppState}}**\ state);}
+
+\end{DoxyCode}

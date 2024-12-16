@@ -1,8 +1,10 @@
-/*
- * Spi.h
- *
- *  Created on: Nov 12, 2024
- *      Author: peter
+/**
+ * @file            Spi.h
+ * @brief           Header for `Spi.c` \n
+ *                  Unused
+ * \n Created on: Nov 12, 2024
+ * \n Author: peter
+ * 
  */
 
 #pragma once

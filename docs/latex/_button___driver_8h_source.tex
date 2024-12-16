@@ -1,0 +1,40 @@
+\doxysection{Button\+\_\+\+Driver.\+h}
+\hypertarget{_button___driver_8h_source}{}\label{_button___driver_8h_source}\index{Core/Inc/Button\_Driver.h@{Core/Inc/Button\_Driver.h}}
+\mbox{\hyperlink{_button___driver_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}stm32f4xx\_hal.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}stm32f4xx\_hal\_conf.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_g_p_i_o___wrapper_8h}{GPIO\_Wrapper.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_interrupt_control_8h}{InterruptControl.h}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifdef\ \_\_BUTTON\_DRIVER\_INTERNAL\_\_}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ \#include\ <stdlib.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}Debug/mem.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ PA0}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ USER\_BUTTON\_PORT\ GpioPortA}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ USER\_BUTTON\_PIN\ GpioPin0}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ ButtonState\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ Unpressed\ =\ 0,}
+\DoxyCodeLine{00028\ \ \ \ \ Pressed\ =\ 1,}
+\DoxyCodeLine{00029\ \}\ ButtonState;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}}\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ UserButton,}
+\DoxyCodeLine{00039\ \}\ \mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ BUTTON\_UN\_PRESSED\ Unpressed}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ BUTTON\_PRESSED\ Pressed}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_button___driver_8h_a4e44ba72acb528081dfe53bf7d9c8a19}{init\_button}}(\mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}}\ button);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_button___driver_8h_a9a68470213926b3b2d95f9de13a64c6d}{init\_interrupt\_button}}(\mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}}\ button);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00072\ uint8\_t\ \mbox{\hyperlink{_button___driver_8h_a68dc539656aa21415f9f94f3c1c217d9}{button\_is\_pressed}}(\mbox{\hyperlink{_button___driver_8h_a2200c9a3564da59c1160338587ecb034}{Buttons}}\ button);}
+
+\end{DoxyCode}
